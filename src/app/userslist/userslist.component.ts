@@ -20,8 +20,7 @@ export class UserslistComponent {
 
 
   getUsers(): void {
-    console.log('获取数据');
-    console.log(this.userService.userLsit);
+    console.log('获取列表数据' + this.userService.userLsit);
   }
 
 

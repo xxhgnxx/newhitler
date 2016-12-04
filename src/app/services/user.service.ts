@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { User }  from './user';
-import { getdate } from '../services/user';
-
+import { SocketSevice } from './socket.service';
 
 
 
 @Injectable()
 export class UserService {
-  // userLsit = [];
-  userLsit = getdate();
+  userLsit: Array<User>;
+  // userLsit = getdate();
   yourself: User;
-  joinRoom() { }
+  userSeat() {
+    // this.socketSevice.userSeat();
+  }
   joinGame() { }
   upDataList() {
 
   }
-
+  constructor() { }
 
 }

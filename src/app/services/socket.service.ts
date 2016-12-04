@@ -1,58 +1,74 @@
 import { Injectable } from '@angular/core';
-// import { UserService } from '../services/user.service';
 import * as io from 'socket.io-client';
-import { UserService } from '../services/user.service';
+import { UserService } from './user.service';
+import { Data } from './data';
 
-
-class Sth {
-  type: string;
-  name: string;
-  userLsit: Array<string>;
-  msg: string;
-  data: any;
-  constructor(type: string, data?: any) { }
-}
 
 @Injectable()
 export class SocketSevice {
-
   socket: any;
   name: string;
-  constructor(userService: UserService) {
+  constructor(public userService: UserService) {
     this.socket = io.connect('127.0.0.1:81');
-    console.log(Date().toString().slice(15, 25), '实例化服务');
-    this.socket.on('system', sth => {
-      console.log(Date().toString().slice(15, 25), '系统消息', sth);
+    console.log(Date().toString().slice(15, 25), '实例化socket服务');
+
+
+
+    this.socket.on('system', data => {
+      switch (data.type) {
+        case 'loginSuccess':
+          {
+            console.log(Date().toString().slice(15, 25), 'login ok', data.name);
+            this.setName(data.name);
+            console.log('检查userlist内容', data.userLsit);
+            userService.userLsit = data.userLsit;
+            break;
+          }
+        case 'logout':
+          {
+            console.log(Date().toString().slice(15, 25), data.msg);
+            this.setName(data.name);
+            userService.userLsit = data.userLsit;
+            break;
+          }
+        case 'gamestart':
+          {
+            console.log(Date().toString().slice(15, 25), data.msg);
+            break;
+          }
+        default:
+          {
+            console.log(Date().toString().slice(15, 25), '神秘的未定义请求');
+          }
+      }
     });
 
 
-    this.socket.on('loginSuccess', sth => {
-      console.log(Date().toString().slice(15, 25), 'login ok', sth);
-      this.setName(sth.name);
-    });
 
-    this.socket.on('upDataList', userLsit => {
-      console.log(Date().toString().slice(15, 25), '用户列表更新', userLsit);
-      userService.userLsit = userLsit;
-      console.log(userService.userLsit[0]);
-    });
 
   }
 
-  // 请求类动作
+  // 游戏开始
   startGame() {
-    this.socket.emit('system', new Sth('gamestart'));
-
+    let dataOut = new Data();
+    dataOut.type = 'gamestart';
+    this.socket.emit('system', dataOut);
   }
 
-
+  // 玩家准备
+  userSeat() {
+    let dataOut = new Data();
+    dataOut.name = this.name;
+    dataOut.type = 'userSeat';
+    this.socket.emit('system', dataOut);
+  }
 
 
 
 
   setName(name) {
 
-    this.name = name;
+    this.userService = name;
 
   }
 }

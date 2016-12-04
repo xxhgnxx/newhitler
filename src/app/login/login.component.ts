@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 let io = require('socket.io-client');
 import { SocketSevice } from '../services/socket.service';
+
+
+
 @Component({
 
   selector: 'login',

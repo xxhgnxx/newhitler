@@ -19,17 +19,6 @@ export class MsgComponent {
   constructor(private userService: UserService) { }
 
 
-  getUsers(): void {
-    console.log('获取数据');
-    console.log(this.userService.userLsit);
-  }
 
-
-
-  ngOnInit() {
-    console.log('读取用户列表数据');
-    // this.title.getData().subscribe(data => this.data = data);
-    this.getUsers();
-  }
 
 }
