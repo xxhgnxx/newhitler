@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import { User } from '../services/user';
-import { UserService } from '../services/user.service';
-import { TheGameService } from '../services/game.service';
+import { User } from '../services';
+import { UserService } from '../services';
+import { TheGameService } from '../services';
+import { SocketSevice } from '../services';
 
 @Component({
 
@@ -29,8 +30,21 @@ export class GameControlComponent {
   toDoSth: string;
   constructor(
     private userService: UserService,
-    private theGameService: TheGameService
+    private theGameService: TheGameService,
+    private socketSevice: SocketSevice
   ) { }
+
+
+  userSeat() {
+    console.log('我要坐下');
+    this.socketSevice.userSeat();
+  }
+
+
+  startGame() {
+    this.socketSevice.startGame();
+  }
+
 
   vote() {
     this.toDoSth = '投票'; console.log(this.toDoSth);
@@ -40,10 +54,7 @@ export class GameControlComponent {
       console.log(name);
     } else {
       this.toDoSth = '选总统'; console.log(this.toDoSth);
-
-
     }
-
 
 
   }

@@ -1,3 +1,4 @@
+// 用户 数据结构
 export class User {
   isOnline: boolean = true;
   isSurvival: boolean = true;
@@ -27,8 +28,7 @@ export let userLsitTestdata: User[] = [
   new User('真·皇冠鸟'),
   new User('这人被枪毙了'),
   new User('第八人'),
-  new User('阿依吐拉公主'),
-
+  new User('阿依吐拉公主')
 ];
 
 

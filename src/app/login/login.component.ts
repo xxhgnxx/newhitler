@@ -33,9 +33,11 @@ export class LoginComponent {
 
 
 
-  userLogin(name) {
+  userLogin(name: string) {
     console.log(this.tmp.name + '用户登陆');
-    this.socket.emit('login', name);
+
+    this.socketsevice.login(name);
+    ;
 
   }
 

@@ -1,3 +1,4 @@
+// scoket数据包结构
 import { User } from './user';
 import { UserService } from './user.service';
 export class Data {

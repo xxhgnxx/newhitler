@@ -1,3 +1,4 @@
+//  本地用户列表更新服务 用于维护本地用户列表
 import { Injectable } from '@angular/core';
 import { User }  from './user';
 import { SocketSevice } from './socket.service';
@@ -13,9 +14,8 @@ export class UserService {
     // this.socketSevice.userSeat();
   }
   joinGame() { }
-  upDataList() {
-
+  whoAmI(name) {
+    this.yourself = this.userLsit.filter(t => { return t.name === name; })[0];
   }
   constructor() { }
-
 }

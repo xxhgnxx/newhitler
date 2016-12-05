@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { UserService } from './user.service';
 import { Data } from './data';
+import { TheGameService } from './game.service';
 
 
 @Injectable()
@@ -15,31 +16,27 @@ export class SocketSevice {
 
 
     this.socket.on('system', data => {
+      console.log('收到服务端发来的system请求', data);
+      userService.userLsit = data.userLsit;
       switch (data.type) {
         case 'loginSuccess':
-          {
-            console.log(Date().toString().slice(15, 25), 'login ok', data.name);
-            this.setName(data.name);
-            console.log('检查userlist内容', data.userLsit);
-            userService.userLsit = data.userLsit;
-            break;
-          }
+
+          this.userService.whoAmI(name);
+
+          break;
         case 'logout':
-          {
-            console.log(Date().toString().slice(15, 25), data.msg);
-            this.setName(data.name);
-            userService.userLsit = data.userLsit;
-            break;
-          }
+
+          break;
+        case 'userSeat':
+
+
+          break;
         case 'gamestart':
-          {
-            console.log(Date().toString().slice(15, 25), data.msg);
-            break;
-          }
+
+
+          break;
         default:
-          {
-            console.log(Date().toString().slice(15, 25), '神秘的未定义请求');
-          }
+          console.log(Date().toString().slice(15, 25), '神秘的未定义请求');
       }
     });
 
@@ -55,6 +52,12 @@ export class SocketSevice {
     this.socket.emit('system', dataOut);
   }
 
+  login(name: string) {
+    let dataOut = new Data();
+    dataOut.type = 'login';
+    dataOut.name = name;
+    this.socket.emit('system', dataOut);
+  }
   // 玩家准备
   userSeat() {
     let dataOut = new Data();
@@ -66,9 +69,9 @@ export class SocketSevice {
 
 
 
-  setName(name) {
+  whoAmI(name) {
 
-    this.userService = name;
+
 
   }
 }
