@@ -12,37 +12,17 @@ import { SocketSevice } from '../services/socket.service';
 
 })
 export class LoginComponent {
-  socket = this.socketsevice.socket;
-
+  // socket = this.socketsevice.socket;
   sexes = ['呵呵', 'a', 'b', '扶她'];
-  tmp = new MyUsers(18, '123', this.sexes[3]);
+  tmp = new MyUsers(18, Math.floor(Math.random() * 1000).toString(), this.sexes[3]);
   submitted = false;
-  constructor(private socketsevice: SocketSevice) {
+  constructor(private socketsevice: SocketSevice) { }
 
+  onSubmit(name: string) {
+    this.socketsevice.login(name, x => {
+      this.submitted = x;
+    });
   }
-  onSubmit(name) {
-
-    this.submitted = true;
-    this.tmp.name = name;
-    console.log(name);
-    this.userLogin(name);
-
-  }
-  // TODO: Remove this when we're done
-  // get diagnostic() { return JSON.stringify(this.model); }
-
-
-
-  userLogin(name: string) {
-    console.log(this.tmp.name + '用户登陆');
-
-    this.socketsevice.login(name);
-    ;
-
-  }
-
-
-
 
 }
 

@@ -6,8 +6,21 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// 样式组件
+import { MdCard, MdCardContent, MdCardSubtitle, MdCardTitle } from '@angular2-material/card';
+import { MdToolbar, MdToolbarRow } from '@angular2-material/toolbar';
+import { MdSidenav, MdSidenavLayout } from '@angular2-material/sidenav';
+import { MdList, MdListItem } from '@angular2-material/list';
+import { MdButton } from '@angular2-material/button';
+import { MdInput } from '@angular2-material/input';
+import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
+import { MdSpinner } from '@angular2-material/progress-circle';
+
+
 // 根组件
 import { AppComponent } from './app.component';
+
+
 
 
 
@@ -16,6 +29,9 @@ import { SocketSevice } from './services/socket.service';
 import { UserService } from './services/user.service';
 import { GameControlComponent } from './gameControl/gameControl.component';
 import { TheGameService } from './services/game.service';
+
+// 管道
+import { GetHeadPope } from './pipe/getHeadPope';
 
 // 其他组件
 import { UserslistComponent } from './userslist';
@@ -60,7 +76,22 @@ type StoreType = {
     GameControlComponent,
     RoomComponent,
     MsgComponent,
-    NoContentComponent
+    NoContentComponent,
+    GetHeadPope,
+    MdCard,
+    MdCardContent,
+    MdInput,
+    MdCardSubtitle,
+    MdCardTitle,
+    MdToolbar,
+    MdToolbarRow,
+    MdSidenav,
+    MdSidenavLayout,
+    MdList,
+    MdListItem,
+    MdButton,
+    MdIcon,
+    MdSpinner
   ],
   imports: [ // import Angular's modules
     BrowserModule,

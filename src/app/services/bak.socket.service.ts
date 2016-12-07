@@ -4,68 +4,93 @@ import { UserService } from './user.service';
 import { Data } from './data';
 import { TheGameService } from './game.service';
 import { Vote } from './vote';
-import { NetworkSocket } from './network';
 
 @Injectable()
 export class SocketSevice {
-  networkSocket: NetworkSocket;
+  socket: any;
   name: string;
+  constructor(public userService: UserService, public theGameService: TheGameService) {
+    this.socket = io.connect('127.0.0.1:81');
+    console.log(Date().toString().slice(15, 25), '实例化socket服务');
 
-  // 游戏开始
-  startGame(): void {
-    let dataOut = new Data();
-    dataOut.type = 'gamestart';
-    this.networkSocket.send(dataOut, x => { return x; });
+
+
+    this.socket.on('system', (data: Data) => {
+      console.log('收到服务端发来的system请求', data);
+
+
+      this.userService.userList = data.userList;
+      switch (data.type) {
+        case 'loginSuccess':
+          if (this.socket.id === data.socketId) {
+            this.userService.whoAmI(data.user.name);
+          }
+
+          break;
+        case 'logout':
+
+          break;
+        case 'userSeat':
+
+
+          break;
+        case 'gamestart':
+          this.userService.userList.filter(t => {
+            if (t.isSeat) {
+              this.theGameService.playerList.push(t);
+            }
+          });
+
+          this.theGameService.playerList.sort((a, b) => {
+            return a.seatNo - b.seatNo;
+          });
+          this.loadData(data);
+
+          break;
+        default:
+          console.log(Date().toString().slice(15, 25), '神秘的未定义请求');
+      }
+    });
+
+
+
+
   }
 
-  login(name: string, cb) {
-    console.log(this.userService.ttt);
+  // 游戏开始
+  startGame() {
+    let dataOut = new Data();
+    dataOut.type = 'gamestart';
+    this.socket.emit('system', dataOut);
+  }
+
+  login(name: string) {
     let dataOut = new Data();
     dataOut.type = 'login';
     dataOut.name = name;
-    this.networkSocket.send(dataOut, cb);
+    this.socket.emit('system', dataOut);
   }
   // 玩家准备
   userSeat() {
     let dataOut = new Data();
     dataOut.name = this.name;
     dataOut.type = 'userSeat';
-    this.networkSocket.send(dataOut, x => { return x; });
+    this.socket.emit('system', dataOut);
   }
 
 
-  system(data) {
-    console.log('收到服务端发来的system请求', data);
-    this.userService.userList = data.userList;
-    switch (data.type) {
-      case 'loginSuccess':
-        this.userService.whoAmI(data.user);
-        console.log(data.userList);
-        break;
-      case 'logout':
-
-        break;
-      case 'userSeat':
 
 
-        break;
-      case 'gamestart':
-        console.log(this.userService.userList);
-        this.userService.whoAmI(this.userService.userList.filter(t => {
-          return t.socketId === this.userService.yourself.socketId;
-        })[0]);
-        this.loadData(data);
-        break;
-      default:
-        console.log(Date().toString().slice(15, 25), '神秘的未定义请求');
-    }
+  whoAmI(name) {
+
   }
-
-
   // 数据包处理
   loadData(data: Data) {
     let msg = '';
-
+    // if (data.playerList) {
+    //   this.theGameService.playerList = data.playerList;
+    //   msg = msg + ' ' + 'playerList';
+    // }
     if (data.proIndex) {
       this.theGameService.proIndex = data.proIndex;
       msg = msg + ' ' + 'proIndex';
@@ -124,15 +149,4 @@ export class SocketSevice {
     }
     console.log('数据读取', msg);
   }
-
-  constructor(public userService: UserService, public theGameService: TheGameService) {
-    this.networkSocket = new NetworkSocket();
-    this.networkSocket.start(io.connect('127.0.0.1:81'), this.system.bind(this));
-    console.log(Date().toString().slice(15, 25), '实例化socket服务');
-  }
-
-
-
-
-
 }

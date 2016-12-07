@@ -7,15 +7,16 @@ import { SocketSevice } from './socket.service';
 
 @Injectable()
 export class UserService {
-  userLsit: Array<User>;
+  userList: Array<User>;
   // userLsit = getdate();
-  yourself: User;
-  userSeat() {
-    // this.socketSevice.userSeat();
-  }
-  joinGame() { }
-  whoAmI(name) {
-    this.yourself = this.userLsit.filter(t => { return t.name === name; })[0];
+  yourself: User = new User('_');
+  yourHead: string;
+  ttt = 'kkk';
+
+
+  whoAmI(user: User) {
+    this.yourself = user;
+    console.log(this.yourself.role);
   }
   constructor() { }
 }

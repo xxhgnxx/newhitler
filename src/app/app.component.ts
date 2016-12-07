@@ -42,6 +42,8 @@ import { SocketSevice } from './services/socket.service';
     </span>
     </nav>
 
+<login></login>
+<gameControl>游戏空间加载中</gameControl>
       <router-outlet></router-outlet>
 
 

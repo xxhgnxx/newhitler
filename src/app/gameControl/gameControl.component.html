@@ -23,16 +23,17 @@
     <button (click)="tmp()" type="button" class="btn btn-danger">反对</button>
   </span>
   <span *ngSwitchCase="'选总统'">选总统 当前总统->
-    <img src="./pic/总统.png" class="img-thumbnail">
+    <img src="./pic/总统.png" class="img-thumbnail" style="
+height: 80px">
     <ul class="buttonLsit">
-      <li *ngFor="let user of userService.userLsit">
+      <li *ngFor="let user of theGameService.playerList">
         <button [disabled]="user.isPre || !user.isSurvival " (click)="preSelect(user.name)" type="button" class="btn btn-success">{{user.name}}</button>
       </li>
     </ul>
   </span>
   <span *ngSwitchCase="'选总理'">选总理->
     <ul class="buttonLsit">
-      <li *ngFor="let user of userService.userLsit">
+      <li *ngFor="let user of theGameService.playerList">
         <button [disabled]="user.isPre || user.isLastPrm || user.isLastPre || !user.isSurvival" (click)="preSelect(user.name)" type="button" class="btn btn-success">{{user.name}}</button>
       </li>
     </ul>

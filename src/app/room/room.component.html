@@ -1,15 +1,15 @@
 <div class="panel panel-primary" id="back">
   <div class="navbar-row" style="padding:3px">
     <h1>神TM希特勒
-      <small>皇冠鸟在观战中</small>
+      <small *ngIf="userService.yourself">{{userService.yourself.name}}</small>
+      <small *ngIf="!userService.yourself">"未登录"</small>
     </h1>
   </div>
   <div class="navbar-row" style="padding:3px">
     <div class="navbar-row" style="width:1040px">
-      <div class="col-sm-8">
+      <!-- <div class="col-sm-8">
         <img src="desk.jpg" class="" style="height: 400px;">
-      </div>
-      <!-- /.col-sm-4 -->
+      </div> -->
       <div class="col-sm-3">
         <userslist></userslist>
       </div>
@@ -19,7 +19,7 @@
     <!-- Nav tabs -->
     <div class="col-sm-2">
       <div class="panel panel-default" style="padding:3px">
-        <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" src="head.jpg" data-holder-rendered="true" style="width: 140px; height: 140px;">
+        <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" [src]="userService.yourself.role|getHead" data-holder-rendered="true" style="width: 140px; height: 140px;">
       </div>
       <div class="panel panel-primary">
         <div class="panel-heading">

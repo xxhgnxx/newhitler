@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AppState } from '../app.service';
 import { User } from '../services/user';
 import { UserService } from '../services/user.service';
-
+import { TheGameService } from '../services/game.service';
 @Component({
 
   selector: 'userslist',  // <userslist></userslist>
@@ -16,13 +16,12 @@ import { UserService } from '../services/user.service';
 })
 export class UserslistComponent {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private theGameService: TheGameService) { }
 
 
   getUsers(): void {
-    console.log('获取列表数据' + this.userService.userLsit);
+    console.log('获取列表数据' + this.userService.userList);
   }
-
 
 
   ngOnInit() {
