@@ -16,7 +16,7 @@ export class UserService {
 
   whoAmI(user: User) {
     this.yourself = user;
-    console.log(this.yourself.role);
+
   }
   constructor() { }
 }

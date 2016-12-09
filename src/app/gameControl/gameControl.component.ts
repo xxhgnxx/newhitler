@@ -13,9 +13,9 @@ import { SocketSevice } from '../services';
 
 })
 export class GameControlComponent {
-  proList: Array<number> = [0, 5, 15];     // 待选法案堆
+  proX3List = this.theGameService.proX3List;     // 待选法案堆
 
-
+  isVoted: boolean = this.theGameService.isVoted;
 
 
 
@@ -27,7 +27,7 @@ export class GameControlComponent {
   proEffRed = 0;
   failTimes = 0; // 政府组件失败次数
 
-  toDoSth: string;
+  toDoSth: string = this.theGameService.toDoSth;
   constructor(
     private userService: UserService,
     private theGameService: TheGameService,
@@ -46,30 +46,28 @@ export class GameControlComponent {
   }
 
 
-  vote() {
-    this.toDoSth = '投票'; console.log(this.toDoSth);
-  }
-  preSelect(name?) {
-    if (name) {
-      console.log(name);
-    } else {
-      this.toDoSth = '选总统'; console.log(this.toDoSth);
-    }
-
+  vote(n: number) {
+    this.theGameService.isVoted = true;
+    this.socketSevice.vote(n);
 
   }
-  prmSelect() {
-    this.toDoSth = '选总理'; console.log(this.toDoSth);
+  prmSelect(user: User) {
+    console.log(user);
+    this.socketSevice.prmSelect(user);
+    this.theGameService.toDoSth = '等待响应。。。';
+  }
+  preSelect() {
+    this.theGameService.toDoSth = '选总理'; console.log(this.toDoSth);
   }
   proSelect(pro) {
     console.log(pro);
-    this.toDoSth = '选法案'; console.log(this.toDoSth);
+    this.theGameService.toDoSth = '选法案'; console.log(this.toDoSth);
   }
   tmp() {
-    this.toDoSth = '啥都没做1'; console.log(this.toDoSth);
+    this.theGameService.toDoSth = '啥都没做1'; console.log(this.toDoSth);
   }
   back() {
-    this.toDoSth = '啥都没做2'; console.log(this.toDoSth);
+    this.theGameService.toDoSth = '啥都没做2'; console.log(this.toDoSth);
   }
 
 

@@ -1,11 +1,11 @@
-import { User } from "./user";
+import { User } from './user';
 export class Vote {
-  votes = Array();
+  votes = new Array<number>();
   count: number;
   constructor(list: Array<User>) {
     for (let i = 0; i < list.length; i++) {
       if (list[i].isSurvival) {
-        this.votes[list[i].seatNo] = '';
+        this.votes[list[i].seatNo] = 0;
       }
     }
     this.count = 0;

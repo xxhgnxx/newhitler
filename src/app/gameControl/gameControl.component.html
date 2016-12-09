@@ -10,31 +10,39 @@
   <button (click)="tmp()" type="button" class="btn btn-danger">同意</button>
   <button (click)="tmp()" type="button" class="btn btn-danger">反对</button>
 </div>
-<span [ngSwitch]="toDoSth">
+<span [ngSwitch]="theGameService.toDoSth">
   <span *ngSwitchCase="'枪决'">枪决
     <ul class="buttonLsit">
       <li *ngFor="let user of userService.userLsit">
-        <button [disabled]=" !user.isSurvival " (click)="preSelect(user.name)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]=" !user.isSurvival " (click)="prmSelect(user.name)" type="button" class="btn btn-success">{{user.name}}</button>
       </li>
     </ul>
   </span>
   <span *ngSwitchCase="'投票'">
-    <button (click)="tmp()" type="button" class="btn btn-danger">同意</button>
-    <button (click)="tmp()" type="button" class="btn btn-danger">反对</button>
+    总统{{theGameService.pre.name}}选择{{theGameService.prm.name}}做总理，请投票
+    <div *ngIf="theGameService.voteCount">
+      票数：
+      {{theGameService.voteCount}}
+      {{theGameService.nowVote.length}}
+    </div>
+    <div *ngIf="!isVoted">
+      <button (click)="vote(1)" type="button" class="btn btn-danger">同意</button>
+      <button (click)="vote(0)" type="button" class="btn btn-danger">反对</button>
+    </div>
   </span>
   <span *ngSwitchCase="'选总统'">选总统 当前总统->
     <img src="./pic/总统.png" class="img-thumbnail" style="
 height: 80px">
     <ul class="buttonLsit">
       <li *ngFor="let user of theGameService.playerList">
-        <button [disabled]="user.isPre || !user.isSurvival " (click)="preSelect(user.name)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]="user.isPre || !user.isSurvival " (click)="preSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
       </li>
     </ul>
   </span>
-  <span *ngSwitchCase="'选总理'">选总理->
+  <span *ngSwitchCase="'选总理'">{{theGameService.pre.name}}选总理->
     <ul class="buttonLsit">
       <li *ngFor="let user of theGameService.playerList">
-        <button [disabled]="user.isPre || user.isLastPrm || user.isLastPre || !user.isSurvival" (click)="preSelect(user.name)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]="user.isPre || user.isLastPrm || user.isLastPre || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
       </li>
     </ul>
   </span>
@@ -42,11 +50,11 @@ height: 80px">
     <div >
       <ul style="width: 150px;
   height: 150px" class="buttonLsit">
-        <li *ngFor="let pro of proList">
+        <li *ngFor="let pro of proX3List">
           <button (click)="proSelect(pro)" type="button" [class]="pro>5?'btn btn-danger':'btn btn-primary'"><img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail">{{pro}}</button>
         </li>
       </ul>
     </div>
   </span>
-  <span *ngSwitchDefault>请静静的等着……{{toDoSth}}</span>
+  <span *ngSwitchDefault>{{theGameService.toDoSth}}</span>
 </span>
