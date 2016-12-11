@@ -11,7 +11,7 @@ export class UserService {
   // userLsit = getdate();
   yourself: User = new User('_');
   yourHead: string;
-  ttt = 'kkk';
+
 
 
   whoAmI(user: User) {

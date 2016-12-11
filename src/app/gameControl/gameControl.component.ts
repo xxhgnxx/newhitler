@@ -60,8 +60,8 @@ export class GameControlComponent {
     this.theGameService.toDoSth = '选总理'; console.log(this.toDoSth);
   }
   proSelect(pro) {
-    console.log(pro);
-    this.theGameService.toDoSth = '选法案'; console.log(this.toDoSth);
+
+    this.socketSevice.proSelect(pro);
   }
   tmp() {
     this.theGameService.toDoSth = '啥都没做1'; console.log(this.toDoSth);

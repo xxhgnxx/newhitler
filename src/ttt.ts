@@ -21,7 +21,7 @@ class BBBBBBBBBBService {
 class CCCCCCCCCCService {
   // C中注入了A
   constructor(private aaaaaa: AAAAAAAService) { }
-  set() { this.aaaaaa.dataA = '我被C修改了'; };
+  set() { this.aaaaaa.dataA = '99999我被C修改了'; };
 }
 
 @Component({

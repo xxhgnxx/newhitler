@@ -39,7 +39,6 @@ export class SocketSevice {
     dataOut.user = user;
     dataOut.type = 'prmSelect';
     this.networkSocket.send(dataOut, x => { console.log(x); });
-
   }
 
   // 送出投票
@@ -49,6 +48,14 @@ export class SocketSevice {
     dataOut.type = 'vote';
     this.networkSocket.send(dataOut, x => { console.log(x); });
 
+  }
+
+  // 选法案
+  proSelect(pro) {
+    let dataOut = new Data();
+    dataOut.type = 'proSelect';
+    dataOut.proX3List = this.theGameService.proX3List;
+    dataOut.pro = pro;
   }
 
   system(data) {
@@ -120,6 +127,10 @@ export class SocketSevice {
   loadData(data: Data) {
     let msg = '';
 
+    if (typeof data.userList !== 'undefined') {
+      this.userService.userList = data.userList;
+      msg = msg + ' ' + 'userList';
+    }
     if (typeof data.proIndex !== 'undefined') {
       this.theGameService.proIndex = data.proIndex;
       msg = msg + ' ' + 'proIndex';
