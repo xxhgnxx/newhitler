@@ -32,6 +32,7 @@ import { TheGameService } from './services/game.service';
 
 // 管道
 import { GetHeadPope } from './pipe/getHeadPope';
+import { GetVote } from './pipe/getvote';
 
 // 其他组件
 import { UserslistComponent } from './userslist';
@@ -78,6 +79,7 @@ type StoreType = {
     MsgComponent,
     NoContentComponent,
     GetHeadPope,
+    GetVote,
     MdCard,
     MdCardContent,
     MdInput,

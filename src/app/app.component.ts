@@ -53,12 +53,16 @@ export class AppComponent {
 
   constructor(
     public appState: AppState,
-    private socketsertttvice: SocketSevice) {
+    private socketsevice: SocketSevice) {
 
   }
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
+    this.socketsevice.init();
+    this.socketsevice.login(Math.floor(Math.random() * 1000).toString(), x => {
+      return x;
+    });
   }
 
 }

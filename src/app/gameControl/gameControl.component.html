@@ -1,14 +1,19 @@
-<button (click)="userSeat()" type="button" class="btn btn-warning btn-lg">坐下</button>
-<button (click)="startGame()" type="button" class="btn btn-warning btn-lg">开始游戏</button>
-<div class="panel-body">
-  <button (click)="vote()" type="button" class="btn btn-default">投票</button>
+<div *ngIf="!theGameService.started" class="panel-body">
+  <button (click)="userSeat()" type="button" class="btn btn-warning btn-lg">坐下</button>
+  <button (click)="startGame()" type="button" class="btn btn-warning btn-lg">开始游戏</button>
+  <!-- <button (click)="vote()" type="button" class="btn btn-default">投票</button>
   <button (click)="preSelect()" type="button" class="btn btn-primary">选总统</button>
   <button (click)="prmSelect()" type="button" class="btn btn-success">选总理</button>
   <button (click)="proSelect()" type="button" class="btn btn-info">选法案</button>
   <button (click)="tmp()" type="button" class="btn btn-warning">tmp</button>
   <button (click)="back()" type="button" class="btn btn-danger">back</button>
   <button (click)="tmp()" type="button" class="btn btn-danger">同意</button>
-  <button (click)="tmp()" type="button" class="btn btn-danger">反对</button>
+  <button (click)="tmp()" type="button" class="btn btn-danger">反对</button> -->
+</div>
+<div class="row">
+  <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote">
+    <img [src]="votepic" style="width: 60px; height: 70px;">
+  </div>
 </div>
 <span [ngSwitch]="theGameService.toDoSth">
   <span *ngSwitchCase="'枪决'">枪决
@@ -19,15 +24,15 @@
     </ul>
   </span>
   <span *ngSwitchCase="'投票'">
-    总统{{theGameService.pre.name}}选择{{theGameService.prm.name}}做总理，请投票
-    <div *ngIf="theGameService.voteCount">
-      票数：
-      {{theGameService.voteCount}}
-      {{theGameService.nowVote.length}}
+    总统{{theGameService.pre.name}}选择{{theGameService.prm.name}}做总理，
+    <div class="row">
+      <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote">
+        <img [src]="votepic" style="width: 60px; height: 70px;">
+      </div>
     </div>
-    <div *ngIf="!isVoted">
-      <button (click)="vote(1)" type="button" class="btn btn-danger">同意</button>
-      <button (click)="vote(0)" type="button" class="btn btn-danger">反对</button>
+    <div *ngIf="!theGameService.isVoted">
+      <button (click)="vote(2)" type="button" class="btn btn-danger">同意</button>
+      <button (click)="vote(3)" type="button" class="btn btn-danger">反对</button>
     </div>
   </span>
   <span *ngSwitchCase="'选总统'">选总统 当前总统->
@@ -40,20 +45,19 @@ height: 80px">
     </ul>
   </span>
   <span *ngSwitchCase="'选总理'">{{theGameService.pre.name}}选总理->
-    <ul class="buttonLsit">
-      <li *ngFor="let user of theGameService.playerList">
+    <div class="row">
+      <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
         <button [disabled]="user.isPre || user.isLastPrm || user.isLastPre || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
-      </li>
-    </ul>
+      </div>
+    </div>
   </span>
   <span *ngSwitchCase="'选法案'">选法案
     <div >
-      <ul style="width: 150px;
-  height: 150px" class="buttonLsit">
-        <li *ngFor="let pro of proX3List">
+      <div class="row">
+        <div class="col-sm-2" *ngFor="let pro of theGameService.proX3List">
           <button (click)="proSelect(pro)" type="button" [class]="pro>5?'btn btn-danger':'btn btn-primary'"><img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail">{{pro}}</button>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </span>
   <span *ngSwitchDefault>{{theGameService.toDoSth}}</span>

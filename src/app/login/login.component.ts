@@ -8,7 +8,8 @@ import { SocketSevice } from '../services/socket.service';
 
   selector: 'login',
   styleUrls: ['login.component.css'],
-  templateUrl: 'login.component.html'
+  // templateUrl: 'login.component.html'
+  templateUrl: 'tmp.html'
 
 })
 export class LoginComponent {
@@ -19,6 +20,7 @@ export class LoginComponent {
   constructor(private socketsevice: SocketSevice) { }
 
   onSubmit(name: string) {
+    this.socketsevice.init();
     this.socketsevice.login(name, x => {
       this.submitted = x;
     });

@@ -13,7 +13,7 @@ export class NetworkSocket {
 
     this.socket.on('system', data => {
       this.socket.emit(data.key);
-      systemFunc(data);
+      systemFunc(data, socket.id);
     });
 
   }

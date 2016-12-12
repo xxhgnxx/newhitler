@@ -11,6 +11,7 @@ import { User } from './user';
 export class SocketSevice {
   networkSocket: NetworkSocket;
   name: string;
+  inited = false;
 
   // 游戏开始
   startGame(): void {
@@ -56,15 +57,18 @@ export class SocketSevice {
     dataOut.type = 'proSelect';
     dataOut.proX3List = this.theGameService.proX3List;
     dataOut.pro = pro;
+    this.networkSocket.send(dataOut, x => { console.log(x); });
   }
 
-  system(data) {
+  system(data, socketId) {
     console.log('收到服务端发来的system请求', data);
     this.loadData(data);
-    this.userService.userList = data.userList;
     switch (data.type) {
       case 'loginSuccess':
-        this.userService.whoAmI(data.user);
+        if (data.socketId === socketId) {
+          this.userService.whoAmI(data.user);
+        }
+
 
         break;
       case 'logout':
@@ -83,6 +87,19 @@ export class SocketSevice {
 
         break;
 
+      case 'role':
+
+        this.userService.role = data.role;
+
+
+        break;
+      case 'proEff':
+        console.log(data.pro > 5 ? '红色法案生效' : '蓝色法案生效');
+
+
+
+        break;
+
       case 'selectPrm':
         console.log(data.type);
         if (this.userService.yourself.socketId === data.pre.socketId) {
@@ -94,24 +111,24 @@ export class SocketSevice {
         break;
       case 'pleaseVote':
         console.log(data.type);
-        if (data.voteRes) {
-          let tmp = '';
-          if (data.voteRes > this.theGameService.nowVote.length / 2) {
-            tmp = '组建成功';
+        if (typeof data.voteRes !== 'undefined') {
+          if (data.voteRes) {
+            console.log('成功');
           } else {
-            tmp = '组建失败';
+            console.log('失败');
           }
-          this.theGameService.toDoSth = tmp;
           this.theGameService.isVoted = false;
         } else {
           this.theGameService.toDoSth = '投票';
         }
-        console.log('是否已经投过票', this.theGameService.isVoted);
         break;
-
 
       case 'choosePro':
         console.log(data.type);
+        this.theGameService.toDoSth = '等待选法案';
+        if (typeof data.proX3List !== 'undefined') {
+          this.theGameService.toDoSth = '选法案';
+        }
 
 
         break;
@@ -125,12 +142,14 @@ export class SocketSevice {
 
   // 数据包处理
   loadData(data: Data) {
-    let msg = '';
+    let msg = data.type;
 
     if (typeof data.userList !== 'undefined') {
       this.userService.userList = data.userList;
+      //  待修改！
       msg = msg + ' ' + 'userList';
     }
+
     if (typeof data.proIndex !== 'undefined') {
       this.theGameService.proIndex = data.proIndex;
       msg = msg + ' ' + 'proIndex';
@@ -200,15 +219,26 @@ export class SocketSevice {
       this.theGameService.proX3List = data.proX3List;
       msg = msg + ' ' + 'proX3List';
     }
+    if (typeof data.isVoted !== 'undefined') {
+      this.theGameService.isVoted = data.isVoted;
+      msg = msg + ' ' + 'isVoted';
+    }
     console.log('数据读取', msg);
   }
 
   constructor(public userService: UserService, public theGameService: TheGameService) {
-    this.networkSocket = new NetworkSocket();
-    this.networkSocket.start(io.connect('127.0.0.1:81'), this.system.bind(this));
-    console.log(Date().toString().slice(15, 25), '实例化socket服务');
+
   }
 
+  init() {
+    if (!this.inited) {
+      this.networkSocket = new NetworkSocket();
+      this.networkSocket.start(io.connect('127.0.0.1:81'), this.system.bind(this));
+      console.log(Date().toString().slice(15, 25), '实例化socket服务');
+      this.inited = true;
+    }
+
+  }
 
 
 

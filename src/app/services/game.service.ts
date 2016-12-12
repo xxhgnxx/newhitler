@@ -20,7 +20,7 @@ export class TheGameService {
 
   isVoted: boolean = false;
   voteList: Array<Array<number>>; // 投票总记录
-  nowVote: Array<number>; // 当前正在进行的投票
+  nowVote = new Array<number>(); // 当前正在进行的投票
   voteRes: number; // 投票结果
   voteCount: number;  //  投票数量
 
