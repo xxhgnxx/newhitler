@@ -18,6 +18,7 @@ export class GameControlComponent {
   isVoted: boolean = this.theGameService.isVoted;
 
 
+  target: User = this.theGameService.target;  //  收到影响的玩家 临时变量
 
   skillList = []; // 技能列表
   playerList: Array<User>; // 参与本次游戏的玩家列表，主要用于消息发送
@@ -56,19 +57,31 @@ export class GameControlComponent {
     this.socketSevice.prmSelect(user);
     this.theGameService.toDoSth = '等待响应。。。';
   }
-  preSelect() {
-    this.theGameService.toDoSth = '选总理'; console.log(this.toDoSth);
-  }
-  proSelect(pro) {
 
+  preSelect(user: User) {
+    console.log('选总统啦');
+    this.socketSevice.preSelect(user);
+  }
+  toKill(user: User) {
+    console.log('枪决啦');
+    this.socketSevice.toKill(user);
+  }
+
+  proSelect(pro) {
     this.socketSevice.proSelect(pro);
   }
+
   tmp() {
     this.theGameService.toDoSth = '啥都没做1'; console.log(this.toDoSth);
   }
   back() {
     this.theGameService.toDoSth = '啥都没做2'; console.log(this.toDoSth);
   }
+  invPlayer(player: User) {
+    this.socketSevice.invPlayer(player);
+  }
+
+
 
 
   displayButtonList() {

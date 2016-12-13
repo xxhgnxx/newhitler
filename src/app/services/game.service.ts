@@ -31,9 +31,16 @@ export class TheGameService {
   pre: User;
   prenext: User;
   prm: User;
+  prmTmp: User;
   hitler: User;
+
   fascist: Array<User>;
   liberal: Array<User>;
   toDoSth: string = '';
+
+    target: User;  //  收到影响的玩家 临时变量
+
+  // 其他
+  other: any;
   constructor() { }
 }  // 游戏状态，是否开始，影响到能否加入游戏等

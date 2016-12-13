@@ -17,20 +17,20 @@
 </div>
 <span [ngSwitch]="theGameService.toDoSth">
   <span *ngSwitchCase="'枪决'">枪决
-    <ul class="buttonLsit">
-      <li *ngFor="let user of userService.userLsit">
-        <button [disabled]=" !user.isSurvival " (click)="prmSelect(user.name)" type="button" class="btn btn-success">{{user.name}}</button>
-      </li>
-    </ul>
+    <div class="row">
+      <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
+        <button [disabled]="user.isPre || !user.isSurvival " (click)="toKill(user)" type="button" class="btn btn-success">{{user.name}}</button>
+      </div>
+    </div>
   </span>
   <span *ngSwitchCase="'投票'">
-    总统{{theGameService.pre.name}}选择{{theGameService.prm.name}}做总理，
+    总统{{theGameService.pre.name}}选择{{theGameService.prmTmp.name}}做总理，
     <div class="row">
       <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote">
         <img [src]="votepic" style="width: 60px; height: 70px;">
       </div>
     </div>
-    <div *ngIf="!theGameService.isVoted">
+    <div *ngIf="!theGameService.isVoted && userService.yourself.isSurvival">
       <button (click)="vote(2)" type="button" class="btn btn-danger">同意</button>
       <button (click)="vote(3)" type="button" class="btn btn-danger">反对</button>
     </div>
@@ -38,17 +38,29 @@
   <span *ngSwitchCase="'选总统'">选总统 当前总统->
     <img src="./pic/总统.png" class="img-thumbnail" style="
 height: 80px">
-    <ul class="buttonLsit">
-      <li *ngFor="let user of theGameService.playerList">
+    <div class="row">
+      <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
         <button [disabled]="user.isPre || !user.isSurvival " (click)="preSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
-      </li>
-    </ul>
+      </div>
+    </div>
   </span>
   <span *ngSwitchCase="'选总理'">{{theGameService.pre.name}}选总理->
     <div class="row">
       <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
         <button [disabled]="user.isPre || user.isLastPrm || user.isLastPre || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
       </div>
+    </div>
+  </span>
+  <span *ngSwitchCase="'调查身份'">{{theGameService.pre.name}}调查身份->
+    <div class="row">
+      <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
+        <button [disabled]="user.isPre || !user.isSurvival" (click)="invPlayer(user)" type="button" class="btn btn-success">{{user.name}}</button>
+      </div>
+    </div>
+  </span>
+  <span *ngSwitchCase="'调查身份结果'">{{theGameService.target.name}}调查身份结果->
+    <div class="row">
+      <img [src]="theGameService.other" class="img-thumbnail" style="height: 140px">
     </div>
   </span>
   <span *ngSwitchCase="'选法案'">选法案
@@ -60,5 +72,7 @@ height: 80px">
       </div>
     </div>
   </span>
-  <span *ngSwitchDefault>{{theGameService.toDoSth}}</span>
+  <span *ngSwitchDefault>
+    <h1>{{theGameService.toDoSth}}</h1>
+  </span>
 </span>

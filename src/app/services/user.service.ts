@@ -15,7 +15,9 @@ export class UserService {
 
 
   whoAmI(user: User) {
-    this.yourself = user;
+    this.yourself = this.userList.filter(t => {
+      return t.socketId === user.socketId;
+    })[0];
 
   }
   constructor() { }

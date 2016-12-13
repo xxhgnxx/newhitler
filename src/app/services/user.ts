@@ -1,6 +1,6 @@
 // 用户 数据结构
 export class User {
-  socketId: string;
+  socketId: string = 'x';
   isOnline: boolean = true;
   isSurvival: boolean = true;
   isSeat: boolean = false;
@@ -15,7 +15,6 @@ export class User {
   isFascist: boolean = false;
   role: string = 'x';
   constructor(name: string) { this.name = name; }
-
 }
 
 // 测试数据

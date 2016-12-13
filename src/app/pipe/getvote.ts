@@ -28,7 +28,7 @@ export class GetVote implements PipeTransform {
       case 3:
         return './pic/反对.png';
       case 4:
-        return './pic/head.png';
+        return './pic/dead.jpg';
       default:
         return './pic/think.png';
     }
@@ -39,7 +39,7 @@ export class GetVote implements PipeTransform {
       case 0:
         return './pic/think.png';
       case 4:
-        return './pic/head.png';
+        return './pic/dead.jpg';
       default:
         return './pic/投票背.jpg';
     }

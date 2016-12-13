@@ -1,7 +1,8 @@
 <div class="panel panel-primary" id="back">
   <div class="navbar-row" style="padding:3px">
     <h1>神TM希特勒
-      <small *ngIf="userService.yourself">{{userService.yourself.name}}</small>
+      <small *ngIf="userService.yourself">{{userService.yourself.name}}
+        {{userService.yourself.isSurvival}}</small>
       <small *ngIf="!userService.yourself">"未登录"</small>
     </h1>
   </div>

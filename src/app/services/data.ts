@@ -24,7 +24,7 @@ export class Data {
 
     // 法案牌堆相关
     proIndex: number; // 牌堆顶
-    proList = new Array<any>();  // 法案牌堆
+    proList: Array<any>;  // 法案牌堆
     proX3List: Array<number>; // 法案牌摸的三张牌
     pro: number; // 选择弃掉的法案
 
@@ -36,15 +36,16 @@ export class Data {
     voteCount: number;  //  投票数量
 
     // 游戏进程
-    failTimes = 0; // 政府组件失败次数
-    proEffBlue = 0; // 蓝法案生效数
-    proEffRed = 0; // 红法案生效数
+    failTimes: number; // 政府组件失败次数
+    proEffBlue: number; // 蓝法案生效数
+    proEffRed: number; // 红法案生效数
 
     // 角色情况
     pre: User;
     lastPre: User;
     prenext: User;
     prm: User;
+    prmTmp: User;  // 待投票的总理
     lastPrm: User;
 
 

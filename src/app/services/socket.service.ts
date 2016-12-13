@@ -21,7 +21,6 @@ export class SocketSevice {
   }
 
   login(name: string, cb) {
-
     let dataOut = new Data();
     dataOut.type = 'login';
     dataOut.name = name;
@@ -41,7 +40,21 @@ export class SocketSevice {
     dataOut.type = 'prmSelect';
     this.networkSocket.send(dataOut, x => { console.log(x); });
   }
+  //  选总统
+  preSelect(user: User) {
 
+    let dataOut = new Data();
+    dataOut.user = user;
+    dataOut.type = 'preSelect';
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+  }
+  // 枪决
+  toKill(user: User) {
+    let dataOut = new Data();
+    dataOut.target = user;
+    dataOut.type = 'toKill';
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+  }
   // 送出投票
   vote(n: number) {
     let dataOut = new Data();
@@ -57,6 +70,13 @@ export class SocketSevice {
     dataOut.type = 'proSelect';
     dataOut.proX3List = this.theGameService.proX3List;
     dataOut.pro = pro;
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+  }
+  // 调查身份
+  invPlayer(player: User) {
+    let dataOut = new Data();
+    dataOut.type = 'invPlayer';
+    dataOut.target = player;
     this.networkSocket.send(dataOut, x => { console.log(x); });
   }
 
@@ -81,9 +101,7 @@ export class SocketSevice {
 
       case 'gamestart':
 
-        this.userService.whoAmI(this.userService.userList.filter(t => {
-          return t.socketId === this.userService.yourself.socketId;
-        })[0]);
+
 
         break;
 
@@ -95,13 +113,25 @@ export class SocketSevice {
         break;
       case 'proEff':
         console.log(data.pro > 5 ? '红色法案生效' : '蓝色法案生效');
+        break;
+      case 'invPlayer':
+        console.log('调查身份');
+        if (typeof data.other !== 'undefined') {
+          this.theGameService.toDoSth = '调查身份结果';
+        } else {
+          if (this.userService.yourself.socketId === this.theGameService.pre.socketId) {
+            this.theGameService.toDoSth = '调查身份';
+          } else {
+            this.theGameService.toDoSth = '等待' + this.theGameService.pre.name + '调查身份';
+          }
 
+        }
 
 
         break;
 
       case 'selectPrm':
-        console.log(data.type);
+
         if (this.userService.yourself.socketId === data.pre.socketId) {
           this.theGameService.toDoSth = '选总理';
         } else {
@@ -110,7 +140,7 @@ export class SocketSevice {
 
         break;
       case 'pleaseVote':
-        console.log(data.type);
+
         if (typeof data.voteRes !== 'undefined') {
           if (data.voteRes) {
             console.log('成功');
@@ -124,13 +154,34 @@ export class SocketSevice {
         break;
 
       case 'choosePro':
-        console.log(data.type);
+
         this.theGameService.toDoSth = '等待选法案';
         if (typeof data.proX3List !== 'undefined') {
           this.theGameService.toDoSth = '选法案';
         }
+        break;
+
+      case 'toKill':
+
+        if (this.userService.yourself.socketId === this.theGameService.pre.socketId) {
+          this.theGameService.toDoSth = '枪决';
+        } else {
+          this.theGameService.toDoSth = '等待' + this.theGameService.pre.name + '枪决';
+        }
+
+        break;
+      case 'preSelect':
+
+        if (this.userService.yourself.socketId === this.theGameService.pre.socketId) {
+          this.theGameService.toDoSth = '选总统';
+        } else {
+          this.theGameService.toDoSth = '等待' + this.theGameService.pre.name + '选总统';
+        }
+        break;
+      case 'gameover':
 
 
+        this.theGameService.toDoSth = data.other;
         break;
 
 
@@ -146,7 +197,8 @@ export class SocketSevice {
 
     if (typeof data.userList !== 'undefined') {
       this.userService.userList = data.userList;
-      //  待修改！
+      //  todo 待修改！
+      this.userService.whoAmI(this.userService.yourself);
       msg = msg + ' ' + 'userList';
     }
 
@@ -222,6 +274,18 @@ export class SocketSevice {
     if (typeof data.isVoted !== 'undefined') {
       this.theGameService.isVoted = data.isVoted;
       msg = msg + ' ' + 'isVoted';
+    }
+    if (typeof data.other !== 'undefined') {
+      this.theGameService.other = data.other;
+      msg = msg + ' ' + 'other';
+    }
+    if (typeof data.prmTmp !== 'undefined') {
+      this.theGameService.prmTmp = data.prmTmp;
+      msg = msg + ' ' + 'prmTmp';
+    }
+    if (typeof data.target !== 'undefined') {
+      this.theGameService.target = data.target;
+      msg = msg + ' ' + 'target';
     }
     console.log('数据读取', msg);
   }
