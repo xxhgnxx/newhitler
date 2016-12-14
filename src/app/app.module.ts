@@ -16,7 +16,10 @@ import { MdInput } from '@angular2-material/input';
 import { MdIcon, MdIconRegistry } from '@angular2-material/icon';
 import { MdSpinner } from '@angular2-material/progress-circle';
 
-
+// 颜色提取器
+import { ColorPickerModule } from 'angular2-color-picker';
+// 自动滚动
+import { Angular2AutoScroll } from 'angular2-auto-scroll/lib/angular2-auto-scroll.directive';
 // 根组件
 import { AppComponent } from './app.component';
 
@@ -24,11 +27,12 @@ import { AppComponent } from './app.component';
 
 
 
-// 用户和socket服务组件
+// 服务组件
 import { SocketSevice } from './services/socket.service';
 import { UserService } from './services/user.service';
 import { GameControlComponent } from './gameControl/gameControl.component';
 import { TheGameService } from './services/game.service';
+import { TheMsgService } from './services/msg.service';
 
 // 管道
 import { GetHeadPope } from './pipe/getHeadPope';
@@ -93,6 +97,7 @@ type StoreType = {
     MdListItem,
     MdButton,
     MdIcon,
+    Angular2AutoScroll,
     MdSpinner
   ],
   imports: [ // import Angular's modules
@@ -100,6 +105,7 @@ type StoreType = {
     NgbModule,
     FormsModule,
     HttpModule,
+    ColorPickerModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
@@ -108,6 +114,7 @@ type StoreType = {
     SocketSevice,
     UserService,
     GameControlComponent,
+    TheMsgService,
     TheGameService
   ]
 })

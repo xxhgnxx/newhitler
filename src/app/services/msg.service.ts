@@ -3,3 +3,18 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { UserService } from '../services/user.service';
 import { GameControlComponent } from '../gameControl/gameControl.component';
+import { User } from './user';
+
+@Injectable()
+export class TheMsgService {
+
+  msgListAll = new Array<any>();
+  msgListNow = new Array<any>();
+  locked: boolean;  // 禁止发言
+  speakTime: number;  // 发言时间
+  msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
+  whoSpeaking: User;
+  msg: string;     // msg内容
+
+  timing(time: number) { }
+}

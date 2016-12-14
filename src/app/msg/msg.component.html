@@ -14,24 +14,29 @@
   </ul>
   <!-- Tab panes -->
   <div class="panel panel-default">
-    <div class="panel-body pre-scrollable">
+    <div class="panel-body pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes>
       <div class="tab-content " style="height:200px">
         <div role="tabpanel" class="tab-pane active " id="gameMsg">游戏消息内容<br>
-          123<br>
-          12<br>
-          312<br>
-          31<br>
-          23<br>
-          123<br>
-          12<br>
-          123<br>
-          12<br>
-          123<br>
-          12<br>
-          31<br>
-          end<br></div>
-        <div role="tabpanel" class="tab-pane " id="sysMsg">系统消息内容</div>
+          <div role="tabpanel" class="tab-pane " id="sysMsg">系统消息 内容
+            <span *ngFor="let msgnow of msgListAll" class="badge">
+              <div *ngFor="let msgp of msgnow">
+                {{msgp}}
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input [(colorPicker)]="color" [style.color]="color" [style.font]="'italic bold 20px arial,serif'" [value]="color"/>
+    <input [disabled]="!locked" [(ngModel)]="sth" (keyup.enter)=tmp()>
+    <textarea [disabled]="!locked" name="MSG" cols=40 rows=4 wrap="physical" [(ngModel)]="sth">
+      123123123
+    </textarea>
+    <button [disabled]="!locked" (click)=tmp()>提交</button>
+    <button [disabled]="!locked" (click)=newDiv()>重开</button>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" [style.width.%]="timewidth">
+        <span class="sr-only">90% Complete</span>
       </div>
     </div>
   </div>
-</div>

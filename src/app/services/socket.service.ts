@@ -6,12 +6,17 @@ import { TheGameService } from './game.service';
 import { Vote } from './vote';
 import { NetworkSocket } from './network';
 import { User } from './user';
+import { TheMsgService } from './msg.service';
+import { MsgData } from './msgData';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 
 @Injectable()
 export class SocketSevice {
   networkSocket: NetworkSocket;
   name: string;
   inited = false;
+  @Output() speakNow: EventEmitter<number> = new EventEmitter();
 
   // 游戏开始
   startGame(): void {
@@ -191,10 +196,11 @@ export class SocketSevice {
   }
 
 
-  // 数据包处理
-  loadData(data: Data) {
-    let msg = data.type;
-
+  // 数据包处理  test
+  loadData(dataAll: Data | MsgData) {
+    let msg = dataAll.type;
+    let data = (<Data>dataAll);
+    let msgdata = (<MsgData>dataAll);
     if (typeof data.userList !== 'undefined') {
       this.userService.userList = data.userList;
       //  todo 待修改！
@@ -287,10 +293,37 @@ export class SocketSevice {
       this.theGameService.target = data.target;
       msg = msg + ' ' + 'target';
     }
+
+
+
+    if (typeof msgdata.locked !== 'undefined') {
+      this.theMsgService.locked = msgdata.locked;
+      msg = msg + ' ' + 'locked';
+    }
+    if (typeof msgdata.speakTime !== 'undefined') {
+      this.speakNow.emit(msgdata.speakTime);
+      msg = msg + ' ' + 'timing';
+    }
+    if (typeof msgdata.msgFrom !== 'undefined') {
+      this.theMsgService.msgFrom = msgdata.msgFrom;
+      msg = msg + ' ' + 'msgFrom';
+    }
+    if (typeof msgdata.msgListAll !== 'undefined') {
+      this.theMsgService.msgListAll = msgdata.msgListAll;
+      msg = msg + ' ' + 'msgListAll';
+    }
+    if (typeof dataAll.msg !== 'undefined') {
+      this.theMsgService.msg = dataAll.msg;
+      msg = msg + ' ' + 'msg';
+    }
+
     console.log('数据读取', msg);
   }
 
-  constructor(public userService: UserService, public theGameService: TheGameService) {
+  constructor(
+    public userService: UserService,
+    public theGameService: TheGameService,
+    private theMsgService: TheMsgService) {
 
   }
 

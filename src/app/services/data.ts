@@ -1,5 +1,5 @@
-import { User } from "./user";
-import { UserService } from "./userService";
+import { User } from './user';
+import { UserService } from './userService';
 
 export class Data {
     type: string;
