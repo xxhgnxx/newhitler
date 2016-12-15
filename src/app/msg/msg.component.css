@@ -1,3 +1,4 @@
+
     .selected {
       background-color: #CFD8DC !important;
       color: white;
@@ -49,4 +50,12 @@
       height: 1.8em;
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
+    }
+
+
+    #container {
+      margin: 10px;
+      width: 200px;
+      height: 200px;
+      position: relative;
     }

@@ -1,3 +1,4 @@
+let progressBar = require('progressbar.js');
 import { Component } from '@angular/core';
 
 import { AppState } from '../app.service';
@@ -33,17 +34,36 @@ export class MsgComponent {
     this.locked = true;
     console.log('发言', time);
     setTimeout(() => { this.locked = false; }, time * 1000);
+    let bar = new progressBar.Circle('#container', {
+      color: '#aaa',
+      strokeWidth: 6,
+      trailWidth: 5,
+      // easing: 'easeInOut',
+      duration: time * 1000,
+      text: {
+        autoStyleContainer: false
+      },
+      from: { color: '#ff0000', a: 0 },
+      to: { color: '#00ff00', a: 0.5 },
+      // Set default step function for all animate calls
+      step: function(state, circle) {
+        circle.path.setAttribute('stroke', state.color);
+        let value = Math.round(circle.value() * time);
+        if (value === 0) {
+          circle.setText('');
+        } else {
+          circle.setText(value);
+        }
 
-
-    this.timewidth = 0;
-    let k = setInterval(() => {
-      if (this.timewidth === 100) {
-        clearInterval(k);
-        console.log('完成');
       }
+    });
+    bar.set(1);
+    bar.text.style.fontFamily = ' Helvetica, sans-serif';
+    bar.text.style.fontSize = '8rem';
+    bar.animate(0);  // Number from 0.0 to 1.0
 
-      this.timewidth += 0.1;
-    }, time);
+
+
 
   }
 
