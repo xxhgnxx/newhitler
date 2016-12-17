@@ -11,12 +11,16 @@ import { MsgData } from './msgData';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 
+
+
 @Injectable()
 export class SocketSevice {
   networkSocket: NetworkSocket;
   name: string;
   inited = false;
-  @Output() speakNow: EventEmitter<number> = new EventEmitter();
+  @Output() speakNow: EventEmitter<any> = new EventEmitter();
+  @Output() speakEnd: EventEmitter<any> = new EventEmitter();
+
 
   // 游戏开始
   startGame(): void {
@@ -84,6 +88,22 @@ export class SocketSevice {
     dataOut.target = player;
     this.networkSocket.send(dataOut, x => { console.log(x); });
   }
+  // 调查身份
+  speak_end() {
+    let dataOut = new Data();
+    dataOut.type = 'speak_end';
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+  }
+
+
+
+  //  文字发言
+  sendMsg(msg: string) {
+    let dataOut = new Data();
+    dataOut.type = 'sendMsg';
+    dataOut.msg = msg;
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+  }
 
   system(data, socketId) {
     console.log('收到服务端发来的system请求', data);
@@ -129,14 +149,10 @@ export class SocketSevice {
           } else {
             this.theGameService.toDoSth = '等待' + this.theGameService.pre.name + '调查身份';
           }
-
         }
-
-
         break;
 
       case 'selectPrm':
-
         if (this.userService.yourself.socketId === data.pre.socketId) {
           this.theGameService.toDoSth = '选总理';
         } else {
@@ -185,9 +201,19 @@ export class SocketSevice {
         break;
       case 'gameover':
 
-
         this.theGameService.toDoSth = data.other;
         break;
+      case 'msg':
+        if (typeof data.whoIsSpeaking !== 'undefined'
+          && this.userService.yourself.socketId === data.whoIsSpeaking.socketId) {
+          this.speakNow.emit(data.speakTime);
+        } else {
+          console.log('别人发言');
+          this.speakEnd.emit('end');
+        }
+        break;
+
+
 
 
       default:
@@ -294,14 +320,14 @@ export class SocketSevice {
       msg = msg + ' ' + 'target';
     }
 
-
+    // --------------------- 发言
 
     if (typeof msgdata.locked !== 'undefined') {
       this.theMsgService.locked = msgdata.locked;
       msg = msg + ' ' + 'locked';
     }
     if (typeof msgdata.speakTime !== 'undefined') {
-      this.speakNow.emit(msgdata.speakTime);
+      // this.speakNow.emit(msgdata.speakTime);
       msg = msg + ' ' + 'timing';
     }
     if (typeof msgdata.msgFrom !== 'undefined') {
@@ -312,8 +338,8 @@ export class SocketSevice {
       this.theMsgService.msgListAll = msgdata.msgListAll;
       msg = msg + ' ' + 'msgListAll';
     }
-    if (typeof dataAll.msg !== 'undefined') {
-      this.theMsgService.msg = dataAll.msg;
+    if (typeof msgdata.msg !== 'undefined') {
+      this.theMsgService.msgListNow.push(msgdata.msg);
       msg = msg + ' ' + 'msg';
     }
 

@@ -28,15 +28,18 @@
       </div>
     </div>
     <input [(colorPicker)]="color" [style.color]="color" [style.font]="'italic bold 20px arial,serif'" [value]="color"/>
-    <input [disabled]="!locked" [(ngModel)]="sth" (keyup.enter)=tmp()>
-    <textarea [disabled]="!locked" name="MSG" cols=40 rows=4 wrap="physical" [(ngModel)]="sth">
+    <input [disabled]="!locked" [(ngModel)]="myInput" (keyup.enter)=sendMsg()>
+    <textarea [disabled]="!locked" name="MSG" cols=40 rows=4 wrap="physical" [(ngModel)]="myInput">
       123123123
     </textarea>
-    <button [disabled]="!locked" (click)=tmp()>提交</button>
-    <button [disabled]="!locked" (click)=newDiv()>重开</button>
-    <div class="progress">
+    <button [disabled]="!locked" (click)=sendMsg()>提交</button>
+    <button (click)=tmp()>开始</button>
+    <button [disabled]="!locked" (click)=speak_end()>结束发言</button>
+    <!-- <div class="progress">
       <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" [style.width.%]="timewidth">
         <span class="sr-only">90% Complete</span>
       </div>
-    </div>
+    </div> -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+    <div [hidden]="!locked" id="container"></div>
   </div>

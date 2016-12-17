@@ -1,3 +1,4 @@
+let progressBar = require('progressbar.js');
 import { Component } from '@angular/core';
 
 import { AppState } from '../app.service';
@@ -7,43 +8,70 @@ import { ColorPickerService } from 'angular2-color-picker';
 import { TheMsgService } from '../services/msg.service';
 import { SocketSevice } from '../services';
 
-@Component({
+import { EventEmitter } from 'events';
+class MyEmitter extends EventEmitter { }
+const myEmitter = new MyEmitter();
 
+@Component({
   selector: 'msg',  // <userslist></userslist>
   // We need to tell Angular's Dependency Injection which providers are in our app.
-
   // Our list of styles in our component. We may add more to compose many styles together
   styleUrls: ['./msg.component.css'],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   templateUrl: './msg.component.html'
 })
+
 export class MsgComponent {
-  sth: string = '#127bdc';
-  msgListAll = new Array<any>();
-  msgListNow = new Array<any>();
+  myInput: string = '#127bdc';
+  msgListAll = this.theMsgService.msgListAll;
+  msgListNow = this.theMsgService.msgListNow;
   locked: boolean = false;  // 禁止发言
   speakTime: number;  // 发言时间
   msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
   timewidth = 0;
+  speakEnd: any;
   private color: string = '#127bdc';
-
-
 
   speakNow(time) {
     this.locked = true;
     console.log('发言', time);
-    setTimeout(() => { this.locked = false; }, time * 1000);
+    setTimeout(() => {
+      this.locked = false;
+    }, time * 1000);
+    let bar = new progressBar.Circle('#container', {
+      color: '#aaa',
+      strokeWidth: 6,
+      trailWidth: 5,
+      // easing: 'easeInOut',
+      duration: time * 1000,
+      text: {
+        autoStyleContainer: false
+      },
+      from: { color: '#ff0000', a: 0 },
+      to: { color: '#00ff00', a: 0.5 },
+      // Set default step function for all animate calls
+      step: function(state, circle) {
+        circle.path.setAttribute('stroke', state.color);
+        let value = Math.round(circle.value() * time);
+        if (value === 0) {
+          circle.setText('');
+        } else {
+          circle.setText(value);
+        }
 
-
-    this.timewidth = 0;
-    let k = setInterval(() => {
-      if (this.timewidth === 100) {
-        clearInterval(k);
-        console.log('完成');
       }
+    });
+    bar.set(1);
+    bar.text.style.fontFamily = ' Helvetica, sans-serif';
+    bar.text.style.fontSize = '8rem';
+    bar.animate(0);  // Number from 0.0 to 1.0
 
-      this.timewidth += 0.1;
-    }, time);
+    this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {
+      this.locked = false;
+      console.log('时间到，轮到别人发言', this.speakEnd);
+      this.speakEnd.unsubscribe();
+    });
+    console.log('1111111111', this.speakEnd);
 
   }
 
@@ -54,25 +82,33 @@ export class MsgComponent {
     private theMsgService: TheMsgService,
     private socketSevice: SocketSevice,
     private cpService: ColorPickerService) {
+    myEmitter.on('speak_start', () => { console.log(`speak_start`); });
     this.msgListAll.push(this.msgListNow);
+
   }
 
 
   tmp() {
-    console.log(this.sth);
-    // this.sth = '';
-
-    this.msgListNow.push(this.sth);
-    this.sth = '';
+    // this.socketSevice.userSeat();
+    myEmitter.emit('speak_start');
   }
+  speak_end() {
+    this.socketSevice.speak_end();
+  }
+
   newDiv() {
-    console.log(this.sth);
+    console.log(this.myInput);
     // this.sth = '';
     this.msgListNow = new Array<any>();
     this.msgListAll.push(this.msgListNow);
-    this.sth = '';
+    this.myInput = '';
   }
 
+
+  sendMsg() {
+    this.socketSevice.sendMsg(this.myInput);
+
+  }
 
   ngOnInit() {
     this.socketSevice.speakNow.subscribe(time => this.speakNow(time));
