@@ -8,9 +8,7 @@ import { ColorPickerService } from 'angular2-color-picker';
 import { TheMsgService } from '../services/msg.service';
 import { SocketSevice } from '../services';
 
-import { EventEmitter } from 'events';
-class MyEmitter extends EventEmitter { }
-const myEmitter = new MyEmitter();
+
 
 @Component({
   selector: 'msg',  // <userslist></userslist>
@@ -82,15 +80,14 @@ export class MsgComponent {
     private theMsgService: TheMsgService,
     private socketSevice: SocketSevice,
     private cpService: ColorPickerService) {
-    myEmitter.on('speak_start', () => { console.log(`speak_start`); });
     this.msgListAll.push(this.msgListNow);
 
   }
 
 
   tmp() {
-    // this.socketSevice.userSeat();
-    myEmitter.emit('speak_start');
+    this.socketSevice.userSeat();
+
   }
   speak_end() {
     this.socketSevice.speak_end();

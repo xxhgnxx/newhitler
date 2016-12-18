@@ -81,7 +81,10 @@ export class GameControlComponent {
     this.socketSevice.invPlayer(player);
   }
 
-
+  veto() {
+    // 全部否决
+    console.log('全部否决请求');
+  }
 
 
   displayButtonList() {

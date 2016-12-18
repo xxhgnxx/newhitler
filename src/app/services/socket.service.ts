@@ -211,6 +211,7 @@ export class SocketSevice {
           console.log('别人发言');
           this.speakEnd.emit('end');
         }
+        this.theGameService.toDoSth = '顺序发言中';
         break;
 
 
@@ -342,7 +343,7 @@ export class SocketSevice {
       this.theMsgService.msgListNow.push(msgdata.msg);
       msg = msg + ' ' + 'msg';
     }
-
+    this.theMsgService.msgListNow.push('数据读取' + msg);
     console.log('数据读取', msg);
   }
 

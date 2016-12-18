@@ -47,7 +47,7 @@ height: 80px">
   <span *ngSwitchCase="'选总理'">{{theGameService.pre.name}}选总理->
     <div class="row">
       <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
-        <button [disabled]="user.isPre || user.isLastPrm || user.isLastPre || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]="user.isPre || user.isLastPrm  || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
       </div>
     </div>
   </span>
@@ -69,6 +69,7 @@ height: 80px">
         <div class="col-sm-2" *ngFor="let pro of theGameService.proX3List">
           <button (click)="proSelect(pro)" type="button" [class]="pro>5?'btn btn-danger':'btn btn-primary'"><img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail">{{pro}}</button>
         </div>
+        <button (click)="veto()" type="button" class="btn btn-danger">全部否决</button>
       </div>
     </div>
   </span>
