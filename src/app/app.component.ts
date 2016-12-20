@@ -16,7 +16,7 @@ import { SocketSevice } from './services/socket.service';
     './app.component.css'
   ],
   template: `
-    <nav>
+  <nav>
     <span>
       <a [routerLink]=" ['./'] ">
         Index
@@ -36,14 +36,11 @@ import { SocketSevice } from './services/socket.service';
     </span>
     |
     <span>
-      <a [routerLink]=" ['./about'] ">
-        About
+      <a [routerLink]=" ['./userslist'] ">
+        userslist
       </a>
     </span>
     </nav>
-
-<login></login>
-<gameControl>游戏空间加载中</gameControl>
       <router-outlet></router-outlet>
 
 
@@ -60,12 +57,12 @@ export class AppComponent {
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
     this.socketsevice.init();
-    this.socketsevice.login(Math.floor(Math.random() * 1000).toString(), x => {
-      return x;
-    });
+
   }
 
 }
+
+
 
 /*
  * Please review the https://github.com/AngularClass/angular2-examples/ repo for
