@@ -7,8 +7,8 @@ import { UserService } from '../services/user.service';
 import { ColorPickerService } from 'angular2-color-picker';
 import { TheMsgService } from '../services/msg.service';
 import { SocketSevice } from '../services';
-
-
+import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
+import { TheGameService } from '../services';
 
 @Component({
   selector: 'msg',  // <userslist></userslist>
@@ -16,11 +16,12 @@ import { SocketSevice } from '../services';
   // Our list of styles in our component. We may add more to compose many styles together
   styleUrls: ['./msg.component.css'],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: './msg.component.html'
+  templateUrl: './msg.component.html',
+  providers: [NgbTabsetConfig],
 })
 
 export class MsgComponent {
-  myInput: string = '#127bdc';
+  myInput: string = '嗯..';
   msgListAll = this.theMsgService.msgListAll;
   msgListNow = this.theMsgService.msgListNow;
   locked: boolean = false;  // 禁止发言
@@ -31,19 +32,20 @@ export class MsgComponent {
   private color: string = '#127bdc';
 
   speakNow(time) {
-    this.locked = true;
-    console.log('发言', time);
+    this.theGameService.locked = true;
+    console.log('到你发言，发言时间', time);
     setTimeout(() => {
       this.locked = false;
     }, time * 1000);
+
     let bar = new progressBar.Circle('#container', {
       color: '#aaa',
-      strokeWidth: 6,
-      trailWidth: 5,
+      strokeWidth: 8,
+      trailWidth: 6,
       // easing: 'easeInOut',
-      duration: time * 1000,
+
       text: {
-        autoStyleContainer: false
+        // autoStyleContainer: false
       },
       from: { color: '#ff0000', a: 0 },
       to: { color: '#00ff00', a: 0.5 },
@@ -56,20 +58,23 @@ export class MsgComponent {
         } else {
           circle.setText(value);
         }
-
       }
     });
     bar.set(1);
     bar.text.style.fontFamily = ' Helvetica, sans-serif';
     bar.text.style.fontSize = '8rem';
-    bar.animate(0);  // Number from 0.0 to 1.0
+
+    bar.animate(0, {
+      duration: time * 1000,
+    }, function() {
+      bar.destroy();
+    });
 
     this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {
-      this.locked = false;
+      this.theGameService.locked = false;
       console.log('时间到，轮到别人发言', this.speakEnd);
       this.speakEnd.unsubscribe();
     });
-    console.log('1111111111', this.speakEnd);
 
   }
 
@@ -79,6 +84,7 @@ export class MsgComponent {
     private userService: UserService,
     private theMsgService: TheMsgService,
     private socketSevice: SocketSevice,
+    private theGameService: TheGameService,
     private cpService: ColorPickerService) {
     this.msgListAll.push(this.msgListNow);
 
@@ -86,9 +92,49 @@ export class MsgComponent {
 
 
   tmp() {
-    this.socketSevice.userSeat();
+    this.speakNow(10);
+    //     let bar = new progressBar.Circle('#container', {
+    //   strokeWidth: 6,
+    //   easing: 'easeInOut',
+    //   duration: 1400,
+    //   color: '#FFEA82',
+    //   trailColor: '#eee',
+    //   trailWidth: 1,
+    //   svgStyle: null
+    // });
+    // bar.animate(1.0);
+
+    // let bar = new progressBar.Circle('#container', {
+    //   color: '#aaa',
+    //   strokeWidth: 8,
+    //   trailWidth: 6,
+    //   // easing: 'easeInOut',
+    //   duration: 10 * 1000,
+    //   text: {
+    //     autoStyleContainer: false
+    //   },
+    //   from: { color: '#ff0000', a: 0 },
+    //   to: { color: '#00ff00', a: 0.5 },
+    //   // Set default step function for all animate calls
+    //   step: function(state, circle) {
+    //     circle.path.setAttribute('stroke', state.color);
+    //     let value = Math.round(circle.value() * 10);
+    //     if (value === 0) {
+    //       circle.setText('');
+    //     } else {
+    //       circle.setText(value);
+    //     }
+    //   }
+    // });
+    // bar.set(1);
+    // bar.text.style.fontFamily = ' Helvetica, sans-serif';
+    // bar.text.style.fontSize = '8rem';
+    // bar.animate(0);  // Number from 0.0 to 1.0
+
+
 
   }
+
   speak_end() {
     this.socketSevice.speak_end();
   }
@@ -103,8 +149,10 @@ export class MsgComponent {
 
 
   sendMsg() {
-    this.socketSevice.sendMsg(this.myInput);
 
+    console.log(this.myInput);
+    this.socketSevice.sendMsg(this.myInput);
+    // this.myInput = '';
   }
 
   ngOnInit() {

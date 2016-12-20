@@ -15,10 +15,13 @@ export class NetworkSocket {
       this.socket.emit(data.key);
       systemFunc(data, socket.id);
     });
-
   }
 
 
+
+  getId() {
+    return this.socket.id;
+  }
   /**
    * 请求器，data：消息内容，cb：后续动作入口
    */

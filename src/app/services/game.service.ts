@@ -3,6 +3,8 @@ import { UserService } from './user.service';
 import { SocketSevice } from './socket.service';
 import { User } from './user';
 import { Vote } from './vote';
+
+
 @Injectable()
 export class TheGameService {
   skillList = new Array<Function | string>();  // 技能列表
@@ -38,9 +40,13 @@ export class TheGameService {
   liberal: Array<User>;
   toDoSth: string = '';
 
-    target: User;  //  收到影响的玩家 临时变量
+  target: User;  //  收到影响的玩家 临时变量
 
   // 其他
   other: any;
+  locked = false;
+
+
+
   constructor() { }
 }  // 游戏状态，是否开始，影响到能否加入游戏等

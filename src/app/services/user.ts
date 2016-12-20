@@ -14,6 +14,7 @@ export class User {
   isHitler: boolean = false;
   isFascist: boolean = false;
   role: string = 'x';
+  canBeSelect: boolean = true;
   constructor(name: string) { this.name = name; }
 }
 

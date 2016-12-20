@@ -52,6 +52,13 @@ export class GameControlComponent {
     this.socketSevice.vote(n);
 
   }
+
+  veto_all(n: number) {
+    this.socketSevice.veto_all(n);
+
+
+  }
+
   prmSelect(user: User) {
     console.log(user);
     this.socketSevice.prmSelect(user);
@@ -84,6 +91,7 @@ export class GameControlComponent {
   veto() {
     // 全部否决
     console.log('全部否决请求');
+    this.socketSevice.veto();
   }
 
 

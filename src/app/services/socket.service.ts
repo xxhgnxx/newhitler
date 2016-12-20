@@ -29,7 +29,9 @@ export class SocketSevice {
     this.networkSocket.send(dataOut, x => { console.log(x); });
   }
 
+  // 登陆
   login(name: string, cb) {
+    this.userService.yourself.socketId = this.networkSocket.getId();
     let dataOut = new Data();
     dataOut.type = 'login';
     dataOut.name = name;
@@ -73,6 +75,9 @@ export class SocketSevice {
 
   }
 
+
+
+
   // 选法案
   proSelect(pro) {
     let dataOut = new Data();
@@ -105,13 +110,30 @@ export class SocketSevice {
     this.networkSocket.send(dataOut, x => { console.log(x); });
   }
 
+  // 否决全部法案
+  veto() {
+    let dataOut = new Data();
+    dataOut.type = 'veto_all';
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+
+  }
+
+  // 总统否决权
+  veto_all(n: number) {
+    let dataOut = new Data();
+    dataOut.type = 'veto_all';
+    dataOut.other = n;
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+
+  }
+
   system(data, socketId) {
-    console.log('收到服务端发来的system请求', data);
+    console.log('%c收到服务端发来的system请求', 'background: #222; color: #bada55', data);
     this.loadData(data);
     switch (data.type) {
       case 'loginSuccess':
         if (data.socketId === socketId) {
-          this.userService.whoAmI(data.user);
+          this.userService.whoAmI(data.userList);
         }
 
 
@@ -129,11 +151,40 @@ export class SocketSevice {
 
 
         break;
+      case 'someone_speak_end':
+
+
+        break;
+
+      case 'newPlayerSpeak':
+        let newMsg = new Array<any>();
+        this.theMsgService.msgListAll.push(newMsg);
+        this.theMsgService.msgListNow = newMsg;
+        let whoString = '现在是 ';
+        if (data.whoIsSpeaking.isPre) {
+          whoString = whoString + '总统 ' + data.whoIsSpeaking.name + ' 在发言';
+        }
+        if (data.whoIsSpeaking.isPrm) {
+          whoString = whoString + '总理 ' + data.whoIsSpeaking.name + ' 在发言';
+        }
+        if (!data.whoIsSpeaking.isPrm && !data.whoIsSpeaking.isPre) {
+          whoString = whoString + '议员 ' + data.whoIsSpeaking.name + ' 在发言';
+        }
+
+        this.theMsgService.msgListNow.push(whoString);
+
+        if (this.userService.yourself.socketId === data.whoIsSpeaking.socketId) {
+          this.speakNow.emit(data.speakTime);
+        } else {
+          console.log('别人发言');
+          this.speakEnd.emit('end');
+        }
+        this.theGameService.toDoSth = '顺序发言中';
+
+        break;
 
       case 'role':
-
-        this.userService.role = data.role;
-
+        this.userService.setTeam(data);
 
         break;
       case 'proEff':
@@ -182,6 +233,33 @@ export class SocketSevice {
         }
         break;
 
+      case 'choosePro2':
+
+        this.theGameService.toDoSth = '等待选法案,可否决状态';
+        if (typeof data.proX3List !== 'undefined') {
+          this.theGameService.toDoSth = '选法案2';
+        }
+
+        break;
+      case 'veto_all':
+        console.log(this.userService.yourself);
+        if (typeof data.other === 'undefined') {
+          this.theGameService.toDoSth = '等待总统是否同意否决全部';
+          if (this.userService.yourself.isPre) {
+            this.theGameService.toDoSth = '总统是否同意否决全部';
+          }
+        } else {
+
+          this.theGameService.toDoSth = '总统反对否决全部，等待总理选法案';
+          if (this.userService.yourself.isPrm) {
+            this.theGameService.toDoSth = '选法案';
+          }
+
+        }
+
+        break;
+
+
       case 'toKill':
 
         if (this.userService.yourself.socketId === this.theGameService.pre.socketId) {
@@ -203,6 +281,7 @@ export class SocketSevice {
 
         this.theGameService.toDoSth = data.other;
         break;
+
       case 'msg':
         if (typeof data.whoIsSpeaking !== 'undefined'
           && this.userService.yourself.socketId === data.whoIsSpeaking.socketId) {
@@ -231,10 +310,16 @@ export class SocketSevice {
     if (typeof data.userList !== 'undefined') {
       this.userService.userList = data.userList;
       //  todo 待修改！
-      this.userService.whoAmI(this.userService.yourself);
+      // this.userService.whoAmI(this.userService.yourself);
       msg = msg + ' ' + 'userList';
     }
 
+    if (typeof data.playerList !== 'undefined') {
+      this.theGameService.playerList = data.playerList;
+      // 待确认
+      this.userService.whoAmI(data.playerList);
+      msg = msg + ' ' + 'playerList';
+    }
     if (typeof data.proIndex !== 'undefined') {
       this.theGameService.proIndex = data.proIndex;
       msg = msg + ' ' + 'proIndex';
@@ -296,10 +381,7 @@ export class SocketSevice {
       this.theGameService.prm = data.prm;
       msg = msg + ' ' + 'prm';
     }
-    if (typeof data.playerList !== 'undefined') {
-      this.theGameService.playerList = data.playerList;
-      msg = msg + ' ' + 'playerList';
-    }
+
     if (typeof data.proX3List !== 'undefined') {
       this.theGameService.proX3List = data.proX3List;
       msg = msg + ' ' + 'proX3List';
@@ -343,8 +425,8 @@ export class SocketSevice {
       this.theMsgService.msgListNow.push(msgdata.msg);
       msg = msg + ' ' + 'msg';
     }
-    this.theMsgService.msgListNow.push('数据读取' + msg);
-    console.log('数据读取', msg);
+    // this.theMsgService.msgListNow.push('数据读取' + msg);   // 测试用输出到聊天记录中
+    console.log('%c数据读取', 'background: #222; color: #bada55', msg);
   }
 
   constructor(
@@ -360,6 +442,22 @@ export class SocketSevice {
       this.networkSocket.start(io.connect('127.0.0.1:81'), this.system.bind(this));
       console.log(Date().toString().slice(15, 25), '实例化socket服务');
       this.inited = true;
+
+      setTimeout(() => {
+        if (typeof this.networkSocket.getId() !== 'undefined') {
+          console.log('登陆成功');
+          this.login(Math.floor(Math.random() * 1000).toString(), x => {
+            return x;
+          });
+        } else {
+          console.log('登陆失败后，2s后重试');
+          setTimeout(() => {
+            this.login(Math.floor(Math.random() * 1000).toString(), x => {
+              return x;
+            });
+          }, 2000);
+        }
+      }, 500);
     }
 
   }

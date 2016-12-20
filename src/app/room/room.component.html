@@ -1,65 +1,61 @@
-<div class="panel panel-primary" id="back">
-  <div class="navbar-row" style="padding:3px">
-    <h1>神TM希特勒
-      <small *ngIf="userService.yourself">{{userService.yourself.name}}
-        {{userService.yourself.isSurvival}}</small>
-      <small *ngIf="!userService.yourself">"未登录"</small>
-    </h1>
-  </div>
-  <div class="navbar-row" style="padding:3px">
-    <div class="navbar-row" style="width:1040px">
-      <!-- <div class="col-sm-8">
-        <img src="desk.jpg" class="" style="height: 400px;">
-      </div> -->
-      <div class="col-sm-3">
-        <userslist></userslist>
-      </div>
-    </div>
-  </div>
-  <div class="panel-body" style="width:980px;">
-    <!-- Nav tabs -->
-    <div class="col-sm-2">
-      <div class="panel panel-default" style="padding:3px">
-        <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" [src]="userService.role|getHead" data-holder-rendered="true" style="width: 140px; height: 140px;">
-      </div>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">队友信息</h3>
+<div class="row" id="back" style="height: 30em;">
+  <div class="col-sm-8" id="back">
+    <div class="navbar-row" style="width:45em;">
+      <div class="col-sm-8">
+        <div class="col-sm-8" style="float: left;">
+          <h1>神TM希特勒
+            <small *ngIf="!userService.yourself">"未登录"</small>
+          </h1>
         </div>
-        <div class="panel-body">
-          皇冠鸟是希特勒 你是法西斯
+        <div calss="username123123" id="kkkkkk123123">
+          {{userService.yourself.name}}
+        </div>
+        <div class="col-sm-2" *ngIf="userService.yourself">
+          <img *ngIf="!userService.yourself.isSurvival" src="./pic/dead.jpg" style="width: 60px ">
+          <img *ngIf="userService.yourself.isPrm" src="./pic/总理.png" style="width: 60px ">
+          <img *ngIf="userService.yourself.isPre" src="./pic/总统.png" style="width: 60px ">
+          <img *ngIf="!userService.yourself.canBeSelect" src="./pic/无法参选.png" style="width: 60px ">
         </div>
       </div>
     </div>
-    <msg>消息加载中</msg>
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">游戏操作区</h3>
-        </div>
-        <gameControl>游戏空间加载中</gameControl>
+    <div class="navbar-row" style="width:28em;">
+      <div class="col-sm-8">
+        <img src="./pic/法西斯进度10.jpg" class="" style="height: 15em;">
+      </div>
+      <div class="col-sm-8">
+        <img src="./pic/自由党进度.jpg" class="" style="height: 15em;">
       </div>
     </div>
   </div>
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">这里会有个帮助？</h4>
-        </div>
-        <div class="modal-body">
-          这里也许会写些什么
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+  <div class="col-lg-1">
+    <userslist></userslist>
+  </div>
+</div>
+<div class="panel-body" style="width:980px;">
+  <div class="col-sm-2">
+    <div class="panel panel-default" style="padding:3px">
+      <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" [src]="userService.role|getHead" data-holder-rendered="true" style="width: 140px; height: 140px;">
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">队友信息</h3>
       </div>
+      <div class="panel-body">
+        {{this.userService.teamMsg}}
+      </div>
+      <button (click)=tmp()>开始</button>
+    </div>
+    <div [hidden]="!this.theGameService.locked" class="panel-body">
+      <div id="container"></div>
+    </div>
+  </div>
+  <msg>消息加载中</msg>
+  <div class="col-sm-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">游戏操作区</h3>
+      </div>
+      <gameControl>游戏空间加载中</gameControl>
     </div>
   </div>
 </div>

@@ -1,8 +1,9 @@
-<h1>{{title}}</h1>
 <h2>用户列表</h2>
-<ul class="users">
-  <li *ngFor="let user of userService.userList" [style.color]="user.isOnline ? 'black' : 'gray'">
-    <span class="badge" [style.background-color]="user.isOnline ? 'blue' : 'gray'">{{user.seatNo}}</span>
-    {{user.name}}
-  </li>
-</ul>
+<div class="pre-scrollable" style="max-height: 540px;">
+  <ul class="users">
+    <li *ngFor="let user of userService.userList" [style.color]="user.isOnline ? 'black' : 'gray'">
+      <span class="badge" [style.background-color]="user.isOnline ? 'blue' : 'gray'">{{user.seatNo}}</span>
+      {{user.name}}
+    </li>
+  </ul>
+</div>
