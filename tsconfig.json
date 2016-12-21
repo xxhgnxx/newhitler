@@ -13,8 +13,7 @@
     "paths": {
     },
     "lib": [
-      "dom",
-      "es6"
+    "DOM","ES6"
     ],
     "types": [
       "hammerjs",

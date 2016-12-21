@@ -8,31 +8,66 @@ import { RandomString } from '../util';
  */
 export class NetworkSocket {
   private socket;
-  public start(socket, systemFunc: Function) {
-    this.socket = socket;
 
-    this.socket.on('system', data => {
-      this.socket.emit(data.key);
-      systemFunc(data, socket.id);
+  /**
+   * 初始化过程
+   */
+  public start(): Promise<any> {
+    this.socket = io.connect('127.0.0.1:81', { reconnection: false });
+
+    return new Promise(resolve => {
+      let tmptimer = setTimeout(() => {
+        console.log(Date().toString().slice(15, 25), '连接服务器', '失败');
+        this.socket.off('ok');
+        resolve(false);
+      }, 2000);
+
+      let tmpon = this.socket.on('ok', () => {
+        console.log(Date().toString().slice(15, 25), '连接服务器', '成功', this.socket.id);
+        this.socket.on('system', data => {
+          this.socket.emit(data.key);
+          resolve(this.socket.id);
+        });
+        resolve(true);
+        clearTimeout(tmptimer);
+      });
     });
   }
 
 
 
-  getId() {
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+   * 获取socketID
+   */
+  getId(): string {
     return this.socket.id;
   }
+
   /**
    * 请求器，data：消息内容，cb：后续动作入口
    */
   public send(data: Data, cb: Function) {
     data.key = idgen();
-    this.socket.emit('system', data);
+    let tmpemit = this.socket.emit('system', data);
     let timeout = setTimeout(() => {
+      tmpemit.close();
       cb(false);
     }, 3000);
-    this.socket.on(data.key, () => {
+    this.socket.once(data.key, () => {
       clearTimeout(timeout);
+      this.socket.off(data.key);
       cb(true);
     });
   }

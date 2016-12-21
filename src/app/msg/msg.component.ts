@@ -93,43 +93,7 @@ export class MsgComponent {
 
   tmp() {
     this.speakNow(10);
-    //     let bar = new progressBar.Circle('#container', {
-    //   strokeWidth: 6,
-    //   easing: 'easeInOut',
-    //   duration: 1400,
-    //   color: '#FFEA82',
-    //   trailColor: '#eee',
-    //   trailWidth: 1,
-    //   svgStyle: null
-    // });
-    // bar.animate(1.0);
 
-    // let bar = new progressBar.Circle('#container', {
-    //   color: '#aaa',
-    //   strokeWidth: 8,
-    //   trailWidth: 6,
-    //   // easing: 'easeInOut',
-    //   duration: 10 * 1000,
-    //   text: {
-    //     autoStyleContainer: false
-    //   },
-    //   from: { color: '#ff0000', a: 0 },
-    //   to: { color: '#00ff00', a: 0.5 },
-    //   // Set default step function for all animate calls
-    //   step: function(state, circle) {
-    //     circle.path.setAttribute('stroke', state.color);
-    //     let value = Math.round(circle.value() * 10);
-    //     if (value === 0) {
-    //       circle.setText('');
-    //     } else {
-    //       circle.setText(value);
-    //     }
-    //   }
-    // });
-    // bar.set(1);
-    // bar.text.style.fontFamily = ' Helvetica, sans-serif';
-    // bar.text.style.fontSize = '8rem';
-    // bar.animate(0);  // Number from 0.0 to 1.0
 
 
 

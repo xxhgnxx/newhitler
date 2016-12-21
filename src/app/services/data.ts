@@ -5,6 +5,7 @@ export class Data {
     type: string;
     toWho: Array<User> | User;
     name: string;
+    pass: string;
     msg: string;
     yourself: User;
     user: User;

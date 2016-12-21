@@ -55,8 +55,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log('Initial App State', this.appState.state);
-    this.socketsevice.init();
+    // console.log('Initial App State', this.appState.state);
+    // this.socketsevice.init();
 
   }
 

@@ -15,12 +15,12 @@ export class UserService {
   teamMsg = '游戏尚未开始';
 
   whoAmI(list: Array<User>) {
-    console.log('定位身份');
-    console.log(list);
+    // console.log('定位身份');
+    // console.log(list);
     this.yourself = list.filter(t => {
       return t.socketId === this.yourself.socketId;
     })[0];
-    console.log(this.yourself);
+    // console.log(this.yourself);
   }
 
 

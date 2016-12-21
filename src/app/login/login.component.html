@@ -1,29 +1,29 @@
-<div class="container">
-  <div [hidden]="submitted">
-    <h1>Hero Form</h1>
-    <form (ngSubmit)="onSubmit(name.value)" #loginForm="ngForm">
+<!-- <div class="container"> -->
+<div [hidden]="logined" class="container">
+  <div >
+    <h1>登陆</h1>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
         <label for="name">昵称</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="tmp.name" name="name" #name="ngModel">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        <input type="text" class="form-control" id="name" name="nameinput" #in_name="ngModel" required placeholder="最长10位的昵称" [(ngModel)]="username">
+        <div [hidden]="in_name.untouched || in_name.valid " class="alert alert-danger">
           昵称是必须的
         </div>
       </div>
       <div class="form-group">
-        <label for="alterEgo">登陆码</label>
-        <input type="text" class="form-control" id="alterEgo"  required [(ngModel)]="tmp.id" name="id" #id="ngModel">
-        <div [hidden]="id.valid || id.pristine"
-             class="alert alert-danger">
-          登陆码是必须的
+        <label for="password">密码</label>
+        <input type="password" class="form-control" id="password" name="in_pass" #in_pass="ngModel" required placeholder="密码" [(ngModel)]="userpassword">
+        <div [hidden]="in_pass.untouched || in_pass.valid" class="alert alert-danger">
+          密码是必须的
         </div>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="sexes">性别</label>
         <select class="form-control" id="sex" required>
           <option *ngFor="let sex of sexes" [value]="sex">{{sex}}</option>
         </select>
-      </div>
-      <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid" >登陆</button>
+      </div> -->
+      <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid||submiting">登陆</button>
     </form>
   </div>
 </div>

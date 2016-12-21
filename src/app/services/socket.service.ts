@@ -16,6 +16,7 @@ import { Output } from '@angular/core';
 @Injectable()
 export class SocketSevice {
   networkSocket: NetworkSocket;
+
   name: string;
   inited = false;
   @Output() speakNow: EventEmitter<any> = new EventEmitter();
@@ -30,12 +31,18 @@ export class SocketSevice {
   }
 
   // 登陆
-  login(name: string, cb) {
-    this.userService.yourself.socketId = this.networkSocket.getId();
+  login(name: string, pass: string, cb) {
+    // this.userService.yourself.socketId = this.networkSocket.getId();
     let dataOut = new Data();
     dataOut.type = 'login';
     dataOut.name = name;
+    dataOut.pass = pass;
     this.networkSocket.send(dataOut, cb);
+
+
+
+
+
   }
   // 玩家准备
   userSeat() {
@@ -74,9 +81,6 @@ export class SocketSevice {
     this.networkSocket.send(dataOut, x => { console.log(x); });
 
   }
-
-
-
 
   // 选法案
   proSelect(pro) {
@@ -133,6 +137,7 @@ export class SocketSevice {
     switch (data.type) {
       case 'loginSuccess':
         if (data.socketId === socketId) {
+          this.userService.yourself.socketId = data.socketId;
           this.userService.whoAmI(data.userList);
         }
 
@@ -436,33 +441,18 @@ export class SocketSevice {
 
   }
 
-  init() {
-    if (!this.inited) {
-      this.networkSocket = new NetworkSocket();
-      this.networkSocket.start(io.connect('127.0.0.1:81'), this.system.bind(this));
-      console.log(Date().toString().slice(15, 25), '实例化socket服务');
-      this.inited = true;
 
-      setTimeout(() => {
-        if (typeof this.networkSocket.getId() !== 'undefined') {
-          console.log('登陆成功');
-          this.login(Math.floor(Math.random() * 1000).toString(), x => {
-            return x;
-          });
-        } else {
-          console.log('登陆失败后，2s后重试');
-          setTimeout(() => {
-            this.login(Math.floor(Math.random() * 1000).toString(), x => {
-              return x;
-            });
-          }, 2000);
-        }
-      }, 500);
+
+
+
+  start = async function() {
+    let networkstatus = await this.networkSocket.start();
+    if (networkstatus) {
+      this.userService.yourself.socketId = networkstatus;
+      return true;
+    } else {
+      return false;
     }
-
-  }
-
-
-
+  };
 
 }
