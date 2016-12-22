@@ -23,7 +23,8 @@ import { Angular2AutoScroll } from 'angular2-auto-scroll/lib/angular2-auto-scrol
 // 根组件
 import { AppComponent } from './app.component';
 
-
+// 路由检查器
+import { LoginCheck } from './admin';
 
 
 
@@ -115,7 +116,8 @@ type StoreType = {
     UserService,
     GameControlComponent,
     TheMsgService,
-    TheGameService
+    TheGameService,
+    LoginCheck
   ]
 })
 export class AppModule {

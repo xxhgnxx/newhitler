@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { UserService } from './user.service';
 import { Data } from './data';
+import { dataLoader } from './data';
 import { TheGameService } from './game.service';
 import { Vote } from './vote';
 import { NetworkSocket } from './network';
 import { User } from './user';
 import { TheMsgService } from './msg.service';
-import { MsgData } from './msgData';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
-
-
+import { myEmitter } from '../services';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Injectable()
 export class SocketSevice {
@@ -21,6 +21,7 @@ export class SocketSevice {
   inited = false;
   @Output() speakNow: EventEmitter<any> = new EventEmitter();
   @Output() speakEnd: EventEmitter<any> = new EventEmitter();
+  @Output() passWrong: EventEmitter<any> = new EventEmitter();
 
 
   // 游戏开始
@@ -31,17 +32,13 @@ export class SocketSevice {
   }
 
   // 登陆
-  login(name: string, pass: string, cb) {
+  login(name: string, pass: string) {
     // this.userService.yourself.socketId = this.networkSocket.getId();
     let dataOut = new Data();
     dataOut.type = 'login';
     dataOut.name = name;
     dataOut.pass = pass;
-    this.networkSocket.send(dataOut, cb);
-
-
-
-
+    this.networkSocket.send(dataOut, x => { console.log(x); });
 
   }
   // 玩家准备
@@ -131,18 +128,39 @@ export class SocketSevice {
 
   }
 
-  system(data, socketId) {
+  system(data) {
     console.log('%c收到服务端发来的system请求', 'background: #222; color: #bada55', data);
-    this.loadData(data);
+    // dataLoader(this.userService, this.theGameService, this.theMsgService, data);
     switch (data.type) {
       case 'loginSuccess':
-        if (data.socketId === socketId) {
+        if (this.userService.isLogin) {
+          console.log('已经登陆');
+          this.router.navigate(['/room']);
+        } else {
+          console.log('欢迎加入');
+          this.router.navigate(['/room']);
           this.userService.yourself.socketId = data.socketId;
-          this.userService.whoAmI(data.userList);
+          this.userService.isLogin = true;
+        }
+        break;
+
+      case 'loginBack':
+        if (this.userService.isLogin) {
+          console.log('已经登陆');
+          this.router.navigate(['/room']);
+        } else {
+          console.log('欢迎回来');
+          this.router.navigate(['/room']);
+          this.userService.yourself.socketId = data.socketId;
+          this.userService.isLogin = true;
         }
 
-
         break;
+      case 'passWrong':
+        this.passWrong.emit();
+        // myEmitter.emit('user_login_passWrong');
+        break;
+
       case 'logout':
 
         break;
@@ -307,137 +325,14 @@ export class SocketSevice {
   }
 
 
-  // 数据包处理  test
-  loadData(dataAll: Data | MsgData) {
-    let msg = dataAll.type;
-    let data = (<Data>dataAll);
-    let msgdata = (<MsgData>dataAll);
-    if (typeof data.userList !== 'undefined') {
-      this.userService.userList = data.userList;
-      //  todo 待修改！
-      // this.userService.whoAmI(this.userService.yourself);
-      msg = msg + ' ' + 'userList';
-    }
 
-    if (typeof data.playerList !== 'undefined') {
-      this.theGameService.playerList = data.playerList;
-      // 待确认
-      this.userService.whoAmI(data.playerList);
-      msg = msg + ' ' + 'playerList';
-    }
-    if (typeof data.proIndex !== 'undefined') {
-      this.theGameService.proIndex = data.proIndex;
-      msg = msg + ' ' + 'proIndex';
-    }
-    if (typeof data.nowVote !== 'undefined') {
 
-      this.theGameService.nowVote = data.nowVote;
-      msg = msg + ' ' + 'nowVote';
-    }
-    if (typeof data.voteCount !== 'undefined') {
-      this.theGameService.voteCount = data.voteCount;
-      msg = msg + ' ' + 'voteCount';
-    }
-    if (typeof data.proList !== 'undefined') {
-      this.theGameService.proList = data.proList;
-      msg = msg + ' ' + 'proList';
-    }
-    if (typeof data.started !== 'undefined') {
-      this.theGameService.started = data.started;
-      msg = msg + ' ' + 'started';
-    }
-    if (typeof data.proEffBlue !== 'undefined') {
-      this.theGameService.proEffBlue = data.proEffBlue;
-      msg = msg + ' ' + 'proEffBlue';
-    }
-    if (typeof data.proEffRed !== 'undefined') {
-      this.theGameService.proEffRed = data.proEffRed;
-      msg = msg + ' ' + 'proIndex';
-    }
-    if (typeof data.failTimes !== 'undefined') {
-      this.theGameService.failTimes = data.failTimes;
-      msg = msg + ' ' + 'failTimes';
-    }
-    if (typeof data.fascistCount !== 'undefined') {
-      this.theGameService.fascistCount = data.fascistCount;
-      msg = msg + ' ' + 'fascistCount';
-    }
-    if (typeof data.liberalCount !== 'undefined') {
-      this.theGameService.liberalCount = data.liberalCount;
-      msg = msg + ' ' + 'liberalCount';
-    }
-    if (typeof data.lastPre !== 'undefined') {
-      this.theGameService.lastPre = data.lastPre;
-      msg = msg + ' ' + 'lastPre';
-    }
-    if (typeof data.lastPrm !== 'undefined') {
-      this.theGameService.lastPrm = data.lastPrm;
-      msg = msg + ' ' + 'lastPrm';
-    }
-    if (typeof data.pre !== 'undefined') {
-      this.theGameService.pre = data.pre;
-      msg = msg + ' ' + 'pre';
-    }
-    if (typeof data.prenext !== 'undefined') {
-      this.theGameService.prenext = data.prenext;
-      msg = msg + ' ' + 'prenext';
-    }
-    if (typeof data.prm !== 'undefined') {
-      this.theGameService.prm = data.prm;
-      msg = msg + ' ' + 'prm';
-    }
-
-    if (typeof data.proX3List !== 'undefined') {
-      this.theGameService.proX3List = data.proX3List;
-      msg = msg + ' ' + 'proX3List';
-    }
-    if (typeof data.isVoted !== 'undefined') {
-      this.theGameService.isVoted = data.isVoted;
-      msg = msg + ' ' + 'isVoted';
-    }
-    if (typeof data.other !== 'undefined') {
-      this.theGameService.other = data.other;
-      msg = msg + ' ' + 'other';
-    }
-    if (typeof data.prmTmp !== 'undefined') {
-      this.theGameService.prmTmp = data.prmTmp;
-      msg = msg + ' ' + 'prmTmp';
-    }
-    if (typeof data.target !== 'undefined') {
-      this.theGameService.target = data.target;
-      msg = msg + ' ' + 'target';
-    }
-
-    // --------------------- 发言
-
-    if (typeof msgdata.locked !== 'undefined') {
-      this.theMsgService.locked = msgdata.locked;
-      msg = msg + ' ' + 'locked';
-    }
-    if (typeof msgdata.speakTime !== 'undefined') {
-      // this.speakNow.emit(msgdata.speakTime);
-      msg = msg + ' ' + 'timing';
-    }
-    if (typeof msgdata.msgFrom !== 'undefined') {
-      this.theMsgService.msgFrom = msgdata.msgFrom;
-      msg = msg + ' ' + 'msgFrom';
-    }
-    if (typeof msgdata.msgListAll !== 'undefined') {
-      this.theMsgService.msgListAll = msgdata.msgListAll;
-      msg = msg + ' ' + 'msgListAll';
-    }
-    if (typeof msgdata.msg !== 'undefined') {
-      this.theMsgService.msgListNow.push(msgdata.msg);
-      msg = msg + ' ' + 'msg';
-    }
-    // this.theMsgService.msgListNow.push('数据读取' + msg);   // 测试用输出到聊天记录中
-    console.log('%c数据读取', 'background: #222; color: #bada55', msg);
-  }
 
   constructor(
+    private router: Router,
     public userService: UserService,
     public theGameService: TheGameService,
-    private theMsgService: TheMsgService) {
+    public theMsgService: TheMsgService) {
 
   }
 
@@ -445,10 +340,15 @@ export class SocketSevice {
 
 
 
-  start = async function() {
+  async start() {
+    this.networkSocket = new NetworkSocket();
+
+    // this.networkSocket.start()
+    //
     let networkstatus = await this.networkSocket.start();
     if (networkstatus) {
       this.userService.yourself.socketId = networkstatus;
+      this.networkSocket.socketOn(this.system.bind(this));
       return true;
     } else {
       return false;

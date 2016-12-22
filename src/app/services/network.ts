@@ -2,6 +2,7 @@
 import * as io from 'socket.io-client';
 import { Data } from './data';
 import { RandomString } from '../util';
+import { myEmitter } from '../services';
 
 /**
  * 网络服务socket：socket链接,systemFunc：消息处理服务，type：类型“server，client”
@@ -13,8 +14,7 @@ export class NetworkSocket {
    * 初始化过程
    */
   public start(): Promise<any> {
-    this.socket = io.connect('127.0.0.1:81', { reconnection: false });
-
+    this.socket = io.connect('hgn:81', { reconnection: false });
     return new Promise(resolve => {
       let tmptimer = setTimeout(() => {
         console.log(Date().toString().slice(15, 25), '连接服务器', '失败');
@@ -24,13 +24,19 @@ export class NetworkSocket {
 
       let tmpon = this.socket.on('ok', () => {
         console.log(Date().toString().slice(15, 25), '连接服务器', '成功', this.socket.id);
-        this.socket.on('system', data => {
+        this.socket.once('system', data => {
           this.socket.emit(data.key);
           resolve(this.socket.id);
         });
         resolve(true);
         clearTimeout(tmptimer);
       });
+    });
+  }
+
+  public socketOn(cb: Function) {
+    this.socket.once('system', data => {
+      cb(data);
     });
   }
 
@@ -42,8 +48,9 @@ export class NetworkSocket {
 
 
 
-
-
+tmp(){
+  // myEmitter.emit('user_login_passWrong');
+}
 
 
 

@@ -13,7 +13,7 @@ export class UserService {
   yourHead: string;
   role: string = 'x';
   teamMsg = '游戏尚未开始';
-
+  isLogin = false;
   whoAmI(list: Array<User>) {
     // console.log('定位身份');
     // console.log(list);

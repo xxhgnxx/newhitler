@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 let io = require('socket.io-client');
 import { SocketSevice } from '../services/socket.service';
+import { UserService } from '../services/user.service';
+import { myEmitter } from '../services';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
@@ -13,36 +16,59 @@ import { SocketSevice } from '../services/socket.service';
 export class LoginComponent {
   // socket = this.socketsevice.socket;
   sexes = ['呵呵', 'a', 'b', '扶她'];
-  tmp = new MyUsers(18, Math.floor(Math.random() * 1000).toString(), this.sexes[3]);
-  logined = false;
+  // tmp = new MyUsers(18, Math.floor(Math.random() * 1000).toString(), this.sexes[3]);
   submiting = false;
   username = '1';
   userpassword = '1';
-  constructor(private socketsevice: SocketSevice) { }
+  constructor(
+    private router: Router,
+    public userService: UserService,
+    private socketsevice: SocketSevice) { }
 
 
 
-
-
-  onSubmit = async function() {
-
+  async onSubmit() {
+    this.submiting = true;
     let status = await this.socketsevice.start();
     if (status) {
-      console.log('ok');
+      console.log('链接服务器成功');
+
+      this.socketsevice.login(this.username, this.userpassword);
+      let timer = setTimeout(() => {
+        this.submiting = false;
+        if (this.userService.isLogin) {
+          console.log('已经登陆');
+          this.router.navigate(['/room']);
+        } else {
+          console.log('计时器登陆失败');
+        }
+      }, 2000);
+      this.socketsevice.passWrong.subscribe(() => {
+        this.submiting = false;
+        clearTimeout(timer);
+        console.log('密码错误');
+      });
+
     } else {
-      console.log('false');
+
+      this.submiting = false;
+      console.log('链接服务器失败');
     }
-
-
-
-
-
-    // this.socketsevice.login(this.username, this.userpassword, x => {
-    //   this.logined = x;
-    //   this.submiting = x;
-    // });
   };
+
+  tmp(){
+this.router.navigate(['/room']);
+  }
+
+  ngOnInit() {
+
+  }
+
+
 }
+
+
+
 
 class MyUsers {
   constructor(
@@ -50,4 +76,9 @@ class MyUsers {
     public name: string,
     public sex?: string
   ) { }
+
+
+
+
+
 }
