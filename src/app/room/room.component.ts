@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { SocketSevice } from '../services';
 import { UserService } from '../services';
 import { TheGameService } from '../services';
+import { Router } from '@angular/router';
+
 let progressBar = require('progressbar.js');
 
 @Component({
@@ -59,51 +61,41 @@ export class RoomComponent {
 
 
   constructor(
-    private socketSevice: SocketSevice,
+    private router: Router,
+    private socketsevice: SocketSevice,
     private theGameService: TheGameService,
     private userService: UserService) {
-    this.head['liberal'] = './pic/liberal.png';
-    this.head['Hitler'] = './pic/Hitler.jpg';
-    this.head['Fascist'] = './pic/Fascist.png';
+    // this.head['liberal'] = './pic/liberal.png';
+    // this.head['Hitler'] = './pic/Hitler.jpg';
+    // this.head['Fascist'] = './pic/Fascist.png';
 
   }
 
 
-  tmp() {
-    this.locked = true;
-    console.log('11111111111111');
-    let bar = new progressBar.Circle('#container', {
-      strokeWidth: 6,
-      easing: 'easeInOut',
-      duration: 1400,
-      color: '#FFEA82',
-      trailColor: '#eee',
-      trailWidth: 1,
-      svgStyle: null
-    });
-
-    bar.animate(1.0);
-
-  }
 
 
   ngOnInit() {
-    //
-    //   this.socketSevice.speakNow.subscribe(time => this.speakNow(time));
-    //   this.bar = new progressBar.Circle('#container', {
-    //     color: '#aaa',
-    //     strokeWidth: 8,
-    //     trailWidth: 6,
-    //     // easing: 'easeInOut',
-    //
-    //     text: {
-    //       autoStyleContainer: false
-    //     },
-    //     from: { color: '#ff0000', a: 0 },
-    //     to: { color: '#00ff00', a: 0.5 },
-    //     // Set default step function for all animate calls
-    //
-    //   });
+
+if (!this.userService.isLogin) {
+  if (sessionStorage.getItem('login')) {
+    console.log('快速登陆');
+    this.socketsevice.quickLogin(sessionStorage.getItem('login'));
+    this.socketsevice.quickloginResult.subscribe((result) => {
+      if (result === '认证成功') {
+        console.log('登陆成功');
+        this.userService.isLogin = true;
+      } else {
+        this.router.navigate(['/login']);
+        sessionStorage.removeItem('login');
+        console.log('登陆失败');
+      }
+    });
+  }else{
+this.router.navigate(['/login']);
+  }
+
+}
+
   }
 
 

@@ -14,8 +14,6 @@ export class LoginCheck implements CanActivate {
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log('请先登陆');
-
     let url: string = state.url;
     return this.checkLogin(url);
 
@@ -25,8 +23,8 @@ export class LoginCheck implements CanActivate {
     if (this.userService.isLogin) {
       return true;
     }
-
-    this.router.navigate(['/login']);
+    console.log('请先登陆');
+    this.router.navigate(['/nothing']);
     return false;
   }
 

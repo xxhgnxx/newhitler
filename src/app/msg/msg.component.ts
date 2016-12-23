@@ -40,7 +40,7 @@ export class MsgComponent {
 
     let bar = new progressBar.Circle('#container', {
       color: '#aaa',
-      strokeWidth: 8,
+      strokeWidth: 9,
       trailWidth: 6,
       // easing: 'easeInOut',
 
@@ -62,7 +62,7 @@ export class MsgComponent {
     });
     bar.set(1);
     bar.text.style.fontFamily = ' Helvetica, sans-serif';
-    bar.text.style.fontSize = '8rem';
+    bar.text.style.fontSize = '2rem';
 
     bar.animate(0, {
       duration: time * 1000,
@@ -92,7 +92,7 @@ export class MsgComponent {
 
 
   tmp() {
-    this.speakNow(10);
+    this.speakNow(120);
 
 
 

@@ -1,14 +1,14 @@
-<div class="col-sm-6">
+<div class="">
   <!-- Tab panes -->
   <ngb-tabset>
     <ngb-tab title="game">
       <template ngbTabContent>
-        <div class="pre-scrollable">
-          <div class="col-md-1" *ngFor="let msgnow of msgListAll">
-            <span class="badge col-md-1">
+        <div class="pre-scrollable" id="">
+          <div class="" *ngFor="let msgnow of msgListAll">
+            <span class="badge ">
               {{msgnow[0]}}
             </span>
-            <span class="alert alert-info col-md-1" style="width: 28em;">
+            <span class="alert alert-info " style="">
               <div [hidden]="e" *ngFor="let msgp of msgnow; let i = index; let e=first">
                 {{msgp}}
               </div>
@@ -25,10 +25,13 @@
   </ngb-tabset>
   <!-- <input [(colorPicker)]="color" [style.color]="color" [style.font]="'italic bold 20px arial,serif'" [value]="color"/> -->
   <!-- <input [disabled]="!locked" [(ngModel)]="myInput" (keyup.enter)=sendMsg()> -->
-  <textarea [disabled]="!this.theGameService.locked" name="MSG" cols=60 rows=4 wrap="physical" [(ngModel)]="myInput" (keydown.control.Enter)=sendMsg()>
-    loading...
-  </textarea>
-  <button [disabled]="!this.theGameService.locked" (click)=sendMsg()>提交(Ctrl+Enter)</button>
-  <button (click)=tmp()>开始</button>
-  <button [disabled]="!this.theGameService.locked" (click)=speak_end()>结束发言</button>
+  <div id="inputair">
+    <textarea [disabled]="!this.theGameService.locked" name="MSG" cols=62 rows=7 wrap="physical" [(ngModel)]="myInput" (keydown.control.Enter)=sendMsg()>
+      loading...
+    </textarea>
+    <div id="container"></div>
+    <button [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
+    <button (click)=tmp()>开始</button>
+    <button [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
+  </div>
 </div>

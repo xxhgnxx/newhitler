@@ -1,9 +1,3 @@
-#container {
-  margin: 10px;
-  width: 200px;
-  height: 200px;
-  position: relative;
-}
 
 
 h1 {
@@ -173,11 +167,34 @@ nav a.active {
 }
 
 .pre-scrollable {
-  height: 400em;
+  max-height: 505px;
+  height: 505px;
   overflow-y: scroll;
 }
 
+#inputair{
+height: 160px;
+}
+#container {
+  position: absolute;
+  width: 60px;
+  height: 55px;
+  left: 480px;
+bottom: 150px;
+}
 
+
+#ctrlenter{
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+
+}
+#speakend{
+  position: absolute;
+  right: 60px;
+  bottom: 45px;
+}
 
 /*span {
       display: block;

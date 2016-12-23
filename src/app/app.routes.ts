@@ -8,9 +8,11 @@ import { DataResolver } from './app.resolver';
 import { LoginCheck } from './admin';
 
 export const ROUTES: Routes = [
-  { path: 'room', component: RoomComponent, canActivate: [LoginCheck] },
+  // { path: 'room', component: RoomComponent, canActivate: [LoginCheck] },
+  { path: 'room', component: RoomComponent},
   { path: 'userslist', component: UserslistComponent },
-  { path: 'login', component: LoginComponent, canActivate: [LoginCheck] },
+  { path: 'nothing', component: NoContentComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: LoginComponent },
 
 ];

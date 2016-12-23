@@ -14,28 +14,40 @@ export class NetworkSocket {
    * 初始化过程
    */
   public start(): Promise<any> {
-    this.socket = io.connect('hgn:81', { reconnection: false });
-    return new Promise(resolve => {
-      let tmptimer = setTimeout(() => {
-        console.log(Date().toString().slice(15, 25), '连接服务器', '失败');
-        this.socket.off('ok');
-        resolve(false);
-      }, 2000);
+    if (typeof this.socket !== 'undefined' && this.socket.connected) {
+      console.log('已经连接');
+      return new Promise(resolve => { resolve(this.socket.id); });
 
-      let tmpon = this.socket.on('ok', () => {
-        console.log(Date().toString().slice(15, 25), '连接服务器', '成功', this.socket.id);
-        this.socket.once('system', data => {
-          this.socket.emit(data.key);
+    } else {
+
+      this.socket = io.connect('127.0.0.1:81', { reconnection: false });
+      return new Promise(resolve => {
+        let tmptimer = setTimeout(() => {
+          console.log(Date().toString().slice(15, 25), '连接服务器', '失败');
+          this.socket.off('ok');
+          resolve(false);
+        }, 2000);
+
+        let tmpon = this.socket.on('ok', () => {
+          console.log(Date().toString().slice(15, 25), '连接服务器', '成功', this.socket.id);
           resolve(this.socket.id);
+          clearTimeout(tmptimer);
         });
-        resolve(true);
-        clearTimeout(tmptimer);
       });
+
+
+    }
+  }
+
+  public socketOnce(events: string, cb: Function) {
+    this.socket.once(events, data => {
+      cb(data);
     });
   }
 
+
   public socketOn(cb: Function) {
-    this.socket.once('system', data => {
+    this.socket.on('system', data => {
       cb(data);
     });
   }
@@ -48,9 +60,9 @@ export class NetworkSocket {
 
 
 
-tmp(){
-  // myEmitter.emit('user_login_passWrong');
-}
+  tmp() {
+    // myEmitter.emit('user_login_passWrong');
+  }
 
 
 

@@ -21,7 +21,8 @@ export class SocketSevice {
   inited = false;
   @Output() speakNow: EventEmitter<any> = new EventEmitter();
   @Output() speakEnd: EventEmitter<any> = new EventEmitter();
-  @Output() passWrong: EventEmitter<any> = new EventEmitter();
+  @Output() quickloginResult: EventEmitter<any> = new EventEmitter();
+  @Output() loginResult: EventEmitter<any> = new EventEmitter();
 
 
   // 游戏开始
@@ -32,15 +33,49 @@ export class SocketSevice {
   }
 
   // 登陆
-  login(name: string, pass: string) {
-    // this.userService.yourself.socketId = this.networkSocket.getId();
+  async  login(name: string, pass: string) {
     let dataOut = new Data();
     dataOut.type = 'login';
     dataOut.name = name;
     dataOut.pass = pass;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    // this.userService.yourself.socketId = this.networkSocket.getId();
+    if (typeof this.networkSocket !== 'undefined') {
+      this.networkSocket.send(dataOut, x => { console.log(x); });
+    } else {
+      this.networkSocket = new NetworkSocket();
+      let networkstatus = await this.networkSocket.start();
+      if (networkstatus) {
+        this.userService.yourself.socketId = networkstatus;
+        this.networkSocket.socketOn(this.system.bind(this));
+        this.networkSocket.send(dataOut, x => { console.log(x); });
+      } else {
+        this.loginResult.emit('链接服务器失败');
+      }
+    }
+  }
+
+  // 快速登陆
+  async  quickLogin(id: string) {
+    let dataOut = new Data();
+    dataOut.type = 'quickLogin';
+    dataOut.id = id;
+    if (typeof this.networkSocket !== 'undefined') {
+      this.networkSocket.send(dataOut, x => { console.log(x); });
+    } else {
+      this.networkSocket = new NetworkSocket();
+      let networkstatus = await this.networkSocket.start();
+      if (networkstatus) {
+        this.userService.yourself.socketId = networkstatus;
+        this.networkSocket.socketOn(this.system.bind(this));
+        this.networkSocket.send(dataOut, x => { console.log(x); });
+      } else {
+        this.loginResult.emit('链接服务器失败');
+      }
+    }
 
   }
+
+
   // 玩家准备
   userSeat() {
     let dataOut = new Data();
@@ -130,36 +165,25 @@ export class SocketSevice {
 
   system(data) {
     console.log('%c收到服务端发来的system请求', 'background: #222; color: #bada55', data);
-    // dataLoader(this.userService, this.theGameService, this.theMsgService, data);
+    dataLoader(this.userService, this.theGameService, this.theMsgService, data);
     switch (data.type) {
       case 'loginSuccess':
-        if (this.userService.isLogin) {
-          console.log('已经登陆');
-          this.router.navigate(['/room']);
-        } else {
-          console.log('欢迎加入');
-          this.router.navigate(['/room']);
-          this.userService.yourself.socketId = data.socketId;
-          this.userService.isLogin = true;
-        }
+        this.loginResult.emit('认证成功');
         break;
 
-      case 'loginBack':
-        if (this.userService.isLogin) {
-          console.log('已经登陆');
-          this.router.navigate(['/room']);
-        } else {
-          console.log('欢迎回来');
-          this.router.navigate(['/room']);
-          this.userService.yourself.socketId = data.socketId;
-          this.userService.isLogin = true;
-        }
+      case 'quickloginSuccess':
+        this.quickloginResult.emit('认证成功');
 
         break;
-      case 'passWrong':
-        this.passWrong.emit();
+      case 'Login_fail':
+        this.loginResult.emit('认证失败');
         // myEmitter.emit('user_login_passWrong');
         break;
+      case 'quickLogin_fail':
+        this.quickloginResult.emit('认证失败');
+        // myEmitter.emit('user_login_passWrong');
+        break;
+
 
       case 'logout':
 
@@ -353,6 +377,6 @@ export class SocketSevice {
     } else {
       return false;
     }
-  };
+  }
 
 }

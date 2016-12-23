@@ -27,37 +27,57 @@ export class LoginComponent {
 
 
 
-  async onSubmit() {
+  // async onSubmit() {
+  //   this.submiting = true;
+  //   let status = await this.socketsevice.start();
+  //   if (status) {
+  //     console.log('链接服务器成功');
+  //
+  //     this.socketsevice.login(this.username, this.userpassword);
+  //     let timer = setTimeout(() => {
+  //       this.submiting = false;
+  //       if (this.userService.isLogin) {
+  //         console.log('已经登陆');
+  //         this.router.navigate(['/room']);
+  //       } else {
+  //         console.log('计时器登陆失败');
+  //       }
+  //     }, 2000);
+  //     this.socketsevice.loginFail.subscribe(() => {
+  //       this.submiting = false;
+  //       clearTimeout(timer);
+  //       console.log('密码错误');
+  //     });
+  //
+  //   } else {
+  //
+  //     this.submiting = false;
+  //     console.log('链接服务器失败');
+  //   }
+  // };
+
+
+
+  onSubmit() {
     this.submiting = true;
-    let status = await this.socketsevice.start();
-    if (status) {
-      console.log('链接服务器成功');
-
-      this.socketsevice.login(this.username, this.userpassword);
-      let timer = setTimeout(() => {
+    this.socketsevice.login(this.username, this.userpassword);
+    this.socketsevice.loginResult.subscribe((result) => {
+      if (result === '认证成功') {
+        console.log('登陆成功');
+        this.userService.isLogin = true;
         this.submiting = false;
-        if (this.userService.isLogin) {
-          console.log('已经登陆');
-          this.router.navigate(['/room']);
-        } else {
-          console.log('计时器登陆失败');
-        }
-      }, 2000);
-      this.socketsevice.passWrong.subscribe(() => {
+        this.router.navigate(['/room']);
+      } else {
         this.submiting = false;
-        clearTimeout(timer);
-        console.log('密码错误');
-      });
+        console.log('登陆失败');
+      }
+    });
 
-    } else {
+  }
 
-      this.submiting = false;
-      console.log('链接服务器失败');
-    }
-  };
 
-  tmp(){
-this.router.navigate(['/room']);
+  tmp() {
+    this.router.navigate(['/room']);
   }
 
   ngOnInit() {

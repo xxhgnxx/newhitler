@@ -1,7 +1,9 @@
-<div *ngIf="!theGameService.started" class="panel-body" style="width: 60px; height: 70px;">
-  <button (click)="userSeat()" type="button" class="btn btn-warning btn-lg">坐下</button>
-  <button [disabled]="userService.yourself.name!=='皇冠鸟'" (click)="startGame()" type="button" class="btn btn-warning btn-lg">开始游戏</button>
-  <!-- <button (click)="vote()" type="button" class="btn btn-default">投票</button>
+<div *ngIf="!theGameService.started" class="panel-body " style="">
+  <div class="col-sm-1">
+    <button (click)="userSeat()" type="button" class="btn btn-warning ">坐下</button>
+    <!-- <button [disabled]="userService.yourself.name!=='皇冠鸟'" (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button> -->
+    <button (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button>
+    <!-- <button (click)="vote()" type="button" class="btn btn-default">投票</button>
   <button (click)="preSelect()" type="button" class="btn btn-primary">选总统</button>
   <button (click)="prmSelect()" type="button" class="btn btn-success">选总理</button>
   <button (click)="proSelect()" type="button" class="btn btn-info">选法案</button>
@@ -9,6 +11,7 @@
   <button (click)="back()" type="button" class="btn btn-danger">back</button>
   <button (click)="tmp()" type="button" class="btn btn-danger">同意</button>
   <button (click)="tmp()" type="button" class="btn btn-danger">反对</button> -->
+  </div>
 </div>
 <div class="row">
   <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote">

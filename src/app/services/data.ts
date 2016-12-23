@@ -1,5 +1,6 @@
 import { User } from './user';
 
+
 export class Data {
   type: string;
   toWho: Array<User> | User;
@@ -8,6 +9,11 @@ export class Data {
   msg: string;
   yourself: User;
   user: User;
+
+  // 登陆相关
+  id: string;
+  login: boolean;
+  back: boolean;
 
   // 游戏相关
   target: User;  //  收到影响的玩家
@@ -79,10 +85,26 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   let msg = dataAll.type;
   let data = (<Data>dataAll);
   let msgdata = (<MsgData>dataAll);
+
+
+  if (typeof data.id !== 'undefined') {
+    sessionStorage.setItem('login', data.id);
+    //  todo 待修改！
+    // userService.whoAmI(userService.yourself);
+    msg = msg + ' ' + 'sessionStorage.login' + data.id;
+  }
+
+  if (typeof data.login !== 'undefined') {
+if (!data.login) {
+    sessionStorage.removeItem('login');
+}
+
+  }
+
   if (typeof data.userList !== 'undefined') {
     userService.userList = data.userList;
     //  todo 待修改！
-    // userService.whoAmI(userService.yourself);
+    userService.whoAmI(data.userList);
     msg = msg + ' ' + 'userList';
   }
 

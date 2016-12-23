@@ -6,10 +6,44 @@
   left:0px;
 }*/
 
-#kkkkkk123123 {
-  float: left;
-  font-size: 24px;
+#main {
   position: relative;
-  top: 29px;
-  left: -20px;
+  margin: auto;
+  width: 50%;
+  max-width: 900px;
+  min-width: 900px;
+}
+
+#msgdiv {
+  position: relative;
+  margin-right: 50px;
+  max-width: 600px;
+}
+
+#userslist {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+}
+
+#prostatus {
+  position: absolute;
+  right: 8px;
+  top: 400px;
+}
+
+#role {
+  position: absolute;
+  width: 70px;
+  height: 140px;
+  right: 210px;
+  top: 600px;
+}
+
+#team {
+  position: absolute;
+  width: 200px;
+  height: 150px;
+  right: 5px;
+  top: 600px;
 }
