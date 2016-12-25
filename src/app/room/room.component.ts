@@ -3,6 +3,7 @@ import { SocketSevice } from '../services';
 import { UserService } from '../services';
 import { TheGameService } from '../services';
 import { Router } from '@angular/router';
+import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 
 let progressBar = require('progressbar.js');
 
@@ -10,7 +11,8 @@ let progressBar = require('progressbar.js');
 
   selector: 'room',
   styleUrls: ['room.component.css'],
-  templateUrl: 'room.component.html'
+  templateUrl: 'room.component.html',
+  providers: [NgbTooltipConfig]
 
 })
 
@@ -76,25 +78,27 @@ export class RoomComponent {
 
   ngOnInit() {
 
-if (!this.userService.isLogin) {
-  if (sessionStorage.getItem('login')) {
-    console.log('快速登陆');
-    this.socketsevice.quickLogin(sessionStorage.getItem('login'));
-    this.socketsevice.quickloginResult.subscribe((result) => {
-      if (result === '认证成功') {
-        console.log('登陆成功');
-        this.userService.isLogin = true;
+    if (!this.userService.isLogin) {
+      if (sessionStorage.getItem('login')) {
+        console.log('快速登陆');
+        this.socketsevice.quickLogin(sessionStorage.getItem('login'));
+        this.socketsevice.quickloginResult.subscribe((result) => {
+          if (result === '认证成功') {
+            console.log('登陆成功');
+            this.router.navigate(['/room']);
+            this.userService.isLogin = true;
+          } else {
+            this.router.navigate(['/login']);
+            sessionStorage.removeItem('login');
+            this.socketsevice.disconnect();
+            console.log('登陆失败');
+          }
+        });
       } else {
         this.router.navigate(['/login']);
-        sessionStorage.removeItem('login');
-        console.log('登陆失败');
       }
-    });
-  }else{
-this.router.navigate(['/login']);
-  }
 
-}
+    }
 
   }
 

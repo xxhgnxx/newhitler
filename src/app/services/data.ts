@@ -46,6 +46,9 @@ export class Data {
   proEffBlue: number; // 蓝法案生效数
   proEffRed: number; // 红法案生效数
 
+  // 游戏过程记录
+  gameMsg: string;
+
   // 角色情况
   pre: User;
   lastPre: User;
@@ -53,6 +56,8 @@ export class Data {
   prm: User;
   prmTmp: User;  // 待投票的总理
   lastPrm: User;
+
+
 
 
   // 其他
@@ -95,9 +100,9 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   }
 
   if (typeof data.login !== 'undefined') {
-if (!data.login) {
-    sessionStorage.removeItem('login');
-}
+    if (!data.login) {
+      sessionStorage.removeItem('login');
+    }
 
   }
 
@@ -114,6 +119,12 @@ if (!data.login) {
     userService.whoAmI(data.playerList);
     msg = msg + ' ' + 'playerList';
   }
+
+  if (typeof data.gameMsg !== 'undefined') {
+    theGameService.gameMsg.push(data.gameMsg);
+    msg = msg + ' ' + 'gameMsg';
+  }
+
   if (typeof data.proIndex !== 'undefined') {
     theGameService.proIndex = data.proIndex;
     msg = msg + ' ' + 'proIndex';

@@ -23,13 +23,35 @@
 #userslist {
   position: absolute;
   right: 30px;
-  top: 10px;
+  top: 0px;
+}
+
+#failTime {
+  position: absolute;
+  right: 10px;
+  top: 380px;
+  width: 250px;
 }
 
 #prostatus {
   position: absolute;
-  right: 8px;
+  width: 240px;
+  right: 22px;
   top: 400px;
+}
+
+#gameMsg {
+  position: absolute;
+  width: 276px;
+  right: 22px;
+  top: 456px;
+}
+
+#timegif {
+  position: absolute;
+  width: 81px;
+  right: 0px;
+  top: 525px;
 }
 
 #role {
@@ -40,10 +62,32 @@
   top: 600px;
 }
 
+#test {
+  float: left;
+  color: white;
+  height: 20px;
+  border-radius: 0.3em 0.3em 0.3em 0.3em;
+  display: block;
+  font-size: 0.9em;
+  background-color: #EB0000;
+  border-color: #ED657B;
+  padding: 1px;
+}
+
 #team {
   position: absolute;
   width: 200px;
   height: 150px;
   right: 5px;
   top: 600px;
+}
+
+#gamecontrol {
+  position: absolute;
+  width: 600px;
+  top: 695px;
+}
+
+.gamecount {
+  float: left;
 }

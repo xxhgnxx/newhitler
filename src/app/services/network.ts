@@ -20,7 +20,7 @@ export class NetworkSocket {
 
     } else {
 
-      this.socket = io.connect('127.0.0.1:81', { reconnection: false });
+      this.socket = io.connect('192.168.1.14:81', { reconnection: false });
       return new Promise(resolve => {
         let tmptimer = setTimeout(() => {
           console.log(Date().toString().slice(15, 25), '连接服务器', '失败');
@@ -45,6 +45,11 @@ export class NetworkSocket {
     });
   }
 
+  public disconnect() {
+    this.socket.disconnect();
+    delete this.socket;
+
+  }
 
   public socketOn(cb: Function) {
     this.socket.on('system', data => {
@@ -63,6 +68,17 @@ export class NetworkSocket {
   tmp() {
     // myEmitter.emit('user_login_passWrong');
   }
+
+  isOnline() {
+    if (typeof this.socket !== 'undefined' && this.socket.connected) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
 
 
 

@@ -1,15 +1,17 @@
 <div class="">
   <!-- Tab panes -->
   <ngb-tabset>
-    <ngb-tab title="game">
+    <ngb-tab title="玩家发言">
       <template ngbTabContent>
-        <div class="pre-scrollable" id="">
+        <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
           <div class="" *ngFor="let msgnow of msgListAll">
-            <span class="badge ">
-              {{msgnow[0]}}
-            </span>
+            <div id="whospeak">
+              <span class="badge ">
+                {{msgnow[0]}}
+              </span>
+            </div>
             <span class="alert alert-info " style="">
-              <div [hidden]="e" *ngFor="let msgp of msgnow; let i = index; let e=first">
+              <div id="speakwhat" [hidden]="e" *ngFor="let msgp of msgnow; let i = index; let e=first">
                 {{msgp}}
               </div>
             </span>
@@ -17,9 +19,13 @@
         </div>
       </template>
     </ngb-tab>
-    <ngb-tab title="sys">
+    <ngb-tab title="游戏进程">
       <template ngbTabContent>
-        <p>sys</p>
+        <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
+          <div id="speakwhat" [hidden]="e" *ngFor="let msgg of theGameService.gameMsg">
+            <span class="alert alert-info " style="">{{msgg}}</span>
+          </div>
+        </div>
       </template>
     </ngb-tab>
   </ngb-tabset>
@@ -31,7 +37,7 @@
     </textarea>
     <div id="container"></div>
     <button [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
-    <button (click)=tmp()>开始</button>
+    <!-- <button (click)=tmp()>开始</button> -->
     <button [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
   </div>
 </div>

@@ -37,40 +37,6 @@ export class AppComponent {
 
 
 
-    if (sessionStorage.getItem('login')) {
-      console.log('快速登陆');
-      // let status = await this.socketsevice.start();
-      // if (status) {
-      //   console.log('链接服务器成功');
-      //   this.socketsevice.quickLogin(sessionStorage.getItem('login'));
-      //
-      //   // let timer = setTimeout(() => {
-      //   //   console.log('快速登陆超时');
-      //   //   sessionStorage.removeItem('login');
-      //   // }, 2000);
-      //
-      //   this.socketsevice.loginFail.subscribe(() => {
-      //     // clearTimeout(timer);
-      //     sessionStorage.removeItem('login');
-      //     console.log('指纹错误');
-      //
-      //   });
-      //
-      // }
-      this.socketsevice.quickLogin(sessionStorage.getItem('login'));
-      this.socketsevice.quickloginResult.subscribe((result) => {
-        if (result === '认证成功') {
-          console.log('登陆成功');
-          this.userService.isLogin = true;
-        } else {
-          sessionStorage.removeItem('login');
-          console.log('登陆失败');
-        }
-      });
-
-
-    }
-
   }
 
 }

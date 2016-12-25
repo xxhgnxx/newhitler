@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../services';
 import { UserService } from '../services';
 import { TheGameService } from '../services';
@@ -9,7 +9,8 @@ import { SocketSevice } from '../services';
 
   selector: 'gameControl',
   styleUrls: ['gameControl.component.css'],
-  templateUrl: 'gameControl.component.html'
+  templateUrl: 'gameControl.component.html',
+  providers: [NgbTooltipConfig]
 
 })
 export class GameControlComponent {
@@ -30,10 +31,13 @@ export class GameControlComponent {
 
   toDoSth: string = this.theGameService.toDoSth;
   constructor(
+    tipconfig: NgbTooltipConfig,
     private userService: UserService,
     private theGameService: TheGameService,
     private socketSevice: SocketSevice
-  ) { }
+  ) {
+tipconfig.placement = 'top';
+   }
 
 
   userSeat() {

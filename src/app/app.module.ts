@@ -44,6 +44,10 @@ import { UserslistComponent } from './userslist';
 import { LoginComponent } from './login';
 import { RoomComponent } from './room/room.component';
 import { MsgComponent } from './msg/msg.component';
+
+// hgn 自定义容器组建
+import { HgnContainer } from './hgnContainer/hgnContainer';
+
 /*
  * Platform and Environment providers/directives/pipes
  */

@@ -69,7 +69,8 @@ export class LoginComponent {
         this.router.navigate(['/room']);
       } else {
         this.submiting = false;
-        console.log('登陆失败');
+        this.socketsevice.disconnect();
+        console.log('认证失败');
       }
     });
 

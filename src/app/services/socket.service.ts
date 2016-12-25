@@ -39,7 +39,7 @@ export class SocketSevice {
     dataOut.name = name;
     dataOut.pass = pass;
     // this.userService.yourself.socketId = this.networkSocket.getId();
-    if (typeof this.networkSocket !== 'undefined') {
+    if (typeof this.networkSocket !== 'undefined' && this.networkSocket.isOnline()) {
       this.networkSocket.send(dataOut, x => { console.log(x); });
     } else {
       this.networkSocket = new NetworkSocket();
@@ -59,7 +59,7 @@ export class SocketSevice {
     let dataOut = new Data();
     dataOut.type = 'quickLogin';
     dataOut.id = id;
-    if (typeof this.networkSocket !== 'undefined') {
+    if (typeof this.networkSocket !== 'undefined' && this.networkSocket.isOnline()) {
       this.networkSocket.send(dataOut, x => { console.log(x); });
     } else {
       this.networkSocket = new NetworkSocket();
@@ -185,6 +185,22 @@ export class SocketSevice {
         break;
 
 
+      case 'toLookPro':
+
+        this.userService.teamMsg = this.userService.teamMsg + '  法案牌，从上到下依次为：';
+
+        for (let i = 0; i < data.proX3List.length; i++) {
+          if (data.proX3List[i] <= 5) {
+            this.userService.teamMsg = this.userService.teamMsg + '蓝色、';
+          } else {
+            this.userService.teamMsg = this.userService.teamMsg + '红色、';
+
+          }
+
+
+        }
+
+        break;
       case 'logout':
 
         break;
@@ -194,6 +210,7 @@ export class SocketSevice {
         break;
 
       case 'gamestart':
+
 
 
 
@@ -226,7 +243,7 @@ export class SocketSevice {
           console.log('别人发言');
           this.speakEnd.emit('end');
         }
-        this.theGameService.toDoSth = '顺序发言中';
+        this.theGameService.toDoSth = data.whoIsSpeaking.name + '发言中...';
 
         break;
 
@@ -248,6 +265,8 @@ export class SocketSevice {
             this.theGameService.toDoSth = '等待' + this.theGameService.pre.name + '调查身份';
           }
         }
+
+
         break;
 
       case 'selectPrm':
@@ -256,6 +275,7 @@ export class SocketSevice {
         } else {
           this.theGameService.toDoSth = '等待' + data.pre.name + '选总理';
         }
+
 
         break;
       case 'pleaseVote':
@@ -270,6 +290,8 @@ export class SocketSevice {
         } else {
           this.theGameService.toDoSth = '投票';
         }
+
+
         break;
 
       case 'choosePro':
@@ -278,6 +300,9 @@ export class SocketSevice {
         if (typeof data.proX3List !== 'undefined') {
           this.theGameService.toDoSth = '选法案';
         }
+
+
+
         break;
 
       case 'choosePro2':
@@ -287,17 +312,21 @@ export class SocketSevice {
           this.theGameService.toDoSth = '选法案2';
         }
 
+
+
         break;
       case 'veto_all':
         console.log(this.userService.yourself);
         if (typeof data.other === 'undefined') {
           this.theGameService.toDoSth = '等待总统是否同意否决全部';
+
           if (this.userService.yourself.isPre) {
-            this.theGameService.toDoSth = '总统是否同意否决全部';
+            this.theGameService.toDoSth = '是否同意否决全部';
           }
         } else {
 
           this.theGameService.toDoSth = '总统反对否决全部，等待总理选法案';
+
           if (this.userService.yourself.isPrm) {
             this.theGameService.toDoSth = '选法案';
           }
@@ -327,6 +356,8 @@ export class SocketSevice {
       case 'gameover':
 
         this.theGameService.toDoSth = data.other;
+
+
         break;
 
       case 'msg':
@@ -345,6 +376,8 @@ export class SocketSevice {
 
       default:
         console.log(Date().toString().slice(15, 25), '神秘的未定义请求');
+
+
     }
   }
 
@@ -361,7 +394,9 @@ export class SocketSevice {
   }
 
 
-
+ disconnect(){
+   this.networkSocket.disconnect();
+ }
 
 
   async start() {

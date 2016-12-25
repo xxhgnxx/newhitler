@@ -29,7 +29,9 @@ export class MsgComponent {
   msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
   timewidth = 0;
   speakEnd: any;
+  bar: any;
   private color: string = '#127bdc';
+
 
   speakNow(time) {
     this.theGameService.locked = true;
@@ -38,7 +40,7 @@ export class MsgComponent {
       this.locked = false;
     }, time * 1000);
 
-    let bar = new progressBar.Circle('#container', {
+    this.bar = new progressBar.Circle('#container', {
       color: '#aaa',
       strokeWidth: 9,
       trailWidth: 6,
@@ -60,14 +62,14 @@ export class MsgComponent {
         }
       }
     });
-    bar.set(1);
-    bar.text.style.fontFamily = ' Helvetica, sans-serif';
-    bar.text.style.fontSize = '2rem';
+    this.bar.set(1);
+    this.bar.text.style.fontFamily = ' Helvetica, sans-serif';
+    this.bar.text.style.fontSize = '2rem';
 
-    bar.animate(0, {
+    this.bar.animate(0, {
       duration: time * 1000,
     }, function() {
-      bar.destroy();
+      this.bar.destroy();
     });
 
     this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {
@@ -86,8 +88,6 @@ export class MsgComponent {
     private socketSevice: SocketSevice,
     private theGameService: TheGameService,
     private cpService: ColorPickerService) {
-    this.msgListAll.push(this.msgListNow);
-
   }
 
 
@@ -101,6 +101,7 @@ export class MsgComponent {
 
   speak_end() {
     this.socketSevice.speak_end();
+    this.bar.destroy();
   }
 
   newDiv() {
@@ -116,7 +117,7 @@ export class MsgComponent {
 
     console.log(this.myInput);
     this.socketSevice.sendMsg(this.myInput);
-    // this.myInput = '';
+    this.myInput = '';
   }
 
   ngOnInit() {

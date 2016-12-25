@@ -1,6 +1,7 @@
 <div *ngIf="!theGameService.started" class="panel-body " style="">
   <div class="col-sm-1">
-    <button (click)="userSeat()" type="button" class="btn btn-warning ">坐下</button>
+    <button *ngIf="!userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-warning ">坐下</button>
+    <button *ngIf="userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-success ">起身离开</button>
     <!-- <button [disabled]="userService.yourself.name!=='皇冠鸟'" (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button> -->
     <button (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button>
     <!-- <button (click)="vote()" type="button" class="btn btn-default">投票</button>
@@ -22,14 +23,16 @@
   <span *ngSwitchCase="'枪决'">枪决
     <div class="row">
       <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
-        <button [disabled]="user.isPre || !user.isSurvival " (click)="toKill(user)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]="user.isPre || !user.isSurvival " (click)="toKill(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}">{{user.seatNo}}
+        </button>
       </div>
     </div>
   </span>
   <span *ngSwitchCase="'投票'">
     总统{{theGameService.pre.name}}选择{{theGameService.prmTmp.name}}做总理，
     <div class="row">
-      <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote">
+      <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote;let i=index;">
+        {{i+1}}
         <img [src]="votepic" style="width: 60px; height: 70px;">
       </div>
     </div>
@@ -43,21 +46,21 @@
 height: 80px">
     <div class="row">
       <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
-        <button [disabled]="user.isPre || !user.isSurvival " (click)="preSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]="user.isPre || !user.isSurvival " (click)="preSelect(user)" type="button" class="btn btn-success">{{user.seatNo}}</button>
       </div>
     </div>
   </span>
   <span *ngSwitchCase="'选总理'">{{theGameService.pre.name}}选总理->
     <div class="row">
       <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
-        <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}">{{user.seatNo}}</button>
       </div>
     </div>
   </span>
   <span *ngSwitchCase="'调查身份'">{{theGameService.pre.name}}调查身份->
     <div class="row">
       <div class="col-sm-1" *ngFor="let user of theGameService.playerList">
-        <button [disabled]="user.isPre || !user.isSurvival" (click)="invPlayer(user)" type="button" class="btn btn-success">{{user.name}}</button>
+        <button [disabled]="user.isPre || !user.isSurvival" (click)="invPlayer(user)" type="button" class="btn btn-success">{{user.seatNo}}</button>
       </div>
     </div>
   </span>
@@ -75,7 +78,7 @@ height: 80px">
       </div>
     </div>
   </span>
-  <span *ngSwitchCase="'总统是否同意否决全部'">选法案
+  <span *ngSwitchCase="'是否同意否决全部'">选法案
     <div >
       <div class="row">
         <button (click)="veto_all(1)" type="button" class="btn btn-danger">同意</button>

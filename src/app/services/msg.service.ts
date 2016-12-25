@@ -18,3 +18,19 @@ export class TheMsgService {
 
   timing(time: number) { }
 }
+
+
+class MsgContainer {
+  msgFrom = new User('system');
+  msgType = 'string';
+  msgbady: any;
+
+
+
+
+  constructor(who: User, type: string, msgbady: any) {
+    this.msgFrom = who;
+    this.msgType = type;
+  }
+
+}

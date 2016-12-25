@@ -17,13 +17,50 @@
   <div class="" id="userslist">
     <userslist></userslist>
   </div>
-  <div class="" id="prostatus">
-    <div class="">
-      <img src="./pic/法西斯进度10.jpg" class="" style="width: 270px; Margin:1px">
+  <div class="" id="failTime">
+    <div style="float:left; margin-right: 8px;">
+      <img [src]="theGameService.failTimes==0?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="" style="height: 20px; Margin:1px">
+      <img [src]="theGameService.failTimes<=1?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="" style="height: 20px; Margin:1px">
+      <img [src]="theGameService.failTimes<=2?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="" style="height: 20px; Margin:1px">
     </div>
-    <div class="">
-      <img src="./pic/自由党进度.jpg" class="" style="width: 270px; Margin:1px">
+    <span class="alert alert-danger" *ngIf="theGameService.failTimes>=2" id="test">
+      再失败将强制执行法案！</span>
+  </div>
+  <div class="" id="prostatus" style="font-size: 30px">
+    <div class=" gamecount" style="padding:2px">
+      <!-- <img src="./pic/法西斯进度10.jpg" class="" style="width: 270px; Margin:1px"> -->
+      <img src="./pic/蓝色法案.png" class="" style="height: 40px; Margin:1px">
     </div>
+    <div class=" gamecount" style="width:1em;   height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
+      {{theGameService.proEffBlue}}
+    </div>
+    <div class=" gamecount" style="padding:2px">
+      <!-- <img src="./pic/自由党进度.jpg" class="" style="width: 270px; Margin:1px"> -->
+      <img src="./pic/红色法案.png" class="" style="height: 40px; Margin:1px">
+    </div>
+    <div class=" gamecount" style="width:1em; height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
+      {{theGameService.proEffRed}}
+    </div>
+    <div class=" gamecount" style="padding:2px">
+      <!-- <img src="./pic/自由党进度.jpg" class="" style="width: 270px; Margin:1px"> -->
+      <img src="./pic/法案背.png" class="" style="height: 40px; Margin:1px">
+    </div>
+    <div class=" gamecount" style="width:1em;  height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
+      {{theGameService.proIndex}}
+    </div>
+  </div>
+  <div id="gameMsg">
+    <div class="" style="font-size: 30px">
+      <div style="font-size: 10px;color: grey;">{{theGameService.gameMsg[theGameService.gameMsg.length-3]}}
+      </div>
+      <div style="font-size: 12px;color: black;">{{theGameService.gameMsg[theGameService.gameMsg.length-2]}}
+      </div>
+      <div style="font-size: 20px;color: blue;font-weight: bold;">{{theGameService.gameMsg[theGameService.gameMsg.length-1]}}
+      </div>
+    </div>
+  </div>
+  <div id="timegif">
+    <img *ngIf="theGameService.started" src="./pic/time.gif" class="" style="height: 80px;">
   </div>
   <div class="" style="">
     <div class="">
@@ -40,7 +77,7 @@
       </div>
       <div [hidden]="!this.theGameService.locked" class="panel-body"></div>
     </div>
-    <div class="" style="height: 140px;">
+    <div [hidden]="this.theGameService.locked" class="" style="height: 140px;" id="gamecontrol">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title">游戏操作区</h3>
