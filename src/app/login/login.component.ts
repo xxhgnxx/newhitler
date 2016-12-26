@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 let io = require('socket.io-client');
 import { SocketSevice } from '../services/socket.service';
 import { UserService } from '../services/user.service';
-import { myEmitter } from '../services';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 

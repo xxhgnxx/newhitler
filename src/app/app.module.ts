@@ -85,6 +85,7 @@ type StoreType = {
     UserslistComponent,
     GameControlComponent,
     RoomComponent,
+    HgnContainer,
     MsgComponent,
     NoContentComponent,
     GetHeadPope,

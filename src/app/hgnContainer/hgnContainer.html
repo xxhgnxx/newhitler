@@ -1,2 +1,22 @@
-<H1>
+<!-- <H1>
   hgnContainer</H1>
+<H1>
+  {{hgnData}}</H1>
+<H1>
+  {{hgnType}}</H1> -->
+<div id="whospeak">
+  <span class="badge " id="whoAmI" [ngStyle]="setStyles()">
+    <img [src]="gethead()" class="" style="height: 40px;
+margin-top: -7px;
+margin-left: -7px;
+float:left;">
+    <div id="test" style="float:left;margin-left: 4px;">
+      {{hgnData.msgFrom.name}}
+    </div>
+  </span>
+</div>
+<span id="speakwhat" class="alert alert-info " style="">
+  <div *ngFor="let msgg of hgnData.msgbody">
+    {{msgg}}
+  </div>
+</span>

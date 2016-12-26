@@ -10,7 +10,6 @@ import { User } from './user';
 import { TheMsgService } from './msg.service';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
-import { myEmitter } from '../services';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Injectable()
