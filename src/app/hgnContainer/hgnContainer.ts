@@ -14,16 +14,15 @@ import { TheGameService } from '../services';
 })
 
 export class HgnContainer implements OnInit {
-  @Input('hgn_type') hgnType: any = 'type出错啦xxxxxxxxx';
   @Input('hgn_data') hgnData: any = 'data出错啦xxxxxxxx';
+
+
 
   constructor(
     private userService: UserService,
     private theMsgService: TheMsgService,
     private socketSevice: SocketSevice,
-    private theGameService: TheGameService) {
-
-  }
+    private theGameService: TheGameService) { }
 
 
   setStyles() {
@@ -32,7 +31,6 @@ export class HgnContainer implements OnInit {
       styles = {
         'color': 'white',
         'background-color': '#5EA895',
-
       };
       return styles;
     }
@@ -40,21 +38,14 @@ export class HgnContainer implements OnInit {
       styles = {
         'color': 'white',
         'background-color': '#AD7859',
-
       };
       return styles;
     }
 
     styles = {
-      'color':  'white',
+      'color': 'white',
       'background-color': '#6BA9CF',
-
     };
-
-
-
-
-
     return styles;
   }
 
@@ -78,8 +69,8 @@ export class HgnContainer implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.hgnType);
     console.log(this.hgnData);
+    console.log(this.hgnData.msgType);
   }
 
 }

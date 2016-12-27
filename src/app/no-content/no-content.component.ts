@@ -84,23 +84,23 @@ let testmsg = new MsgContainer(testuser, 'said', '我勒个去！00');
 let testmsg1 = new MsgContainer(testuser1, 'said', '我勒个去！11');
 let testmsg2 = new MsgContainer(testuser2, 'said', '我勒个去！22');
 
+let k = [];
+k.push(testmsg);
+k.push(testmsg1);
+k.push(testmsg2);
 
 @Component({
   selector: 'no-content',
   template: `
-    <hgnTag [hgn_data]='data' [hgn_type]= 'type' ></hgnTag>
-    <hgnTag [hgn_data]='data1' [hgn_type]= 'type1' ></hgnTag>
-    <hgnTag [hgn_data]='data2' [hgn_type]= 'type2' ></hgnTag>
+
+<div *ngFor="let myContent of testArray">
+
+    <hgnTag [hgn_data]='myContent' ></hgnTag>
+</div>
   `
 })
 export class NoContentComponent {
 
-  data = testmsg;
-  data1 = testmsg1;
-  data2 = testmsg2;
-  type = testmsg.msgType;
-  type1 = testmsg1.msgType;
-  type2 = testmsg2.msgType;
-
+  testArray = k;
 
 }

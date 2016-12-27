@@ -108,7 +108,7 @@ export class SocketSevice {
   vote(n: number) {
     let dataOut = new Data();
     dataOut.voteRes = n;
-    dataOut.type = 'vote';
+    dataOut.type = 'player_vote';
     this.networkSocket.send(dataOut, x => { console.log(x); });
 
   }
