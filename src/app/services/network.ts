@@ -2,7 +2,6 @@
 import * as io from 'socket.io-client';
 import { Data } from './data';
 import { RandomString } from '../util';
-import { myEmitter } from '../services';
 
 /**
  * 网络服务socket：socket链接,systemFunc：消息处理服务，type：类型“server，client”

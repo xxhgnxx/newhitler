@@ -4,17 +4,10 @@
     <ngb-tab title="玩家发言">
       <template ngbTabContent>
         <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
-          <div class="" *ngFor="let msgnow of msgListAll">
-            <div id="whospeak">
-              <span class="badge ">
-                {{msgnow[0]}}
-              </span>
-            </div>
-            <span class="alert alert-info " style="">
-              <div id="speakwhat" [hidden]="e" *ngFor="let msgp of msgnow; let i = index; let e=first">
-                {{msgp}}
-              </div>
-            </span>
+          <div *ngFor="let Msg of msgListAll">
+            <hgnPlayermsg *ngIf="Msg.type==='playerMsg'" [hgn_data]='Msg'></hgnPlayermsg>
+            <div *ngIf="Msg.type!=='playerMsg'">
+              {{Msg.who}}-{{Msg.body}}</div>
           </div>
         </div>
       </template>

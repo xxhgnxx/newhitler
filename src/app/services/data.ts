@@ -2,11 +2,9 @@ import { User } from './user';
 
 
 export class Data {
-  type: string;
-  toWho: Array<User> | User;
   name: string;
   pass: string;
-  msg: string;
+  msg: Msg;
   yourself: User;
   user: User;
 
@@ -20,6 +18,7 @@ export class Data {
 
   // 游戏数据
   started: boolean;       // 游戏是否开始
+  speakTime: number;
   role: string;
 
   // 玩家相关
@@ -47,9 +46,9 @@ export class Data {
   proEffRed: number; // 红法案生效数
 
   // 游戏过程记录
-  gameMsg: string;
+  // gameStep: string;  // 游戏阶段
 
-  // 角色情况
+  // 情况
   pre: User;
   lastPre: User;
   prenext: User;
@@ -57,33 +56,37 @@ export class Data {
   prmTmp: User;  // 待投票的总理
   lastPrm: User;
 
-
-
-
   // 其他
   other: any;
 
   // 备用
   socketId: string;
   key: string;
-  constructor() { }
+  constructor(public type: string, toWho?: Array<User> | User) { }
 }
-
-export class MsgData extends Data {
+export class MsgData {
   locked: boolean;  // 禁止发言
-  whoIsSpeaking: User; // 当前发言者
   speakTime: number;  // 发言时间
   msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
-
   msgListAll: Array<any>;  // 完整的消息记录
-
-  msg: string;     // msg内容
-
-  constructor() {
-    super();
-    this.type = 'msg';
+  msg: Msg;     // msg内容
+  type: string;
+  constructor(public whoIsSpeaking: User) {
+    this.type = 'some_one_speak_sth';
   }
 }
+
+export class Msg {
+  type: string;
+  constructor(public who: any, public body: any, public other?: any) {
+    if (typeof who === 'string') {
+      this.type = who;
+    } else {
+      this.type = 'playerMsg';
+    }
+  }
+}
+
 
 // 数据包处理  test
 export function dataLoader(userService, theGameService, theMsgService, dataAll: Data | MsgData) {
@@ -118,11 +121,6 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
     // 待确认
     userService.whoAmI(data.playerList);
     msg = msg + ' ' + 'playerList';
-  }
-
-  if (typeof data.gameMsg !== 'undefined') {
-    theGameService.gameMsg.push(data.gameMsg);
-    msg = msg + ' ' + 'gameMsg';
   }
 
   if (typeof data.proIndex !== 'undefined') {
@@ -208,26 +206,52 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
     msg = msg + ' ' + 'target';
   }
 
+  if (typeof data.speakTime !== 'undefined') {
+    // speakNow.emit(msgdata.speakTime);
+    theGameService.speakTime = msgdata.speakTime;
+    msg = msg + ' ' + 'timing';
+  }
+
   // --------------------- 发言
 
   if (typeof msgdata.locked !== 'undefined') {
     theMsgService.locked = msgdata.locked;
     msg = msg + ' ' + 'locked';
   }
-  if (typeof msgdata.speakTime !== 'undefined') {
-    // speakNow.emit(msgdata.speakTime);
-    msg = msg + ' ' + 'timing';
-  }
+
   if (typeof msgdata.msgFrom !== 'undefined') {
     theMsgService.msgFrom = msgdata.msgFrom;
     msg = msg + ' ' + 'msgFrom';
   }
-  if (typeof msgdata.msgListAll !== 'undefined') {
-    theMsgService.msgListAll = msgdata.msgListAll;
-    msg = msg + ' ' + 'msgListAll';
-  }
+  // if (typeof msgdata.msgListAll !== 'undefined') {
+  //   theMsgService.msgListAll = msgdata.msgListAll;
+  //   msg = msg + ' ' + 'msgListAll';
+  // }
   if (typeof msgdata.msg !== 'undefined') {
-    theMsgService.msgListNow.push(msgdata.msg);
+
+    if (msgdata.msg.type === 'playerMsg') {
+      if (typeof theMsgService.msgListAll[theMsgService.msgListAll.length - 1] !== 'undefined') {
+        if (theMsgService.msgListAll[theMsgService.msgListAll.length - 1].who.name
+          === msgdata.msg.who.name) {
+          theMsgService.msgListAll[theMsgService.msgListAll.length - 1].body.push(msgdata.msg.body);
+        } else {
+          let tmp0 = new Array();
+          tmp0.push(msgdata.msg.body);
+          let tmp = new Msg(msgdata.msg.who, tmp0);
+          tmp.type = 'playerMsg';
+          theMsgService.msgListAll.push(tmp);
+        }
+
+      } else {
+        theMsgService.msgListAll.push(msgdata.msg);
+      }
+    } else {
+      let tmp0 = new Array();
+      tmp0.push(msgdata.msg.body);
+      let tmp = new Msg(msgdata.msg.who, tmp0);
+      theMsgService.msgListAll.push(tmp);
+    }
+
     msg = msg + ' ' + 'msg';
   }
   // theMsgService.msgListNow.push('数据读取' + msg);   // 测试用输出到聊天记录中

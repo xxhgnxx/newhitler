@@ -11,17 +11,17 @@
         margin-top: -7px;
         margin-left: -7px;
         float:left;">
-      <div id="test" style="float:left;margin-left: 4px; min-width: 100px;">
-        {{hgnData.who.name}}{{hgnData.other}}
+      <div id="test" style="float:left;margin-left: 4px;">
+        {{hgnData.who.name}}
       </div>
     </span>
-    <div *ngIf="hgnData.other" id="containerother"></div>
   </div>
   <span id="speakwhat" class="alert alert-info " style="">
-    <div *ngIf="!hgnData.body[0]&&hgnData.other">他正在思考，怎么表达自己的观点..</div>
-    <div *ngIf="!hgnData.body[0]&&!hgnData.other">他什么都不想说，就过了..</div>
-    <div *ngFor="let msgg of hgnData.body ">
+    <!-- <div *ngFor="let msgg of hgnData.body">
       {{msgg}}
+    </div> -->
+    <div>
+      {{hgnData.body}}
     </div>
   </span>
 </div>

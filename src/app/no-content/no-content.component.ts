@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Msg } from '../services';
 
 class User {
   socketId: string = 'x';
@@ -80,9 +80,9 @@ testuser2.isFascist = false;
 testuser2.role = 'x';
 testuser2.canBeSelect = true;
 
-let testmsg = new MsgContainer(testuser, 'said', '我勒个去！00');
-let testmsg1 = new MsgContainer(testuser1, 'said', '我勒个去！11');
-let testmsg2 = new MsgContainer(testuser2, 'said', '我勒个去！22');
+let testmsg = new Msg(testuser, '我勒个去！00');
+let testmsg1 = new Msg(testuser1,  '我勒个去！11');
+let testmsg2 = new Msg(testuser2,  '我勒个去！22');
 
 let k = [];
 k.push(testmsg);
@@ -93,9 +93,10 @@ k.push(testmsg2);
   selector: 'no-content',
   template: `
 
-<div *ngFor="let myContent of testArray">
+<div *ngFor="let Msg of testArray">
 
-    <hgnTag [hgn_data]='myContent' ></hgnTag>
+    <hgnPlayermsg *ngIf="Msg.type==='playerMsg'"  [hgn_data]='Msg' ></hgnPlayermsg>
+
 </div>
   `
 })

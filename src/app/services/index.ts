@@ -4,4 +4,3 @@ export * from './socket.service';
 export * from './user.service';
 export * from './user';
 export * from './data';
-export * from './myemitter';

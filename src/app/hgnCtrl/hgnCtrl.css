@@ -13,7 +13,7 @@
 
 #whospeak {
   float: left;
-  width: 500px;
+width: 500px
 }
 
 #whoAmI {
@@ -26,7 +26,6 @@
   margin-left: 41px;
   margin-top: -16px;
   margin-bottom: 0.5em;
-  min-height: 30px;
 }
 span {
   display: block;
@@ -37,11 +36,4 @@ span {
   word-wrap: break-word;
   word-break: keep-all;
   overflow: hidden;
-}
-
-#containerother{
-
-  float: left;
-  width: 20px;
-  margin-left: 50px;
 }
