@@ -38,6 +38,7 @@ export class MsgComponent {
     console.log('到你发言，发言时间', time);
     setTimeout(() => {
       this.locked = false;
+      this.bar.destroy();
     }, time * 1000);
 
     this.bar = new progressBar.Circle('#container', {
@@ -69,7 +70,7 @@ export class MsgComponent {
     this.bar.animate(0, {
       duration: time * 1000,
     }, function() {
-      this.bar.destroy();
+
     });
 
     this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {

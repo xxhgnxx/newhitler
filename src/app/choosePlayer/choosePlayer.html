@@ -1,7 +1,7 @@
 <div [ngSwitch]="hgnData.other">
   <div *ngSwitchCase="'selectPrm'">
-    <div id="whospeak">
-      <span class="badge " id="whoAmI" style="color: white;
+    <div id="whospeakc">
+      <span class="badge " id="" style="color: white;
       background-color: #6BA9CF;">
         <img src="./pic/总统标识.png" class="" style="height: 40px;
           margin-top: -7px;
@@ -12,7 +12,7 @@
         </div>
       </span>
     </div>
-    <span id="speakwhat" class="alert alert-warning " style="">
+    <span id="speakwhat1" class="alert alert-warning " style="">
       <div class="row" *ngIf="!this.userService.yourself.isPre && hgnData.other1">
         <div class="row" style="margin-left: 25px;">{{theGameService.pre.name}}正在选择总理-></div>
       </div>

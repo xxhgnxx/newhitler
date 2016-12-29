@@ -187,8 +187,8 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   }
 
   if (typeof data.proX3List !== 'undefined') {
-    theGameService.proX3List = data.proX3List;
-    msg = msg + ' ' + 'proX3List';
+    // theGameService.proX3List = data.proX3List;
+    msg = msg + ' ' + 'proX3List(未生效)';
   }
   if (typeof data.isVoted !== 'undefined') {
     theGameService.isVoted = data.isVoted;
@@ -307,11 +307,57 @@ export function msgLoader(userService, theGameService, theMsgService, msg: Msg) 
     case 'player_vote':
       theMsgService.msgListAll.push(msg);
       break;
+    case 'playerCP':
+
+  console.log('你是', userService.yourself);
+    console.log('消息是', msg.other);
+      switch (msg.other) {
+        case 'pre_CP':
+          theMsgService.controlNow = msg;
+          theMsgService.msgListAll.push(msg);
+          if (userService.yourself.isPre) {
+            theMsgService.controlNow.body = theMsgService.controlNow.other1;
+          }
+          break;
+        case 'prm_CP':
+          theMsgService.controlNow.body = msg.body;
+          theMsgService.controlNow.other = msg.other;
+          theMsgService.controlNow.other1 = msg.other1;
+          if (userService.yourself.isPrm) {
+            theMsgService.controlNow.body[1] = msg.other1[1];
+          }
+          if (userService.yourself.isPre) {
+            theMsgService.controlNow.body = theMsgService.controlNow.other1;
+          }
+          console.log(theMsgService.controlNow);
+          break;
+        case 'end_CP':
+          theMsgService.controlNow.body = msg.body;
+          theMsgService.controlNow.other = msg.other;
+          theMsgService.controlNow.other1 = msg.other1;
+          if (userService.yourself.isPrm) {
+            theMsgService.controlNow.body[1] = msg.other1[1];
+            theMsgService.controlNow.body[2] = msg.other1[2];
+          }
+          if (userService.yourself.isPre) {
+            theMsgService.controlNow.body = theMsgService.controlNow.other1;
+          }
+          console.log(theMsgService.controlNow);
+          theMsgService.controlNow = false;
+          break;
+        default:
+          console.log('%cplayerCP错误', 'background: #FF5C00; color: #bada55', msg);
+      }
+
+
+
+
+      break;
 
 
     default:
 
-      console.log('%cmsg错误', 'background: #D43838; color: #bada55', msg);
+      console.log('%cmsg错误', 'background: rgba(#D669F1); color: #bada55', msg);
 
 
 

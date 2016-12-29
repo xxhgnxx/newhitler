@@ -1,7 +1,7 @@
 <div [ngSwitch]="hgnData.other">
   <div *ngSwitchCase="'player_vote'">
-    <div id="whospeak">
-      <span class="badge " id="whovote" style="color: white;
+    <div id="whospeakt">
+      <span class="badge " id="whovotet" style="color: white;
       background-color: #6BA9CF;">
         <img src="./pic/投票背.jpg" class="" style="height: 33px;
           margin-top: -3px;
@@ -13,7 +13,7 @@
         </div>
       </span>
     </div>
-    <span id="speakwhat" class="alert alert-warning " style="">
+    <span id="speakwhatt" class="alert alert-warning " style="">
       <div class="row">
         <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote;let i=index;">
           {{i+1}}

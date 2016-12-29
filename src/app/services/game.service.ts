@@ -16,7 +16,7 @@ export class TheGameService {
 
   proList = new Array<any>();  // 法案牌堆
   proIndex = 16; // 牌堆顶
-  proX3List: Array<number>; // 法案牌摸的三张牌
+  proX3List = new Array<any>(); // 法案牌摸的三张牌
   proEffBlue = 0; // 法案生效数
   proEffRed = 0; // 法案生效数
 

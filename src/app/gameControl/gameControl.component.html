@@ -69,7 +69,7 @@ height: 80px">
       <img [src]="theGameService.other" class="img-thumbnail" style="height: 140px">
     </div>
   </span>
-  <span *ngSwitchCase="'选法案'">选法案
+  <!-- <span *ngSwitchCase="'选法案xx'">选法案
     <div >
       <div class="row">
         <div class="col-sm-2" *ngFor="let pro of theGameService.proX3List">
@@ -78,7 +78,7 @@ height: 80px">
       </div>
     </div>
   </span>
-  <span *ngSwitchCase="'是否同意否决全部'">选法案
+  <span *ngSwitchCase="'是否同意否决全部xx'">选法案
     <div >
       <div class="row">
         <button (click)="veto_all(1)" type="button" class="btn btn-danger">同意</button>
@@ -86,7 +86,7 @@ height: 80px">
       </div>
     </div>
   </span>
-  <span *ngSwitchCase="'选法案2'">选法案
+  <span *ngSwitchCase="'选法案2xx'">选法案
     <div >
       <div class="row">
         <div class="col-sm-2" *ngFor="let pro of theGameService.proX3List">
@@ -95,7 +95,7 @@ height: 80px">
         <button (click)="veto()" type="button" class="btn btn-danger">全部否决</button>
       </div>
     </div>
-  </span>
+  </span> -->
   <span *ngSwitchDefault>
     <h1>{{theGameService.toDoSth}}</h1>
   </span>

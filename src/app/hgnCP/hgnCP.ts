@@ -26,60 +26,58 @@ export class HgnCP implements OnInit {
     tipconfig.placement = 'top';
   }
 
-  setStyles() {
-    let styles;
-    if (this.hgnData.who.isPre) {
-      styles = {
-        'color': 'white',
-        'background-color': '#5EA895',
-      };
-      return styles;
-    }
-    if (this.hgnData.who.isPrm) {
-      styles = {
-        'color': 'white',
-        'background-color': '#AD7859',
-      };
-      return styles;
-    }
+  get_pre_CP() { }
+  get_prm_CP() { }
+  get_last() { }
 
-    styles = {
-      'color': 'white',
-      'background-color': '#6BA9CF',
+  proSelect(pro) {
+
+if (this.hgnData.other === 'pre_CP' && this.userService.yourself.isPre) {
+    this.socketSevice.proSelect(this.hgnData.body, pro);
+}
+if (this.hgnData.other === 'prm_CP' && this.userService.yourself.isPrm) {
+    this.socketSevice.proSelect(this.hgnData.body, pro);
+}
+
+
+}
+
+getstylepre(){
+
+  let styles = {
     };
-    return styles;
+
+  if (this.hgnData.other !== 'pre_CP') {
+    styles = {
+        // CSS property names
+        'opacity':  '0.5',
+      };
   }
+  return styles;
+}
+getstyleprm(){
+  let styles = {
+    };
 
-
-  gethead() {
-    let src;
-    if (this.hgnData.who.isPre) {
-      src = './pic/总统标识.png';
-      return src;
-    }
-
-    if (this.hgnData.who.isPrm) {
-      src = './pic/总理标识.png';
-      return src;
-    }
-
-    src = './pic/议员标识.png';
-    return src;
+  if (this.hgnData.other !== 'prm_CP') {
+    styles = {
+        // CSS property names
+        'opacity':  '0.5',
+      };
   }
+  return styles;
+}
 
 
-  vote(n: number) {
-    this.theGameService.isVoted = true;
-    this.hgnData.other1 = false;
-    this.socketSevice.vote(n);
-    if (n === 3) {
-      this.myvotepic = './pic/反对.png';
-    } else {
-      this.myvotepic = './pic/同意.png';
-
+  isYou(): boolean {
+    if (this.hgnData.other === 'pre_CP' && this.userService.yourself.isPre) {
+      return true;
     }
+    if (this.hgnData.other === 'prm_CP' && this.userService.yourself.isPrm) {
+      return true;
+    }
+    return false;
   }
-
 
   ngOnInit() {
     console.log('我初始化了');

@@ -109,9 +109,9 @@ export class SocketSevice {
   }
 
   // 选法案
-  proSelect(pro) {
+  proSelect(list, pro) {
     let dataOut = new Data('proSelect');
-    dataOut.proX3List = this.theGameService.proX3List;
+    dataOut.proX3List = list;
     dataOut.pro = pro;
     this.networkSocket.send(dataOut, x => { console.log(x); });
   }

@@ -11,16 +11,13 @@
   font-size: 0.9em;
 }
 
-#whospeak {
+#whospeakc {
   float: left;
   width: 500px;
 }
 
-#whoAmI {
 
-}
-
-#speakwhat {
+#speakwhat1 {
   float: left;
   width: 400px;
   margin-left: 41px;
@@ -37,11 +34,4 @@ span {
   word-wrap: break-word;
   word-break: keep-all;
   overflow: hidden;
-}
-
-#containerother{
-
-  float: left;
-  width: 20px;
-  margin-left: 50px;
 }

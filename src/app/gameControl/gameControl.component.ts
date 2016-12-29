@@ -79,7 +79,7 @@ tipconfig.placement = 'top';
   }
 
   proSelect(pro) {
-    this.socketSevice.proSelect(pro);
+    // this.socketSevice.proSelect(pro);
   }
 
   tmp() {
