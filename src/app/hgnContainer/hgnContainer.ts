@@ -90,7 +90,7 @@ export class HgnContainer implements OnInit {
     console.log('我初始化了');
     console.log(this.hgnData);
     console.log(this.hgnData.body);
-    console.log(this.theMsgService.msgListAll);
+    // console.log(this.theMsgService.msgListAll);
 
     console.log('别人的发言时间', speakTime);
     setTimeout(() => {

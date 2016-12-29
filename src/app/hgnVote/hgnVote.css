@@ -1,0 +1,48 @@
+.badge {
+  display: block;
+  float: left;
+  color: white;
+  height: 3em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  left: 0em;
+  top: 0.5em;
+  border-radius: 0.3em 0.3em 0em 0.3em;
+  display: block;
+  font-size: 0.9em;
+}
+
+#whospeak {
+  float: left;
+  width: 500px;
+}
+
+#whovote {
+  color: white;
+        background-color: #146254;
+}
+
+#speakwhat {
+  float: left;
+  width: 400px;
+  margin-left: 41px;
+  margin-top: -16px;
+  margin-bottom: 0.5em;
+  min-height: 30px;
+}
+span {
+  display: block;
+    float: left;
+  left: 0.5em;
+  padding: 0.3em;
+  font-size: 0.9em;
+  word-wrap: break-word;
+  word-break: keep-all;
+  overflow: hidden;
+}
+
+#containerother{
+
+  float: left;
+  width: 20px;
+  margin-left: 50px;
+}

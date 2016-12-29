@@ -96,6 +96,7 @@ k.push(testmsg2);
 <div *ngFor="let Msg of testArray">
 
     <hgnPlayermsg *ngIf="Msg.type==='playerMsg'"  [hgn_data]='Msg' ></hgnPlayermsg>
+    <hgnChoosePlayer *ngIf="Msg.type==='choosePlayer'"  [hgn_data]='Msg' ></hgnChoosePlayer>
 
 </div>
   `

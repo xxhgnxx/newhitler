@@ -78,7 +78,8 @@ export class MsgData {
 
 export class Msg {
   type: string;
-  constructor(public who: any, public body: any, public other?: any) {
+  constructor(public who: any, public body: any,
+    public other?: any, public other1?: any, public other2?: any) {
     if (typeof who === 'string') {
       this.type = who;
     } else {
@@ -227,33 +228,94 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   //   theMsgService.msgListAll = msgdata.msgListAll;
   //   msg = msg + ' ' + 'msgListAll';
   // }
-  if (typeof msgdata.msg !== 'undefined') {
-
-    if (msgdata.msg.type === 'playerMsg') {
-      if (typeof theMsgService.msgListAll[theMsgService.msgListAll.length - 1] !== 'undefined') {
-        if (theMsgService.msgListAll[theMsgService.msgListAll.length - 1].who.name
-          === msgdata.msg.who.name) {
-          theMsgService.msgListAll[theMsgService.msgListAll.length - 1].body.push(msgdata.msg.body);
-        } else {
-          let tmp0 = new Array();
-          tmp0.push(msgdata.msg.body);
-          let tmp = new Msg(msgdata.msg.who, tmp0);
-          tmp.type = 'playerMsg';
-          theMsgService.msgListAll.push(tmp);
-        }
-
-      } else {
-        theMsgService.msgListAll.push(msgdata.msg);
-      }
-    } else {
-      let tmp0 = new Array();
-      tmp0.push(msgdata.msg.body);
-      let tmp = new Msg(msgdata.msg.who, tmp0);
-      theMsgService.msgListAll.push(tmp);
-    }
-
-    msg = msg + ' ' + 'msg';
-  }
+  // if (typeof msgdata.msg !== 'undefined') {
+  //
+  //   if (msgdata.msg.type === 'playerMsg') {
+  //     if (typeof theMsgService.msgListAll[theMsgService.msgListAll.length - 1] !== 'undefined') {
+  //       if (theMsgService.msgListAll[theMsgService.msgListAll.length - 1].who.name
+  //         === msgdata.msg.who.name) {
+  //         theMsgService.msgListAll[theMsgService.msgListAll.length - 1]
+  // .body.push(msgdata.msg.body);
+  //       } else {
+  //         let tmp0 = new Array();
+  //         tmp0.push(msgdata.msg.body);
+  //         let tmp = new Msg(msgdata.msg.who, tmp0);
+  //         tmp.type = 'playerMsg';
+  //         theMsgService.msgListAll.push(tmp);
+  //       }
+  //
+  //     } else {
+  //       theMsgService.msgListAll.push(msgdata.msg);
+  //     }
+  //   } else {
+  //     let tmp0 = new Array();
+  //     tmp0.push(msgdata.msg.body);
+  //     let tmp = new Msg(msgdata.msg.who, tmp0);
+  //     theMsgService.msgListAll.push(tmp);
+  //   }
+  //
+  //   msg = msg + ' ' + 'msg';
+  // }
   // theMsgService.msgListNow.push('数据读取' + msg);   // 测试用输出到聊天记录中
   console.log('%c数据读取', 'background: #222; color: #bada55', msg);
+}
+
+
+
+export function msgLoader(userService, theGameService, theMsgService, msg: Msg) {
+  switch (msg.type) {
+    case 'system':
+      theMsgService.msgListAll.push(msg);
+      break;
+    case 'playerMsg':
+      {
+        if (typeof theMsgService.msgListAll[theMsgService.msgListAll.length - 1]
+          !== 'undefined') {
+          if (theMsgService.msgListAll[theMsgService.msgListAll.length - 1].who.name
+            === msg.who.name) {
+            theMsgService.msgListAll[theMsgService.msgListAll.length - 1].body.push(msg.body);
+          } else {
+            let tmp0 = new Array();
+            tmp0.push(msg.body);
+            let tmp = new Msg(msg.who, tmp0);
+            tmp.type = 'playerMsg';
+            theMsgService.msgListAll.push(tmp);
+          }
+
+        } else {
+          theMsgService.msgListAll.push(msg);
+        }
+      }
+      break;
+
+    case 'choosePlayer':
+      {
+
+        if (theMsgService.controlNow) {
+          theMsgService.controlNow.other1 = false;
+          theMsgService.controlNow.other2 = msg.other2;
+          theMsgService.controlNow = false;
+        } else {
+          theMsgService.msgListAll.push(msg);
+          theMsgService.controlNow = msg;
+        }
+      }
+
+
+
+      break;
+    case 'player_vote':
+      theMsgService.msgListAll.push(msg);
+      break;
+
+
+    default:
+
+      console.log('%cmsg错误', 'background: #D43838; color: #bada55', msg);
+
+
+
+
+  }
+
 }

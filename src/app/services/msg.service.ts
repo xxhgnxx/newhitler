@@ -16,6 +16,7 @@ export class TheMsgService {
   whoSpeaking: User;
   msg: string;     // msg内容
 
+  controlNow: any;
   timing(time: number) { }
 }
 

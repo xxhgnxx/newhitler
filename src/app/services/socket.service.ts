@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { Data } from './data';
 import { Msg } from './data';
 import { dataLoader } from './data';
+import { msgLoader } from './data';
 import { TheGameService } from './game.service';
 import { Vote } from './vote';
 import { NetworkSocket } from './network';
@@ -153,6 +154,9 @@ export class SocketSevice {
   system(data) {
     console.log('%c收到服务端发来的system请求', 'background: #222; color: #bada55', data);
     dataLoader(this.userService, this.theGameService, this.theMsgService, data);
+    if (typeof data.msg !== 'undefined') {
+      msgLoader(this.userService, this.theGameService, this.theMsgService, data.msg);
+    }
     switch (data.type) {
       case 'loginSuccess':
         this.loginResult.emit('认证成功');
@@ -224,8 +228,8 @@ export class SocketSevice {
         break;
 
       case 'speak_endAll':
-  this.speakEnd.emit('end');
-          break;
+        this.speakEnd.emit('end');
+        break;
 
       case 'proEff':
         console.log(data.pro > 5 ? '红色法案生效' : '蓝色法案生效');
@@ -256,7 +260,7 @@ export class SocketSevice {
         } else {
           this.theGameService.toDoSth = '等待' + data.pre.name + '选总理';
         }
-        this.theMsgService.msgListAll.push(new Msg('control', '选总理'));
+        // this.theMsgService.msgListAll.push(new Msg('control', '选总理'));
 
         break;
       case 'pleaseVote':
@@ -271,7 +275,7 @@ export class SocketSevice {
         } else {
           this.theGameService.toDoSth = '投票';
         }
-        this.theMsgService.msgListAll.push(new Msg('control', '投票'));
+        // this.theMsgService.msgListAll.push(new Msg('control', '投票'));
 
         break;
 

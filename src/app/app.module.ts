@@ -46,7 +46,10 @@ import { RoomComponent } from './room/room.component';
 import { MsgComponent } from './msg/msg.component';
 
 // hgn 自定义容器组建
-import { HgnContainer } from './hgnContainer/hgnContainer';
+import { HgnContainer } from './hgnContainer';
+import { HgnChoosePlayer } from './choosePlayer';
+import { HgnVote } from './hgnVote';
+import { HgnCP } from './hgnCP';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -86,6 +89,9 @@ type StoreType = {
     GameControlComponent,
     RoomComponent,
     HgnContainer,
+    HgnVote,
+    HgnCP,
+    HgnChoosePlayer,
     MsgComponent,
     NoContentComponent,
     GetHeadPope,

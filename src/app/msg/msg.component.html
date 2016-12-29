@@ -6,8 +6,10 @@
         <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
           <div *ngFor="let Msg of msgListAll">
             <hgnPlayermsg *ngIf="Msg.type==='playerMsg'" [hgn_data]='Msg'></hgnPlayermsg>
-            <div *ngIf="Msg.type!=='playerMsg'">
-              {{Msg.who}}-{{Msg.body}}</div>
+            <hgnChoosePlayer *ngIf="Msg.type==='choosePlayer'" [hgn_data]='Msg'></hgnChoosePlayer>
+            <hgnVote *ngIf="Msg.type==='player_vote'" [hgn_data]='Msg'></hgnVote>
+            <div class="well well-sm" style="margin-right: 0px;">
+              {{Msg.who}}-*-{{Msg.type}}-*-{{Msg.body}}</div>
           </div>
         </div>
       </template>
