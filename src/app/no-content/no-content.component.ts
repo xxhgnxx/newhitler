@@ -91,18 +91,21 @@ k.push(testmsg2);
 
 @Component({
   selector: 'no-content',
-  template: `
-
-<div *ngFor="let Msg of testArray">
-
-    <hgnPlayermsg *ngIf="Msg.type==='playerMsg'"  [hgn_data]='Msg' ></hgnPlayermsg>
-    <hgnChoosePlayer *ngIf="Msg.type==='choosePlayer'"  [hgn_data]='Msg' ></hgnChoosePlayer>
-
-</div>
-  `
+  styleUrls: ['./test.css'],
+  templateUrl: './test.html',
 })
 export class NoContentComponent {
 
-  testArray = k;
+list=[];
+myInput;
+
+
+  sendMsg() {
+this.list.push(this.myInput);
+    this.myInput = '';
+  }
+
+
+
 
 }

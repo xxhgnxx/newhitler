@@ -233,7 +233,7 @@ export class SocketSevice {
 
       case 'proEff':
         console.log(data.pro > 5 ? '红色法案生效' : '蓝色法案生效');
-        this.theMsgService.msgListAll.push(new Msg('system', data.pro > 5 ? '法案生效 红效' : '法案生效 蓝'));
+        // this.theMsgService.msgListAll.push(new Msg('system', data.pro > 5 ? '法案生效 红效' : '法案生效 蓝'));
         break;
 
       case 'invPlayer':
@@ -280,7 +280,7 @@ export class SocketSevice {
         break;
 
       case 'choosePro':
-        this.theMsgService.msgListAll.push(new Msg('control', '等待选法案'));
+        // this.theMsgService.msgListAll.push(new Msg('control', '等待选法案'));
         //  todo  区分谁在选
         this.theGameService.toDoSth = '等待选法案';
         if (typeof data.proX3List !== 'undefined') {
@@ -292,7 +292,7 @@ export class SocketSevice {
         break;
 
       case 'choosePro2':
-        this.theMsgService.msgListAll.push(new Msg('control', '等待选法案,可否决状态'));
+        // this.theMsgService.msgListAll.push(new Msg('control', '等待选法案,可否决状态'));
         //  todo  区分谁在选
         this.theGameService.toDoSth = '等待选法案,可否决状态';
         if (typeof data.proX3List !== 'undefined') {
@@ -303,7 +303,7 @@ export class SocketSevice {
 
         break;
       case 'veto_all':
-        this.theMsgService.msgListAll.push(new Msg('control', '等待总统是否同意否决全部'));
+        // this.theMsgService.msgListAll.push(new Msg('control', '等待总统是否同意否决全部'));
 
         console.log(this.userService.yourself);
         if (typeof data.other === 'undefined') {

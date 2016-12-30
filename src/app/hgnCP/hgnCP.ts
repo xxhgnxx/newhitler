@@ -32,41 +32,75 @@ export class HgnCP implements OnInit {
 
   proSelect(pro) {
 
-if (this.hgnData.other === 'pre_CP' && this.userService.yourself.isPre) {
-    this.socketSevice.proSelect(this.hgnData.body, pro);
-}
-if (this.hgnData.other === 'prm_CP' && this.userService.yourself.isPrm) {
-    this.socketSevice.proSelect(this.hgnData.body, pro);
-}
+
+    if (this.hgnData.other === 'pre_CP' && this.userService.yourself.isPre) {
+      this.socketSevice.proSelect(this.hgnData.body, pro);
+    }
+    if (this.hgnData.other === 'prm_CP' && this.userService.yourself.isPrm) {
+
+      if (this.hgnData.other1 !== 'veto_all') {
+        this.socketSevice.proSelect(this.hgnData.body, pro);
+
+      }
+      if (this.hgnData.other2 === 'not_veto_all') {
+        this.socketSevice.proSelect(this.hgnData.body, pro);
+
+      }
 
 
-}
 
-getstylepre(){
+    }
 
-  let styles = {
-    };
 
-  if (this.hgnData.other !== 'pre_CP') {
-    styles = {
-        // CSS property names
-        'opacity':  '0.5',
-      };
   }
-  return styles;
-}
-getstyleprm(){
-  let styles = {
-    };
 
-  if (this.hgnData.other !== 'prm_CP') {
-    styles = {
-        // CSS property names
-        'opacity':  '0.5',
-      };
+
+
+  getpro_pre(pro) {
+    if (pro === 'x') {
+      if (this.hgnData.other !== 'pre_CP') {
+        return './pic/法案背x.png';
+      }
+      return './pic/法案背.png';
+    } else {
+      if (pro > 5) {
+        if (this.hgnData.other !== 'pre_CP') {
+          return './pic/红色法案x.png';
+        }
+        return './pic/红色法案.png';
+      } else {
+        if (this.hgnData.other !== 'pre_CP') {
+          return './pic/蓝色法案x.png';
+        }
+        return './pic/蓝色法案.png';
+      }
+    }
   }
-  return styles;
-}
+  getpro_prm(pro) {
+    if (pro === 'x') {
+      if (this.hgnData.other !== 'prm_CP' || this.hgnData.other2 === 'veto_all') {
+        return './pic/法案背x.png';
+      }
+      return './pic/法案背.png';
+    } else {
+      if (pro > 5) {
+        if (this.hgnData.other !== 'prm_CP' || this.hgnData.other2 === 'veto_all') {
+          return './pic/红色法案x.png';
+        }
+        return './pic/红色法案.png';
+      } else {
+        if (this.hgnData.other !== 'prm_CP' || this.hgnData.other2 === 'veto_all') {
+          return './pic/蓝色法案x.png';
+        }
+        return './pic/蓝色法案.png';
+      }
+    }
+  }
+
+
+
+
+
 
 
   isYou(): boolean {
@@ -77,6 +111,18 @@ getstyleprm(){
       return true;
     }
     return false;
+  }
+
+  veto() {
+    // 全部否决
+    console.log('全部否决请求');
+    this.socketSevice.veto();
+  }
+
+  veto_all(n: number) {
+    this.socketSevice.veto_all(n);
+
+
   }
 
   ngOnInit() {

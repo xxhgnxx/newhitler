@@ -9,8 +9,8 @@
             <hgnPlayermsg *ngIf="Msg.type==='playerMsg'" [hgn_data]='Msg'></hgnPlayermsg>
             <hgnChoosePlayer *ngIf="Msg.type==='choosePlayer'" [hgn_data]='Msg'></hgnChoosePlayer>
             <hgnVote *ngIf="Msg.type==='player_vote'" [hgn_data]='Msg'></hgnVote>
-            <div class="well well-sm" style="margin-right: 0px;">
-              {{Msg.who}}-*-{{Msg.type}}-*-{{Msg.body}}</div>
+            <hgnlookpro *ngIf="Msg.type==='hgnlookpro'" [hgn_data]='Msg'></hgnlookpro>
+            <!-- <div style="float:left;width:500px;">{{Msg.who}}-*-{{Msg.type}}-*-{{Msg.body}}</div> -->
           </div>
         </div>
       </template>

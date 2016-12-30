@@ -19,3 +19,27 @@
   float: left;
   margin-right: 3px;
 }
+#pre_do {
+
+}
+#prm_do {
+
+}
+#end_do {
+  float: left;
+  width: 300px;
+  text-align: center;
+  margin-top: 13px;
+}
+#ask {
+  float: left;
+  width: 300px;
+  text-align: center;
+  margin-top: 13px;
+}
+#ifask {
+  float: left;
+  width: 300px;
+  text-align: center;
+  margin-top: 13px;
+}

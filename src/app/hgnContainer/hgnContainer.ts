@@ -15,7 +15,7 @@ import { TheGameService } from '../services';
 
 export class HgnContainer implements OnInit {
   @Input('hgn_data') hgnData: any = 'data出错啦xxxxxxxx';
-  bar: any;
+  barx: any;
   otherPlayerTimer: any;
   constructor(
     private userService: UserService,
@@ -101,12 +101,11 @@ export class HgnContainer implements OnInit {
       setTimeout(() => {
 
 
-        this.bar = new progressBar.Circle('#containerother', {
+        this.barx = new progressBar.Circle('#containerother', {
           color: '#aaa',
           strokeWidth: 16,
           trailWidth: 8,
           // easing: 'easeInOut',
-
           text: {
             // autoStyleContainer: false
           },
@@ -123,12 +122,12 @@ export class HgnContainer implements OnInit {
             }
           }
         });
-        this.bar.set(1);
-        this.bar.text.style.fontFamily = ' Helvetica, sans-serif';
-        this.bar.text.style.fontSize = '2rem';
-        this.bar.text.style.left = '-100%';
+        this.barx.set(1);
+        this.barx.text.style.fontFamily = ' Helvetica, sans-serif';
+        this.barx.text.style.fontSize = '2rem';
+        this.barx.text.style.left = '-100%';
 
-        this.bar.animate(0, {
+        this.barx.animate(0, {
           duration: speakTime * 1000,
         }, function() {
           // this.bar.destroy();

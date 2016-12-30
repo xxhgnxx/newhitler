@@ -307,46 +307,65 @@ export function msgLoader(userService, theGameService, theMsgService, msg: Msg) 
     case 'player_vote':
       theMsgService.msgListAll.push(msg);
       break;
+    case 'hgnlookpro':
+      theMsgService.msgListAll.push(msg);
+      break;
     case 'playerCP':
 
-  console.log('你是', userService.yourself);
-    console.log('消息是', msg.other);
-      switch (msg.other) {
-        case 'pre_CP':
-          theMsgService.controlNow = msg;
-          theMsgService.msgListAll.push(msg);
-          if (userService.yourself.isPre) {
-            theMsgService.controlNow.body = theMsgService.controlNow.other1;
-          }
-          break;
-        case 'prm_CP':
-          theMsgService.controlNow.body = msg.body;
-          theMsgService.controlNow.other = msg.other;
-          theMsgService.controlNow.other1 = msg.other1;
-          if (userService.yourself.isPrm) {
-            theMsgService.controlNow.body[1] = msg.other1[1];
-          }
-          if (userService.yourself.isPre) {
-            theMsgService.controlNow.body = theMsgService.controlNow.other1;
-          }
-          console.log(theMsgService.controlNow);
-          break;
-        case 'end_CP':
-          theMsgService.controlNow.body = msg.body;
-          theMsgService.controlNow.other = msg.other;
-          theMsgService.controlNow.other1 = msg.other1;
-          if (userService.yourself.isPrm) {
-            theMsgService.controlNow.body[1] = msg.other1[1];
-            theMsgService.controlNow.body[2] = msg.other1[2];
-          }
-          if (userService.yourself.isPre) {
-            theMsgService.controlNow.body = theMsgService.controlNow.other1;
-          }
-          console.log(theMsgService.controlNow);
+      console.log('待处理', msg);
+      if (msg.other1 === 'veto_all') {
+        console.log('other2是', msg.other2);
+        theMsgService.controlNow.other1 = msg.other1;
+        theMsgService.controlNow.other2 = msg.other2;
+        if (msg.other2 === 'veto_all') {
           theMsgService.controlNow = false;
-          break;
-        default:
-          console.log('%cplayerCP错误', 'background: #FF5C00; color: #bada55', msg);
+        }
+
+      } else {
+        switch (msg.other) {
+          case 'pre_CP':
+            theMsgService.controlNow = msg;
+            theMsgService.msgListAll.push(msg);
+            if (userService.yourself.isPre) {
+              theMsgService.controlNow.body = theMsgService.controlNow.other1;
+            }
+            break;
+          case 'prm_CP':
+            theMsgService.controlNow.body = msg.body;
+            theMsgService.controlNow.other = msg.other;
+            theMsgService.controlNow.other1 = msg.other1;
+            if (userService.yourself.isPrm) {
+              theMsgService.controlNow.body[1] = msg.other1[1];
+            }
+            if (msg.other2 === 'prm_CP_veto_all') {
+              theMsgService.controlNow.other2 = msg.other2;
+            }
+            if (userService.yourself.isPre) {
+              theMsgService.controlNow.body = theMsgService.controlNow.other1;
+            }
+            console.log(theMsgService.controlNow);
+            break;
+          case 'end_CP':
+            theMsgService.controlNow.body = msg.body;
+            theMsgService.controlNow.other = msg.other;
+            theMsgService.controlNow.other1 = msg.other1;
+            if (userService.yourself.isPrm) {
+              theMsgService.controlNow.body[1] = msg.other1[1];
+              theMsgService.controlNow.body[2] = msg.other1[2];
+            }
+            if (userService.yourself.isPre) {
+              theMsgService.controlNow.body = theMsgService.controlNow.other1;
+            }
+            theMsgService.controlNow.body[2] = msg.other1[2];
+            console.log(theMsgService.controlNow);
+            theMsgService.controlNow = false;
+            break;
+          default:
+            console.log('%cplayerCP错误', 'background: #FF5C00; color: #bada55', msg);
+        }
+
+
+        console.log('处理结果', theMsgService.controlNow);
       }
 
 

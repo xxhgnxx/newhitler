@@ -1,20 +1,21 @@
-#whospeakt {
+
+#whospeakk {
   float: left;
   width: 500px;
 }
 
-#whovotet {
-  color: white;
-  background-color: #146254;
-}
 
-#speakwhatt {
+#speakwhatk {
   float: left;
   width: 400px;
   margin-left: 41px;
   margin-top: -16px;
   margin-bottom: 0.5em;
   min-height: 30px;
-  position: relative;
-  z-index: 1000;
+}
+
+#pro {
+  padding: 0px 0px;
+  float: left;
+  margin-right: 3px;
 }

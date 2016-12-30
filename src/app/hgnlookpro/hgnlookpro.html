@@ -1,0 +1,42 @@
+<div id="whospeakk">
+  <span class="badge " id="" style="color: white;
+      background-color: #6BA9CF;">
+    <img src="./pic/总统标识.png" class="" style="height: 40px;
+          margin-top: -7px;
+          margin-left: -7px;
+          float:left;">
+    <div id="" style="float:left;margin-left: 4px; min-width: 100px;">
+      {{theGameService.pre.name}}
+      查看了法案牌堆顶的三张牌
+    </div>
+  </span>
+</div>
+<span *ngIf="hgnData.other==='isyou'" id="speakwhatk" class="alert alert-warning " style="">
+  <div>
+    <button type="button" class="btn btn-success" ngbTooltip="{{theGameService.pre.name}}" style="margin: 8px; float: left;">{{theGameService.pre.seatNo}}</button>
+    顶《-
+    <div *ngFor="let pro of hgnData.body">
+      <button type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+        <img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail" style="height: 80px;"></button>
+    </div>-》底
+  </div>
+</span>
+<span *ngIf="hgnData.other==='notyou'" id="speakwhatk" class="alert alert-warning " style="">
+  <div>
+    <button type="button" class="btn btn-success" ngbTooltip="{{theGameService.pre.name}}" style="margin: 8px; float: left;">{{theGameService.pre.seatNo}}</button>
+    顶《-
+    <div *ngFor="let pro of hgnData.body">
+      <button type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+        <img [src]="pro=='x'?'./pic/法案背.png':pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail" style="height: 80px;"></button>
+    </div>
+    -》底
+  </div>
+</span>
+<div [ngSwitch]="hgnData.other">
+  <div *ngSwitchCase="'hgnlookpro'"></div>
+  <div *ngSwitchCase="'prm_CP'"></div>
+  <div *ngSwitchCase="'end_CP'"></div>
+  <div *ngSwitchDefault>
+    <h1>有bug！！！！！</h1>
+  </div>
+</div>
