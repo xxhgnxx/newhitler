@@ -17,17 +17,7 @@ import { TheGameService } from '../services/game.service';
 export class UserslistComponent {
 
   constructor(private userService: UserService, private theGameService: TheGameService) { }
-
-
-  getUsers(): void {
-    console.log('获取列表数据' + this.userService.userList);
-  }
-
-
   ngOnInit() {
-    console.log('读取用户列表数据');
-    // this.title.getData().subscribe(data => this.data = data);
-    this.getUsers();
   }
 
 }

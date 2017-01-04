@@ -158,15 +158,6 @@ export class SocketSevice {
       msgLoader(this.userService, this.theGameService, this.theMsgService, data.msg);
     }
     switch (data.type) {
-      case 'dis':
-        this.router.navigate(['/login']);
-        sessionStorage.removeItem('login');
-        this.disconnect();
-        this.userService.isLogin = false;
-        this.loginResult.emit('被顶替');
-        alert('有人顶替了您');
-        break;
-
       case 'loginSuccess':
         this.loginResult.emit('认证成功');
         break;
@@ -242,6 +233,7 @@ export class SocketSevice {
 
       case 'proEff':
         console.log(data.pro > 5 ? '红色法案生效' : '蓝色法案生效');
+        // this.theMsgService.msgListAll.push(new Msg('system', data.pro > 5 ? '法案生效 红效' : '法案生效 蓝'));
         break;
 
       case 'invPlayer':

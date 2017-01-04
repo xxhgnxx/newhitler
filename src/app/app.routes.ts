@@ -15,6 +15,6 @@ export const ROUTES: Routes = [
   { path: 'nothing', component: NoContentComponent },
   { path: 'hgnTag', component: HgnContainer },
   { path: 'login', component: LoginComponent },
-  { path: '**', component: NoContentComponent },
+  { path: '**', component: LoginComponent },
 
 ];

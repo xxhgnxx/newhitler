@@ -96,6 +96,20 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   let msgdata = (<MsgData>dataAll);
 
 
+  if (typeof data.login !== 'undefined') {
+    if (!data.login) {
+      sessionStorage.removeItem('login');
+    } else {
+      userService.isLogin = data.login;
+    }
+  }
+
+  if (!userService.isLogin) {
+    return;
+  }
+
+
+
   if (typeof data.id !== 'undefined') {
     sessionStorage.setItem('login', data.id);
     //  todo 待修改！
@@ -103,12 +117,7 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
     msg = msg + ' ' + 'sessionStorage.login' + data.id;
   }
 
-  if (typeof data.login !== 'undefined') {
-    if (!data.login) {
-      sessionStorage.removeItem('login');
-    }
 
-  }
 
   if (typeof data.userList !== 'undefined') {
     userService.userList = data.userList;
@@ -263,6 +272,9 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
 
 
 export function msgLoader(userService, theGameService, theMsgService, msg: Msg) {
+  if (!this.userService.isLogin) {
+    return;
+  }
   switch (msg.type) {
     case 'system':
       theMsgService.msgListAll.push(msg);

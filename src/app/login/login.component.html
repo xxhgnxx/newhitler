@@ -1,5 +1,5 @@
 <!-- <div class="container"> -->
-<div [hidden]="this.userService.isLogin" class="container">
+<div *ngIf="!this.userService.isLogin" class="container">
   <div >
     <h1>登陆</h1>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -21,4 +21,5 @@
     </form>
   </div>
 </div>
-<button (click)="tmp()" class="btn btn-default">跳转</button>
+{{alerts}}
+<button *ngIf="this.userService.isLogin" (click)="tmp()" class="btn btn-default">已经登陆，点击前往房间</button>

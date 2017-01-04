@@ -19,6 +19,7 @@ export class LoginComponent {
   submiting = false;
   username = '1';
   userpassword = '1';
+  alerts: string = '';
   constructor(
     private router: Router,
     public userService: UserService,
@@ -68,12 +69,16 @@ export class LoginComponent {
         this.router.navigate(['/room']);
       } else {
         this.submiting = false;
-        this.socketsevice.disconnect();
+        this.alerts = '密码错误';
+
+        setTimeout(() => this.alerts = '', 3000);
+        // this.socketsevice.disconnect();
         console.log('认证失败');
       }
     });
 
   }
+
 
 
   tmp() {
@@ -96,9 +101,6 @@ class MyUsers {
     public name: string,
     public sex?: string
   ) { }
-
-
-
 
 
 }
