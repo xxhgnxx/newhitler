@@ -1,0 +1,11 @@
+<div id="maindiv" [style.height.px]="size" [style.width.px]="size*6">
+  <div class="" id="headdiv">
+    <img [src]="gethead()" alt="" id="hgnrole" [ngStyle]="setStyleshead()">
+    <img [src]="getNumber()" alt="" id="hgnNumber" [ngStyle]="setStylesNumber()">
+  </div>
+  <!-- <img [src]="getNumber()" alt="" id="lastVote"> -->
+  <!-- <img [src]="getNumber()" alt="" id="lastTurn"> -->
+  <div *ngIf="mystyle" class="" id="hgnPlayerName" [ngStyle]="setStylesName()">
+    {{player.name}}
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div id="whospeakk">
+<!-- <div id="whospeakk">
   <span class="badge " id="" style="color: white;
       background-color: #6BA9CF;">
     <img src="./pic/总统标识.png" class="" style="height: 40px;
@@ -9,7 +9,8 @@
       {{theGameService.pre.name}}
     </div>
   </span>
-</div >
+</div > -->
+<hgnPlayer [hgn_data]='theGameService.pre' [hgn_size]='30' [hgn_style]='1' style="height=10%;"></hgnPlayer>
 <span id="speakwhatk" class="alert alert-warning " style="">
   <div id="per_do">
     <button type="button" class="btn btn-success" ngbTooltip="{{theGameService.pre.name}}" style="margin: 8px; float: left;">{{theGameService.pre.seatNo}}</button>

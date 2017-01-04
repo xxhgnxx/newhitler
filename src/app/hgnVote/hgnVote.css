@@ -1,5 +1,5 @@
 #whospeakt {
-  float: left;
+  /*float: left;*/;
   width: 500px;
 }
 
@@ -9,7 +9,7 @@
 }
 
 #speakwhatt {
-  float: left;
+  /*float: left;*/;
   width: 400px;
   margin-left: 41px;
   margin-top: -16px;

@@ -1,30 +1,15 @@
 <div class="">
   <!-- Tab panes -->
-  <ngb-tabset>
-    <ngb-tab title="玩家发言">
-      <template ngbTabContent>
-        <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
-          <div *ngFor="let Msg of msgListAll">
-            <hgnCP *ngIf="Msg.type==='playerCP'" [hgn_data]='Msg'></hgnCP>
-            <hgnPlayermsg *ngIf="Msg.type==='playerMsg'" [hgn_data]='Msg'></hgnPlayermsg>
-            <hgnChoosePlayer *ngIf="Msg.type==='choosePlayer'" [hgn_data]='Msg'></hgnChoosePlayer>
-            <hgnVote *ngIf="Msg.type==='player_vote'" [hgn_data]='Msg'></hgnVote>
-            <hgnlookpro *ngIf="Msg.type==='hgnlookpro'" [hgn_data]='Msg'></hgnlookpro>
-            <!-- <div style="float:left;width:500px;">{{Msg.who}}-*-{{Msg.type}}-*-{{Msg.body}}</div> -->
-          </div>
-        </div>
-      </template>
-    </ngb-tab>
-    <ngb-tab title="游戏进程">
-      <template ngbTabContent>
-        <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
-          <div id="speakwhat" [hidden]="e" *ngFor="let msgg of theGameService.gameMsg">
-            <span class="alert alert-info " style="">{{msgg}}</span>
-          </div>
-        </div>
-      </template>
-    </ngb-tab>
-  </ngb-tabset>
+  <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
+    <div *ngFor="let Msg of msgListAll">
+      <hgnCP *ngIf="Msg.type==='playerCP'" [hgn_data]='Msg'></hgnCP>
+      <hgnPlayermsg *ngIf="Msg.type==='playerMsg'" [hgn_data]='Msg'></hgnPlayermsg>
+      <hgnChoosePlayer *ngIf="Msg.type==='choosePlayer'" [hgn_data]='Msg'></hgnChoosePlayer>
+      <hgnVote *ngIf="Msg.type==='player_vote'" [hgn_data]='Msg'></hgnVote>
+      <hgnlookpro *ngIf="Msg.type==='hgnlookpro'" [hgn_data]='Msg'></hgnlookpro>
+      <!-- <div style="float:left;width:500px;">{{Msg.who}}-*-{{Msg.type}}-*-{{Msg.body}}</div> -->
+    </div>
+  </div>
   <!-- <input [(colorPicker)]="color" [style.color]="color" [style.font]="'italic bold 20px arial,serif'" [value]="color"/> -->
   <!-- <input [disabled]="!locked" [(ngModel)]="myInput" (keyup.enter)=sendMsg()> -->
   <div id="inputair">
@@ -35,5 +20,10 @@
     <button [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
     <!-- <button (click)=tmp()>开始</button> -->
     <button [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
+    <div class="">
+      <button (click)="testjsson(1)" id="pro">写入</button>
+      <button (click)="testjsson(2)" id="pro">读取</button>
+      <button (click)="testjsson(3)" id="pro">清除</button>
+    </div>
   </div>
 </div>

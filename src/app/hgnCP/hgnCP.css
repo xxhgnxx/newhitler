@@ -1,22 +1,21 @@
 
 #whospeakk {
-  float: left;
+  /*float: left;*/;
   width: 500px;
 }
 
 
 #speakwhatk {
-  float: left;
+  /*float: left;*/;
   width: 400px;
   margin-left: 41px;
-  margin-top: -16px;
   margin-bottom: 0.5em;
   min-height: 30px;
 }
 
 #pro {
   padding: 0px 0px;
-  float: left;
+  /*float: left;*/;
   margin-right: 3px;
 }
 #pre_do {
@@ -26,19 +25,19 @@
 
 }
 #end_do {
-  float: left;
+  /*float: left;*/;
   width: 300px;
   text-align: center;
   margin-top: 13px;
 }
 #ask {
-  float: left;
+  /*float: left;*/;
   width: 300px;
   text-align: center;
   margin-top: 13px;
 }
 #ifask {
-  float: left;
+  /*float: left;*/;
   width: 300px;
   text-align: center;
   margin-top: 13px;

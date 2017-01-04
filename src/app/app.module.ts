@@ -51,6 +51,7 @@ import { HgnChoosePlayer } from './choosePlayer';
 import { HgnVote } from './hgnVote';
 import { HgnCP } from './hgnCP';
 import { Hgnlookpro } from './hgnlookpro';
+import { HgnPlayer } from './hgnPlayer';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -92,6 +93,7 @@ type StoreType = {
     HgnContainer,
     HgnVote,
     HgnCP,
+    HgnPlayer,
     Hgnlookpro,
     HgnChoosePlayer,
     MsgComponent,

@@ -1,12 +1,12 @@
 
 #whospeakk {
-  float: left;
+  /*float: left;*/;
   width: 500px;
 }
 
 
 #speakwhatk {
-  float: left;
+  /*float: left;*/;
   width: 400px;
   margin-left: 41px;
   margin-top: -16px;
@@ -16,6 +16,6 @@
 
 #pro {
   padding: 0px 0px;
-  float: left;
+  /*float: left;*/;
   margin-right: 3px;
 }

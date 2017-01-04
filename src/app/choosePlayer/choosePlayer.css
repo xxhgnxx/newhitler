@@ -1,6 +1,6 @@
 .badge {
   display: block;
-  float: left;
+  /*float: left;*/
   color: white;
   height: 3em;
   padding: 0.5em 0.5em 0.5em 0.5em;
@@ -12,22 +12,21 @@
 }
 
 #whospeakc {
-  float: left;
+  /*float: left;*/
   width: 500px;
 }
 
 
 #speakwhat1 {
-  float: left;
+  /*float: left;*/
   width: 400px;
   margin-left: 41px;
-  margin-top: -16px;
   margin-bottom: 0.5em;
   min-height: 30px;
 }
 span {
   display: block;
-    float: left;
+    /*float: left;*/
   left: 0.5em;
   padding: 0.3em;
   font-size: 0.9em;

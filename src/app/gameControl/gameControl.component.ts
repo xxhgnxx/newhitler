@@ -30,14 +30,17 @@ export class GameControlComponent {
   failTimes = 0; // 政府组件失败次数
 
   toDoSth: string = this.theGameService.toDoSth;
+
+  lastTurn = new Map(); // 上一次政府情况
+
   constructor(
     tipconfig: NgbTooltipConfig,
     private userService: UserService,
     private theGameService: TheGameService,
     private socketSevice: SocketSevice
   ) {
-tipconfig.placement = 'top';
-   }
+    tipconfig.placement = 'top';
+  }
 
 
   userSeat() {

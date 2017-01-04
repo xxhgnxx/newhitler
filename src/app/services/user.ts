@@ -15,6 +15,8 @@ export class User {
   isFascist: boolean = false;
   role: string = 'x';
   canBeSelect: boolean = true;
+
+    lastVote: number;  // 最后一次生效的投票情况
   constructor(name: string) { this.name = name; }
 }
 

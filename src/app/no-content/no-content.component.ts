@@ -37,7 +37,7 @@ class MsgContainer {
   }
 }
 
-let testuser = new User('皇冠鸟');
+let testuser = new User('这是十个字的名字信不');
 testuser.socketId = 'x';
 testuser.isOnline = true;
 testuser.isSurvival = true;
@@ -79,10 +79,13 @@ testuser2.isHitler = false;
 testuser2.isFascist = false;
 testuser2.role = 'x';
 testuser2.canBeSelect = true;
-
+let userlist = [];
+userlist.push(testuser);
+userlist.push(testuser1);
+userlist.push(testuser2);
 let testmsg = new Msg(testuser, '我勒个去！00');
-let testmsg1 = new Msg(testuser1,  '我勒个去！11');
-let testmsg2 = new Msg(testuser2,  '我勒个去！22');
+let testmsg1 = new Msg(testuser1, '我勒个去！11');
+let testmsg2 = new Msg(testuser2, '我勒个去！22');
 
 let k = [];
 k.push(testmsg);
@@ -95,16 +98,21 @@ k.push(testmsg2);
   templateUrl: './test.html',
 })
 export class NoContentComponent {
-
-list=[];
-myInput;
-
+  size: number = 100;
+  list = [];
+  myInput;
+  public userlist;
 
   sendMsg() {
-this.list.push(this.myInput);
+    this.list.push(this.myInput);
+    this.size = Number(this.myInput);
     this.myInput = '';
+    console.log(this.size);
   }
 
+  constructor() {
+    this.userlist = userlist;
+  }
 
 
 

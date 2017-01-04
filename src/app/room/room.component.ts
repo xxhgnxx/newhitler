@@ -4,6 +4,7 @@ import { UserService } from '../services';
 import { TheGameService } from '../services';
 import { Router } from '@angular/router';
 import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
+import { TheMsgService } from '../services/msg.service';
 
 let progressBar = require('progressbar.js');
 
@@ -24,6 +25,33 @@ export class RoomComponent {
   locked: boolean = false;  // 禁止发言
   private head = new Map();
 
+
+
+  getback() {
+    let styles = {};
+
+
+    if (this.userService.yourself.name === '_') {
+      styles['background-color'] = 'snow';
+      return styles;
+    }
+    if (this.userService.yourself.isPre) {
+      styles['background-color'] = 'mediumaquamarine';
+
+      return styles;
+    }
+    if (this.userService.yourself.isPrm) {
+      styles['background-color'] = 'chocolate';
+
+      return styles;
+    }
+    styles['background-color'] = 'honeydew';
+
+    return styles;
+
+
+
+  }
   // speakNow(time) {
   //
   //   this.locked = true;
@@ -66,6 +94,7 @@ export class RoomComponent {
     private router: Router,
     private socketsevice: SocketSevice,
     private theGameService: TheGameService,
+    private theMsgService: TheMsgService,
     private userService: UserService) {
     // this.head['liberal'] = './pic/liberal.png';
     // this.head['Hitler'] = './pic/Hitler.jpg';

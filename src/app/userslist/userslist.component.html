@@ -2,22 +2,23 @@
   {{userService.yourself.name}}</h3>
 <div *ngIf="!theGameService.started" class="pre-scrollable" style="max-height: 320px;height: 320px;">
   <ul class="users">
-    <li *ngFor="let user of userService.userList" [style.color]="user.isOnline ? 'black' : 'gray'">
-      <span class="badge" [style.background-color]="user.isOnline ? 'blue' : 'gray'">{{user.seatNo}}</span>
-      {{user.name}}
-    </li>
+    <div *ngFor="let user of userService.userList" style="height=10%;">
+      <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1' style="height=10%;"></hgnPlayer>
+    </div>
   </ul>
 </div>
-<div *ngIf="theGameService.started" class="pre-scrollable" style="max-height: 320px;height: 320px;">
+<div *ngIf=" theGameService.started" class=" pre-scrollable" style=" max-height: 320px;height: 320px;">
   <ul class="users">
-    <li *ngFor="let user of theGameService.playerList" [style.color]="user.isOnline ? 'black' : 'gray'">
+    <div *ngFor="let user of theGameService.playerList" style="height=10%;">
+      <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1'></hgnPlayer>
+    </div>
+    <!-- <li *ngFor="let user of theGameService.playerList" [style.color]="user.isOnline ? 'black' : 'gray'">
       <span class="badge" [style.background-color]="user.isOnline ? 'blue' : 'gray'">{{user.seatNo}}</span>
       <span class="">{{user.name}}</span>
       <span class="badge" *ngIf="user.isSeat">ok</span>
       <span class="badge" *ngIf="user.isPre">统</span>
       <span class="badge" *ngIf="user.isPrm">理</span>
-      <!-- <span class="badge" *ngIf="!user.canBeSelect">X</span> -->
       <span class="badge" *ngIf="!user.isSurvival">死</span>
-    </li>
+    </li> -->
   </ul>
 </div>

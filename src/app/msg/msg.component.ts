@@ -92,12 +92,35 @@ export class MsgComponent {
   }
 
 
+  testjsson(n: number) {
+    if (n === 1) {
+      console.log('写入');
+      localStorage.setItem('msglist', JSON.stringify(this.theMsgService.msgListAll));
+      localStorage.setItem('whoareyou', JSON.stringify(this.userService.yourself));
+      localStorage.setItem('playerList', JSON.stringify(this.theGameService.playerList));
+      localStorage.setItem('pre', JSON.stringify(this.theGameService.pre));
+    } else {
+      console.log('读取');
+      this.msgListAll = JSON.parse(localStorage.getItem('msglist'));
+      this.userService.yourself = JSON.parse(localStorage.getItem('whoareyou'));
+      this.theGameService.playerList = JSON.parse(localStorage.getItem('playerList'));
+      this.theGameService.pre = JSON.parse(localStorage.getItem('pre'));
+    }
+    if (n === 3) {
+      console.log('清除');
+      localStorage.removeItem('msglist');
+      localStorage.removeItem('whoareyou');
+      localStorage.removeItem('playerList');
+      localStorage.removeItem('pre');
+    }
+  }
+
+
+
+
+
   tmp() {
     this.speakNow(120);
-
-
-
-
   }
 
   speak_end() {

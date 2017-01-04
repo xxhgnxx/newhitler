@@ -1,0 +1,25 @@
+#maindiv {}
+
+#headdiv {
+  z-index: 99;
+  display: inline;
+  position: absolute;
+}
+
+#hgnrole {
+  display: inline;
+}
+
+#hgnNumber {
+  position: absolute;
+  display: inline;
+}
+
+#hgnPlayerName {
+  position: absolute;
+  z-index: 1;
+  border-radius: 0.3em 0.3em 0.3em 0.3em;
+  font-family: "黑体";
+  display: inline;
+  color: white;
+}
