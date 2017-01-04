@@ -3,7 +3,7 @@
     <button *ngIf="!userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-warning ">坐下</button>
     <button *ngIf="userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-success ">起身离开</button>
     <!-- <button [disabled]="userService.yourself.name!=='皇冠鸟'" (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button> -->
-    <button (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button>
+    <button [disabled]="theGameService.playerList.length<5 || !userService.yourself.isSeat " (click)="startGame()" type="button" class="btn btn-warning ">开始游戏{{theGameService.playerList.length}}</button>
     <!-- <button (click)="vote()" type="button" class="btn btn-default">投票</button>
   <button (click)="preSelect()" type="button" class="btn btn-primary">选总统</button>
   <button (click)="prmSelect()" type="button" class="btn btn-success">选总理</button>

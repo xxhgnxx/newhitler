@@ -53,7 +53,6 @@ export class GameControlComponent {
     this.socketSevice.startGame();
   }
 
-
   vote(n: number) {
     this.theGameService.isVoted = true;
     this.socketSevice.vote(n);

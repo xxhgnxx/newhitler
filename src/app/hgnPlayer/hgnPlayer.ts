@@ -73,7 +73,7 @@ export class HgnPlayer implements OnInit {
       return styles;
     }
     styles['background-color'] = '#B2D8E6';
-    styles['color'] = 'white';
+    styles['color'] = 'black';
     return styles;
   }
 
@@ -99,6 +99,10 @@ export class HgnPlayer implements OnInit {
       src = './pic/' + this.player.seatNo + '.png';
     } else {
       src = './pic/errorNo.png';
+    }
+
+    if (!this.theGameService.started && this.player.isSeat) {
+        src = './pic/ok.png';
     }
     return src;
   }

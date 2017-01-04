@@ -69,7 +69,7 @@ export class LoginComponent {
         this.router.navigate(['/room']);
       } else {
         this.submiting = false;
-        this.alerts = '密码错误';
+        this.alerts = this.userService.other;
 
         setTimeout(() => this.alerts = '', 3000);
         // this.socketsevice.disconnect();

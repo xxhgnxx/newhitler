@@ -14,12 +14,16 @@ export class UserService {
   role: string = 'x';
   teamMsg = '游戏尚未开始';
   isLogin = false;
+  other = 'what? 出Bug啦！';
   whoAmI(list: Array<User>) {
-    // console.log('定位身份');
-    // console.log(list);
-    this.yourself = list.filter(t => {
+    let tmp = list.filter(t => {
       return t.socketId === this.yourself.socketId;
     })[0];
+    if (tmp) {
+      this.yourself = tmp;
+    } else {
+      console.log('列表里没你,你离开座位了？');
+    }
     // console.log(this.yourself);
   }
 

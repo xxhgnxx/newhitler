@@ -176,6 +176,7 @@ export class SocketSevice {
 
         break;
       case 'Login_fail':
+        this.userService.other = data.other;
         this.loginResult.emit('认证失败');
         // myEmitter.emit('user_login_passWrong');
         break;
