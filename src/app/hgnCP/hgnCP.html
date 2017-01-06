@@ -10,64 +10,29 @@
     </div>
   </span>
 </div > -->
-<hgnPlayer [hgn_data]='theGameService.pre' [hgn_size]='30' [hgn_style]='1' style="height=10%;"></hgnPlayer>
 <span id="speakwhatk" class="alert alert-warning " style="">
-  <div id="per_do">
-    <button type="button" class="btn btn-success" ngbTooltip="{{theGameService.pre.name}}" style="margin: 8px; float: left;">{{theGameService.pre.seatNo}}</button>
-    <div *ngIf="hgnData.other==='pre_CP'" id="">
-      等待决定...
-    </div>
-    <div *ngFor="let pro of hgnData.body[0]">
-      <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
-        <img [src]="getpro_pre(pro)" class="img-thumbnail" style="height: 80px;"></button>
-    </div>
+  总统选择-》
+  <div *ngFor="let pro of hgnData.proX3List[0]">
+    <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+      <img [src]="getpro_pre(pro)" class="img-thumbnail" style="height: 80px;"></button>
   </div>
-  <div *ngIf="hgnData.other !== 'pre_CP'" id="pem_do">
-    <button type="button" class="btn btn-success" ngbTooltip="{{theGameService.prm.name}}" style="margin: 8px; float: left;">{{theGameService.prm.seatNo}}</button>
-  </div>
-  <div *ngIf="hgnData.other==='prm_CP'" id="">
-    等待决定...
-  </div>
-  <div *ngFor="let pro of hgnData.body[1]">
+  总理选择-》
+  <div *ngFor="let pro of hgnData.proX3List[1]">
     <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
       <img [src]="getpro_prm(pro)" class="img-thumbnail" style="height: 80px;"></button>
   </div>
-  <div *ngIf="hgnData.other2==='pre_CP_veto_all' && userService.yourself.isPre" class="row" id="ask">
+  政府最终最终执行法案为
+  <div *ngFor=" let pro of hgnData.proX3List[2]">
+    <button type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+      <img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail" style="height: 120px;"></button>
+  </div>
+  <div *ngIf="hgnData.step===31" id="ifask">
+    您是否要向总统提出否决全部法案的建议?
+    <button (click)="veto()" type="button" class="btn btn-danger">向总统提出否决全部法案的建议</button>
+  </div>
+  <div *ngIf="hgnData.step===41" class="row" id="ask">
     总理提出了否决全部法案，您是否同意？
     <button (click)="veto_all(1)" type="button" class="btn btn-danger">同意</button>
     <button (click)="veto_all(0)" type="button" class="btn btn-danger">反对</button>
   </div>
-  <div *ngIf="hgnData.other2==='pre_CP_veto_all' && !userService.yourself.isPre" id="ifask">
-    总理提出了否决全部的提议，等待总统的决定.....
-  </div>
-  <div *ngIf="hgnData.other2==='not_veto_all'" id="ifask">
-    总统反对否决全部！等待总理做一个决定...
-  </div>
-  <div *ngIf="hgnData.other2==='prm_CP_veto_all' && userService.yourself.isPrm" id="ifask">
-    您是否要向总统提出否决全部法案的建议?
-    <button (click)="veto()" type="button" class="btn btn-danger">向总统提出否决全部法案的建议</button>
-  </div>
-  <div *ngIf="  !hgnData.other==='end_CP' && hgnData.other2==='prm_CP_veto_all' && !userService.yourself.isPrm  " id="ifask">
-    等待总理选出法案，总理可以尝试否决全部法案
-  </div>
-  <div id="end_do">
-    <div *ngFor=" let pro of hgnData.body[2]">
-      <div id="end_say">
-        政府最终最终执行法案为
-      </div>
-      <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
-        <img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail" style="height: 120px;"></button>
-    </div>
-    <div *ngIf="hgnData.other2==='veto_all'" id="end_say">
-      政府最终决定放弃了全部的三份法案，本届政府解散
-    </div>
-  </div>
 </span>
-<div [ngSwitch]="hgnData.other">
-  <div *ngSwitchCase="'pre_CP'"></div>
-  <div *ngSwitchCase="'prm_CP'"></div>
-  <div *ngSwitchCase="'end_CP'"></div>
-  <div *ngSwitchDefault>
-    <h1>有bug！！！！！</h1>
-  </div>
-</div>
