@@ -4,6 +4,7 @@ import { User } from '../services';
 import { UserService } from '../services';
 import { TheGameService } from '../services';
 import { SocketSevice } from '../services';
+import { TheMsgService } from '../services/msg.service';
 
 @Component({
 
@@ -37,6 +38,7 @@ export class GameControlComponent {
     tipconfig: NgbTooltipConfig,
     private userService: UserService,
     private theGameService: TheGameService,
+    private theMsgService: TheMsgService,
     private socketSevice: SocketSevice
   ) {
     tipconfig.placement = 'top';
@@ -51,6 +53,7 @@ export class GameControlComponent {
 
   startGame() {
     this.socketSevice.startGame();
+
   }
 
   vote(n: number) {

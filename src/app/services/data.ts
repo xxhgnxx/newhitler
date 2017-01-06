@@ -1,3 +1,4 @@
+let yaml = require('js-yaml');
 import { User } from './user';
 
 
@@ -7,7 +8,7 @@ export class Data {
   msg: Msg;
   yourself: User;
   user: User;
-
+  hList: any;
   // 登陆相关
   id: string;
   login: boolean;
@@ -20,6 +21,7 @@ export class Data {
   started: boolean;       // 游戏是否开始
   speakTime: number;
   role: string;
+
 
   // 玩家相关
   userList: Array<User>; // 用户列表传输
@@ -48,7 +50,7 @@ export class Data {
   // 游戏过程记录
   // gameStep: string;  // 游戏阶段
 
-  // 情况
+  // 角色情况
   pre: User;
   lastPre: User;
   prenext: User;
@@ -91,9 +93,21 @@ export class Msg {
 
 // 数据包处理  test
 export function dataLoader(userService, theGameService, theMsgService, dataAll: Data | MsgData) {
-  let msg = dataAll.type;
+
   let data = (<Data>dataAll);
   let msgdata = (<MsgData>dataAll);
+
+  if (typeof data.hList !== 'undefined') {
+    console.log('更新用户数据');
+    let tmp = yaml.safeLoad(data.hList);
+    userService.userList = tmp.userList;
+    theGameService.playerList = tmp.playerList;
+    userService.yourself = tmp.yourself;
+    userService.hList = tmp;
+    //  todo 待修改！
+    console.log(userService.yourself);
+  }
+
 
 
   if (typeof data.login !== 'undefined') {
@@ -114,159 +128,100 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
     sessionStorage.setItem('login', data.id);
     //  todo 待修改！
     // userService.whoAmI(userService.yourself);
-    msg = msg + ' ' + 'sessionStorage.login' + data.id;
   }
 
 
 
-  if (typeof data.userList !== 'undefined') {
-    userService.userList = data.userList;
-    //  todo 待修改！
-    userService.whoAmI(data.userList);
-    msg = msg + ' ' + 'userList';
-  }
-
-  if (typeof data.playerList !== 'undefined') {
-    theGameService.playerList = data.playerList;
-    // 待确认
-    userService.whoAmI(data.playerList);
-    msg = msg + ' ' + 'playerList';
-  }
+  // if (typeof data.userList !== 'undefined') {
+  //   userService.userList = data.userList;
+  //   //  todo 待修改！
+  //   userService.whoAmI(data.userList);
+  // }
+  //
+  // if (typeof data.playerList !== 'undefined') {
+  //   theGameService.playerList = data.playerList;
+  //   // 待确认
+  //   userService.whoAmI(data.playerList);
+  // }
 
   if (typeof data.proIndex !== 'undefined') {
     theGameService.proIndex = data.proIndex;
-    msg = msg + ' ' + 'proIndex';
   }
   if (typeof data.nowVote !== 'undefined') {
 
     theGameService.nowVote = data.nowVote;
-    msg = msg + ' ' + 'nowVote';
   }
   if (typeof data.voteCount !== 'undefined') {
     theGameService.voteCount = data.voteCount;
-    msg = msg + ' ' + 'voteCount';
   }
   if (typeof data.proList !== 'undefined') {
     theGameService.proList = data.proList;
-    msg = msg + ' ' + 'proList';
   }
   if (typeof data.started !== 'undefined') {
     theGameService.started = data.started;
-    msg = msg + ' ' + 'started';
   }
   if (typeof data.proEffBlue !== 'undefined') {
     theGameService.proEffBlue = data.proEffBlue;
-    msg = msg + ' ' + 'proEffBlue';
   }
   if (typeof data.proEffRed !== 'undefined') {
     theGameService.proEffRed = data.proEffRed;
-    msg = msg + ' ' + 'proIndex';
   }
   if (typeof data.failTimes !== 'undefined') {
     theGameService.failTimes = data.failTimes;
-    msg = msg + ' ' + 'failTimes';
   }
   if (typeof data.fascistCount !== 'undefined') {
     theGameService.fascistCount = data.fascistCount;
-    msg = msg + ' ' + 'fascistCount';
   }
   if (typeof data.liberalCount !== 'undefined') {
     theGameService.liberalCount = data.liberalCount;
-    msg = msg + ' ' + 'liberalCount';
   }
   if (typeof data.lastPre !== 'undefined') {
     theGameService.lastPre = data.lastPre;
-    msg = msg + ' ' + 'lastPre';
   }
   if (typeof data.lastPrm !== 'undefined') {
     theGameService.lastPrm = data.lastPrm;
-    msg = msg + ' ' + 'lastPrm';
   }
   if (typeof data.pre !== 'undefined') {
     theGameService.pre = data.pre;
-    msg = msg + ' ' + 'pre';
   }
   if (typeof data.prenext !== 'undefined') {
     theGameService.prenext = data.prenext;
-    msg = msg + ' ' + 'prenext';
   }
   if (typeof data.prm !== 'undefined') {
     theGameService.prm = data.prm;
-    msg = msg + ' ' + 'prm';
   }
 
   if (typeof data.proX3List !== 'undefined') {
     // theGameService.proX3List = data.proX3List;
-    msg = msg + ' ' + 'proX3List(未生效)';
   }
   if (typeof data.isVoted !== 'undefined') {
     theGameService.isVoted = data.isVoted;
-    msg = msg + ' ' + 'isVoted';
   }
   if (typeof data.other !== 'undefined') {
     theGameService.other = data.other;
-    msg = msg + ' ' + 'other';
   }
   if (typeof data.prmTmp !== 'undefined') {
     theGameService.prmTmp = data.prmTmp;
-    msg = msg + ' ' + 'prmTmp';
   }
   if (typeof data.target !== 'undefined') {
     theGameService.target = data.target;
-    msg = msg + ' ' + 'target';
   }
 
   if (typeof data.speakTime !== 'undefined') {
     // speakNow.emit(msgdata.speakTime);
     theGameService.speakTime = msgdata.speakTime;
-    msg = msg + ' ' + 'timing';
   }
 
   // --------------------- 发言
 
   if (typeof msgdata.locked !== 'undefined') {
     theMsgService.locked = msgdata.locked;
-    msg = msg + ' ' + 'locked';
   }
 
   if (typeof msgdata.msgFrom !== 'undefined') {
     theMsgService.msgFrom = msgdata.msgFrom;
-    msg = msg + ' ' + 'msgFrom';
   }
-  // if (typeof msgdata.msgListAll !== 'undefined') {
-  //   theMsgService.msgListAll = msgdata.msgListAll;
-  //   msg = msg + ' ' + 'msgListAll';
-  // }
-  // if (typeof msgdata.msg !== 'undefined') {
-  //
-  //   if (msgdata.msg.type === 'playerMsg') {
-  //     if (typeof theMsgService.msgListAll[theMsgService.msgListAll.length - 1] !== 'undefined') {
-  //       if (theMsgService.msgListAll[theMsgService.msgListAll.length - 1].who.name
-  //         === msgdata.msg.who.name) {
-  //         theMsgService.msgListAll[theMsgService.msgListAll.length - 1]
-  // .body.push(msgdata.msg.body);
-  //       } else {
-  //         let tmp0 = new Array();
-  //         tmp0.push(msgdata.msg.body);
-  //         let tmp = new Msg(msgdata.msg.who, tmp0);
-  //         tmp.type = 'playerMsg';
-  //         theMsgService.msgListAll.push(tmp);
-  //       }
-  //
-  //     } else {
-  //       theMsgService.msgListAll.push(msgdata.msg);
-  //     }
-  //   } else {
-  //     let tmp0 = new Array();
-  //     tmp0.push(msgdata.msg.body);
-  //     let tmp = new Msg(msgdata.msg.who, tmp0);
-  //     theMsgService.msgListAll.push(tmp);
-  //   }
-  //
-  //   msg = msg + ' ' + 'msg';
-  // }
-  // theMsgService.msgListNow.push('数据读取' + msg);   // 测试用输出到聊天记录中
-  console.log('%c数据读取', 'background: #222; color: #bada55', msg);
+
 }
 
 

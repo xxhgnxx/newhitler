@@ -59,18 +59,21 @@ export class LoginComponent {
 
 
   onSubmit() {
+    console.log('尝试登陆');
     this.submiting = true;
     this.socketsevice.login(this.username, this.userpassword);
     this.socketsevice.loginResult.subscribe((result) => {
+      this.submiting = false;
       if (result === '认证成功') {
         console.log('登陆成功');
         this.userService.isLogin = true;
-        this.submiting = false;
         this.router.navigate(['/room']);
       } else {
-        this.submiting = false;
-        this.alerts = this.userService.other;
-
+        if (result === '认证失败') {
+          this.alerts = this.userService.other;
+        } else {
+          this.alerts = result;
+        }
         setTimeout(() => this.alerts = '', 3000);
         // this.socketsevice.disconnect();
         console.log('认证失败');

@@ -7,6 +7,7 @@ import { Data } from './data';
 
 @Injectable()
 export class UserService {
+  hList = new Userlisthgn(); // 系统用户总表存储位置
   userList: Array<User>;
   // userLsit = getdate();
   yourself: User = new User('_');
@@ -15,17 +16,17 @@ export class UserService {
   teamMsg = '游戏尚未开始';
   isLogin = false;
   other = 'what? 出Bug啦！';
-  whoAmI(list: Array<User>) {
-    let tmp = list.filter(t => {
-      return t.socketId === this.yourself.socketId;
-    })[0];
-    if (tmp) {
-      this.yourself = tmp;
-    } else {
-      console.log('列表里没你,你离开座位了？');
-    }
-    // console.log(this.yourself);
-  }
+  // whoAmI(list: Array<User>) {
+  //   let tmp = list.filter(t => {
+  //     return t.socketId === this.yourself.socketId;
+  //   })[0];
+  //   if (tmp) {
+  //     this.yourself = tmp;
+  //   } else {
+  //     console.log('列表里没你,你离开座位了？');
+  //   }
+  //   // console.log(this.yourself);
+  // }
 
 
   setTeam(data: Data) {
@@ -63,4 +64,11 @@ export class UserService {
   }
 
   constructor() { }
+}
+
+
+export class Userlisthgn {
+  userList = new Array<User>();
+  playerList = new Array<User>();
+  yourself: User;
 }

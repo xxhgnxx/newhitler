@@ -1,6 +1,4 @@
-<div [ngSwitch]="hgnData.other">
-  <div *ngSwitchCase="'selectPrm'">
-    <!-- <div id="whospeakc">
+<!-- <div id="whospeakc">
       <span class="badge " id="" style="color: white;
       background-color: #6BA9CF;">
         <img src="./pic/总统标识.png" class="" style="height: 40px;
@@ -12,33 +10,17 @@
         </div>
       </span>
     </div> -->
-    <hgnPlayer [hgn_data]='theGameService.pre' [hgn_size]='30' [hgn_style]='1'></hgnPlayer>
-    <span id="speakwhat1" class="alert alert-warning " style="">
-      <div class="row" *ngIf="!this.userService.yourself.isPre && hgnData.other1">
-        <div class="row" style="margin-left: 25px;">{{theGameService.pre.name}}正在选择总理-></div>
-      </div>
-      <div class="row" *ngIf="this.userService.yourself.isPre && hgnData.other1">
-        <div class="row" style="margin-left: 25px;">请选择总理-></div>
-        <div style="" style="margin-left: 25px;">
-          <div class="" *ngFor="let user of theGameService.playerList" style="float: left;">
-            <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
-            <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
-          </div>
-        </div>
-      </div>
-      <div class="row" *ngIf="!hgnData.other1">
-        <div class="" style="margin-left: 25px;">
-          <div class="row" style="margin-left: 25px;">总统选择了
-            <button type="button" class="btn btn-success" ngbTooltip="{{hgnData.other2.name}}" style="margin: 8px;">{{hgnData.other2.seatNo}}</button>
-          </div>
-        </div>
-      </div>
-    </span>
+<span id="speakwhat1" class="alert alert-warning " style="">
+  <div class="row" *ngIf="!userService.yourself.isPre ">
+    <div class="row" style="margin-left: 25px;">正在选择总理-></div>
   </div>
-  <div *ngSwitchCase="'pre_CP'"></div>
-  <div *ngSwitchCase="'prm_CP'"></div>
-  <div *ngSwitchCase="'end_CP'"></div>
-  <div *ngSwitchDefault>
-    <h1>有bug！！！！！</h1>
+  <div class="row" *ngIf="userService.yourself.isPre ">
+    <div class="row" style="margin-left: 25px;">请选择总理-></div>
+    <div style="" style="margin-left: 25px;">
+      <div class="" *ngFor="let user of hgnData.userList" style="float: left;">
+        <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
+        <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
+      </div>
+    </div>
   </div>
-</div>
+</span>

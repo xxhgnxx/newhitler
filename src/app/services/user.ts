@@ -11,12 +11,12 @@ export class User {
   isLastPrm: boolean = false;
   isPre: boolean = false;
   isPrm: boolean = false;
+  isTmpPrm: boolean = false;
   isHitler: boolean = false;
   isFascist: boolean = false;
   role: string = 'x';
   canBeSelect: boolean = true;
-
-    lastVote: number;  // 最后一次生效的投票情况
+  lastVote: number;  // 最后一次生效的投票情况
   constructor(name: string) { this.name = name; }
 }
 

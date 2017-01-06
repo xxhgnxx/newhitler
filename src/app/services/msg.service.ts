@@ -8,6 +8,7 @@ import { User } from './user';
 @Injectable()
 export class TheMsgService {
 
+  msgList = new Array<any>();
   msgListAll = new Array<any>();
   msgListNow = new Array<any>();
   locked: boolean;  // 禁止发言

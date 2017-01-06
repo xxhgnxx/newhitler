@@ -13,6 +13,7 @@ import { TheMsgService } from './msg.service';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+let yaml = require('js-yaml');
 
 @Injectable()
 export class SocketSevice {
@@ -49,6 +50,7 @@ export class SocketSevice {
         this.networkSocket.socketOn(this.system.bind(this));
         this.networkSocket.send(dataOut, x => { console.log(x); });
       } else {
+
         this.loginResult.emit('链接服务器失败');
       }
     }
@@ -68,7 +70,7 @@ export class SocketSevice {
         this.networkSocket.socketOn(this.system.bind(this));
         this.networkSocket.send(dataOut, x => { console.log(x); });
       } else {
-        this.loginResult.emit('链接服务器失败');
+        this.quickloginResult.emit('链接服务器失败');
       }
     }
 
@@ -152,11 +154,25 @@ export class SocketSevice {
   }
 
   system(data) {
-    console.log('%c收到服务端发来的system请求', 'background: #222; color: #bada55', data);
-    dataLoader(this.userService, this.theGameService, this.theMsgService, data);
-    if (typeof data.msg !== 'undefined') {
-      msgLoader(this.userService, this.theGameService, this.theMsgService, data.msg);
+    console.log('%csystem', 'background: #93ADAA; color: #000', data);
+    if (data.type === 'Push_msg') {
+      console.log('%cPush_msg', 'background: #E99B49; color: #000', data);
+      this.theMsgService.msgList.push(data.msg);
+      sessionStorage.setItem('mymsglist', yaml.safeDump(this.theMsgService.msgList));
+
+
+
     }
+    if (data.type === 'Updata_msg') {
+      console.log('%cUpdata_msg', 'background: #CCC78A; color: #000', data);
+      this.theMsgService.msgList.pop();
+      this.theMsgService.msgList.push(data.msg);
+      sessionStorage.setItem('mymsglist', yaml.safeDump(this.theMsgService.msgList));
+    }
+
+
+    dataLoader(this.userService, this.theGameService, this.theMsgService, data);
+
     switch (data.type) {
       case 'dis':
         this.router.navigate(['/login']);
@@ -184,12 +200,17 @@ export class SocketSevice {
         this.quickloginResult.emit('认证失败');
         // myEmitter.emit('user_login_passWrong');
         break;
+      case 'updata':
+        break;
+      case 'gamestart':
+      sessionStorage.removeItem('mymsglist');
+      this.theMsgService.msgList = [];
+        break;
       case 'logout':
         break;
       case 'userSeat':
         break;
-      case 'gamestart':
-        break;
+
       case 'role':
         this.userService.setTeam(data);
         break;

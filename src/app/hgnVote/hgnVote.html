@@ -1,32 +1,22 @@
-<div [ngSwitch]="hgnData.other">
-  <div *ngSwitchCase="'player_vote'">
-    <div id="whospeakt">
-      <span class="badge " id="whovotet" style="color: white;
-      background-color: #6BA9CF;">
-        <img src="./pic/投票背.jpg" class="" style="height: 33px;
-          margin-top: -3px;
-          margin-left: -7px;
-          float:left;">
-        <div id="test" style="float:left;margin-left: 4px; min-width: 100px;">
-          {{userService.yourself.name}}
-          您进行投票
-        </div>
-      </span>
-    </div>
-    <span id="speakwhatt" class="alert alert-warning " style="">
-      <div class="row">
-        <div class="col-sm-1" *ngFor="let votepic of theGameService.nowVote|getvote;let i=index;">
-          {{i+1}}
-          <img [src]="votepic" style="width: 32px;">
-        </div>
-      </div>
-      <div *ngIf="hgnData.other1 && userService.yourself.isSurvival">
-        <button (click)="vote(2)" type="button" class="btn btn-danger">同意</button>
-        <button (click)="vote(3)" type="button" class="btn btn-danger">反对</button>
-      </div>
-      <div *ngIf="!hgnData.other1 && userService.yourself.isSurvival">
-        <img [src]="myvotepic" style="width: 50px; margin: 1px;">
-      </div>
-    </span>
+<div style="" style="margin-left: 25px;">
+  <div class="" *ngFor="let user of hgnData.userList" style="float: left;">
+    <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
+    <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
   </div>
 </div>
+<div id="whospeakt"></div>
+<span id="speakwhatt" class="alert alert-warning " style="">
+  <div class="row">
+    <div class="col-sm-1" *ngFor="let votepic of hgnData.nowVote|getvote;let i=index;">
+      {{i+1}}
+      <img [src]="votepic" style="width: 32px;">
+    </div>
+  </div>
+  <div *ngIf="!hgnData.nowVote[userService.yourself.seatNo-1] && userService.yourself.isSurvival">
+    <button (click)="vote(2)" type="button" class="btn btn-danger">同意</button>
+    <button (click)="vote(3)" type="button" class="btn btn-danger">反对</button>
+  </div>
+  <div *ngIf="hgnData.nowVote[userService.yourself.seatNo-1] && userService.yourself.isSurvival">
+    <img [src]="hgnData.nowVote[userService.yourself.seatNo-1]===3?'./pic/反对.png':'./pic/同意.png'" style="width: 50px; margin: 1px;">
+  </div>
+</span>

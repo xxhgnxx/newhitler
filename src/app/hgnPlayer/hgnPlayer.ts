@@ -102,7 +102,7 @@ export class HgnPlayer implements OnInit {
     }
 
     if (!this.theGameService.started && this.player.isSeat) {
-        src = './pic/ok.png';
+      src = './pic/ok.png';
     }
     return src;
   }
@@ -111,7 +111,8 @@ export class HgnPlayer implements OnInit {
 
 
   ngOnInit() {
-
+    console.log('%cPlayer', 'background: #0D00FF; color: #FFF');
+    console.log("被解析数据", this.player);
 
   }
 

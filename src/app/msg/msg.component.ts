@@ -22,8 +22,9 @@ import { TheGameService } from '../services';
 
 export class MsgComponent {
   myInput: string = '嗯..';
-  msgListAll = this.theMsgService.msgListAll;
-  msgListNow = this.theMsgService.msgListNow;
+  // msgList = this.theMsgService.msgList;
+  // msgListAll = this.theMsgService.msgListAll;
+  // msgListNow = this.theMsgService.msgListNow;
   locked: boolean = false;  // 禁止发言
   speakTime: number;  // 发言时间
   msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
@@ -92,28 +93,28 @@ export class MsgComponent {
   }
 
 
-  testjsson(n: number) {
-    if (n === 1) {
-      console.log('写入');
-      localStorage.setItem('msglist', JSON.stringify(this.theMsgService.msgListAll));
-      localStorage.setItem('whoareyou', JSON.stringify(this.userService.yourself));
-      localStorage.setItem('playerList', JSON.stringify(this.theGameService.playerList));
-      localStorage.setItem('pre', JSON.stringify(this.theGameService.pre));
-    } else {
-      console.log('读取');
-      this.msgListAll = JSON.parse(localStorage.getItem('msglist'));
-      this.userService.yourself = JSON.parse(localStorage.getItem('whoareyou'));
-      this.theGameService.playerList = JSON.parse(localStorage.getItem('playerList'));
-      this.theGameService.pre = JSON.parse(localStorage.getItem('pre'));
-    }
-    if (n === 3) {
-      console.log('清除');
-      localStorage.removeItem('msglist');
-      localStorage.removeItem('whoareyou');
-      localStorage.removeItem('playerList');
-      localStorage.removeItem('pre');
-    }
-  }
+  // testjsson(n: number) {
+  //   if (n === 1) {
+  //     console.log('写入');
+  //     localStorage.setItem('msglist', JSON.stringify(this.theMsgService.msgListAll));
+  //     localStorage.setItem('whoareyou', JSON.stringify(this.userService.yourself));
+  //     localStorage.setItem('playerList', JSON.stringify(this.theGameService.playerList));
+  //     localStorage.setItem('pre', JSON.stringify(this.theGameService.pre));
+  //   } else {
+  //     console.log('读取');
+  //     this.msgListAll = JSON.parse(localStorage.getItem('msglist'));
+  //     this.userService.yourself = JSON.parse(localStorage.getItem('whoareyou'));
+  //     this.theGameService.playerList = JSON.parse(localStorage.getItem('playerList'));
+  //     this.theGameService.pre = JSON.parse(localStorage.getItem('pre'));
+  //   }
+  //   if (n === 3) {
+  //     console.log('清除');
+  //     localStorage.removeItem('msglist');
+  //     localStorage.removeItem('whoareyou');
+  //     localStorage.removeItem('playerList');
+  //     localStorage.removeItem('pre');
+  //   }
+  // }
 
 
 
@@ -128,13 +129,13 @@ export class MsgComponent {
     this.bar.destroy();
   }
 
-  newDiv() {
-    console.log(this.myInput);
-    // this.sth = '';
-    this.msgListNow = new Array<any>();
-    this.msgListAll.push(this.msgListNow);
-    this.myInput = '';
-  }
+  // newDiv() {
+  //   console.log(this.myInput);
+  //   // this.sth = '';
+  //   this.msgListNow = new Array<any>();
+  //   this.msgListAll.push(this.msgListNow);
+  //   this.myInput = '';
+  // }
 
 
   sendMsg() {

@@ -31,26 +31,14 @@ export class HgnCP implements OnInit {
   get_last() { }
 
   proSelect(pro) {
-
-
-    if (this.hgnData.other === 'pre_CP' && this.userService.yourself.isPre) {
-      this.socketSevice.proSelect(this.hgnData.body, pro);
+    if (pro === 'x' || this.hgnData.step === 0 ||
+      this.hgnData.step === 40 || this.hgnData.step === 31 || this.hgnData.step === 4) {
+      return;
     }
-    if (this.hgnData.other === 'prm_CP' && this.userService.yourself.isPrm) {
-
-      if (this.hgnData.other1 !== 'veto_all') {
-        this.socketSevice.proSelect(this.hgnData.body, pro);
-
-      }
-      if (this.hgnData.other2 === 'not_veto_all') {
-        this.socketSevice.proSelect(this.hgnData.body, pro);
-
-      }
-
-
-
+    if (this.hgnData.step !== 1 && this.userService.yourself.isPre) {
+      return;
     }
-
+    this.socketSevice.proSelect(this.hgnData.proX3List, pro);
 
   }
 
@@ -58,38 +46,40 @@ export class HgnCP implements OnInit {
 
   getpro_pre(pro) {
     if (pro === 'x') {
-      if (this.hgnData.other !== 'pre_CP') {
+      if (this.hgnData.step !== 1) {
         return './pic/法案背x.png';
       }
       return './pic/法案背.png';
     } else {
       if (pro > 5) {
-        if (this.hgnData.other !== 'pre_CP') {
+        if (this.hgnData.step !== 1) {
           return './pic/红色法案x.png';
         }
         return './pic/红色法案.png';
       } else {
-        if (this.hgnData.other !== 'pre_CP') {
+        if (this.hgnData.step !== 1) {
           return './pic/蓝色法案x.png';
         }
         return './pic/蓝色法案.png';
       }
     }
   }
+
   getpro_prm(pro) {
     if (pro === 'x') {
-      if (this.hgnData.other !== 'prm_CP' || this.hgnData.other2 === 'veto_all') {
+      if (this.hgnData.step !== 2 && this.hgnData.step !== 3
+        && this.hgnData.step !== 5 && this.hgnData.step !== 4) {
         return './pic/法案背x.png';
       }
       return './pic/法案背.png';
     } else {
       if (pro > 5) {
-        if (this.hgnData.other !== 'prm_CP' || this.hgnData.other2 === 'veto_all') {
+        if (this.hgnData.step === 0 || this.hgnData.step === 40) {
           return './pic/红色法案x.png';
         }
         return './pic/红色法案.png';
       } else {
-        if (this.hgnData.other !== 'prm_CP' || this.hgnData.other2 === 'veto_all') {
+        if (this.hgnData.step === 0 || this.hgnData.step === 40) {
           return './pic/蓝色法案x.png';
         }
         return './pic/蓝色法案.png';
@@ -126,9 +116,8 @@ export class HgnCP implements OnInit {
   }
 
   ngOnInit() {
-    console.log('我初始化了');
+    console.log('%c选法案过程', 'background: #6CC97B; color: #F00');
     console.log(this.hgnData);
-    console.log(this.hgnData.body);
     // console.log(this.theMsgService.msgListAll);
   }
 

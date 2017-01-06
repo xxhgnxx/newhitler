@@ -5,6 +5,7 @@ import { TheGameService } from '../services';
 import { Router } from '@angular/router';
 import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TheMsgService } from '../services/msg.service';
+let yaml = require('js-yaml');
 
 let progressBar = require('progressbar.js');
 
@@ -116,6 +117,10 @@ export class RoomComponent {
             console.log('登陆成功');
             this.router.navigate(['/room']);
             this.userService.isLogin = true;
+            if (sessionStorage.getItem('mymsglist')) {
+              this.theMsgService.msgList = yaml.safeLoad(sessionStorage.getItem('mymsglist'));
+            }
+
           } else {
             this.router.navigate(['/login']);
             sessionStorage.removeItem('login');
