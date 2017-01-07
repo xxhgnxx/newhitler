@@ -6,11 +6,13 @@
         {{i}}---type---{{Msg.type}}<br>
       </div>
       <hgnCP *ngIf="Msg.type==='choosePro'" [hgn_data]='Msg'></hgnCP>
-      <!-- <hgnPlayermsg *ngIf="Msg.type==='playerMsg'" [hgn_data]='Msg'></hgnPlayermsg>
-
-      <hgnlookpro *ngIf="Msg.type==='hgnlookpro'" [hgn_data]='Msg'></hgnlookpro> -->
+      <hgnPlayermsg *ngIf="Msg.type==='playerSpk'" [hgn_data]='Msg'></hgnPlayermsg>
+      <hgnlookpro *ngIf="Msg.type==='hgnlookpro'" [hgn_data]='Msg'></hgnlookpro>
       <hgnVote *ngIf="Msg.type==='vote_please'" [hgn_data]='Msg'></hgnVote>
       <hgnChoosePlayer *ngIf="Msg.type==='selectPrm'" [hgn_data]='Msg'></hgnChoosePlayer>
+      <hgninvPlayer *ngIf="Msg.type==='invPlayer'" [hgn_data]='Msg'></hgninvPlayer>
+      <hgnpreSelect *ngIf="Msg.type==='preSelect'" [hgn_data]='Msg'></hgnpreSelect>
+      <hgntoKill *ngIf="Msg.type==='toKill'" [hgn_data]='Msg'></hgntoKill>
       <!-- <div *ngIf="Msg.type==='gamestart'">gamestart</div> -->
     </div>
   </div>

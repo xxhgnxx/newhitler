@@ -52,6 +52,9 @@ import { HgnVote } from './hgnVote';
 import { HgnCP } from './hgnCP';
 import { Hgnlookpro } from './hgnlookpro';
 import { HgnPlayer } from './hgnPlayer';
+import { HgnInvPlayer } from './invPlayer';
+import { HgnpreSelect } from './preSelect';
+import { HgntoKill } from './toKill';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -91,8 +94,11 @@ type StoreType = {
     GameControlComponent,
     RoomComponent,
     HgnContainer,
+    HgnInvPlayer,
     HgnVote,
+    HgnpreSelect,
     HgnCP,
+    HgntoKill,
     HgnPlayer,
     Hgnlookpro,
     HgnChoosePlayer,

@@ -39,7 +39,7 @@ export class MsgComponent {
     console.log('到你发言，发言时间', time);
     setTimeout(() => {
       this.locked = false;
-      this.bar.destroy();
+      // this.bar.destroy();
     }, time * 1000);
 
     this.bar = new progressBar.Circle('#container', {
@@ -93,31 +93,6 @@ export class MsgComponent {
   }
 
 
-  // testjsson(n: number) {
-  //   if (n === 1) {
-  //     console.log('写入');
-  //     localStorage.setItem('msglist', JSON.stringify(this.theMsgService.msgListAll));
-  //     localStorage.setItem('whoareyou', JSON.stringify(this.userService.yourself));
-  //     localStorage.setItem('playerList', JSON.stringify(this.theGameService.playerList));
-  //     localStorage.setItem('pre', JSON.stringify(this.theGameService.pre));
-  //   } else {
-  //     console.log('读取');
-  //     this.msgListAll = JSON.parse(localStorage.getItem('msglist'));
-  //     this.userService.yourself = JSON.parse(localStorage.getItem('whoareyou'));
-  //     this.theGameService.playerList = JSON.parse(localStorage.getItem('playerList'));
-  //     this.theGameService.pre = JSON.parse(localStorage.getItem('pre'));
-  //   }
-  //   if (n === 3) {
-  //     console.log('清除');
-  //     localStorage.removeItem('msglist');
-  //     localStorage.removeItem('whoareyou');
-  //     localStorage.removeItem('playerList');
-  //     localStorage.removeItem('pre');
-  //   }
-  // }
-
-
-
 
 
   tmp() {
@@ -126,16 +101,12 @@ export class MsgComponent {
 
   speak_end() {
     this.socketSevice.speak_end();
-    this.bar.destroy();
+    if (this.bar) {
+      // this.bar.destroy();
+    }
   }
 
-  // newDiv() {
-  //   console.log(this.myInput);
-  //   // this.sth = '';
-  //   this.msgListNow = new Array<any>();
-  //   this.msgListAll.push(this.msgListNow);
-  //   this.myInput = '';
-  // }
+
 
 
   sendMsg() {
@@ -143,6 +114,13 @@ export class MsgComponent {
     this.socketSevice.sendMsg(this.myInput);
     this.myInput = '';
   }
+ngAfterViewInit(){
+
+
+
+}
+
+
 
   ngOnInit() {
     this.socketSevice.speakNow.subscribe(time => this.speakNow(time));

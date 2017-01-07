@@ -64,6 +64,7 @@ export class Data {
   // 备用
   socketId: string;
   key: string;
+  whoIsSpeaking: User;
   constructor(public type: string, toWho?: Array<User> | User) { }
 }
 export class MsgData {

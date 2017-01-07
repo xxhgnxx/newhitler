@@ -32,7 +32,7 @@ export class HgnCP implements OnInit {
 
   proSelect(pro) {
     if (pro === 'x' || this.hgnData.step === 0 ||
-      this.hgnData.step === 40 || this.hgnData.step === 31 || this.hgnData.step === 4) {
+      this.hgnData.step === 40 || this.hgnData.step === 3 || this.hgnData.step === 4) {
       return;
     }
     if (this.hgnData.step !== 1 && this.userService.yourself.isPre) {

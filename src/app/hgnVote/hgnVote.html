@@ -1,7 +1,7 @@
 <div style="" style="margin-left: 25px;">
   <div class="" *ngFor="let user of hgnData.userList" style="float: left;">
     <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
-    <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
+    <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0'></hgnPlayer>
   </div>
 </div>
 <div id="whospeakt"></div>

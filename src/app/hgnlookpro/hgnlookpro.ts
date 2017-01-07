@@ -80,9 +80,9 @@ getstyleprm(){
   }
 
   ngOnInit() {
-    console.log('我初始化了');
+    console.log('%clookpro', 'background: #E0A903; color: #000');
     console.log(this.hgnData);
-    console.log(this.hgnData.body);
+
     // console.log(this.theMsgService.msgListAll);
   }
 

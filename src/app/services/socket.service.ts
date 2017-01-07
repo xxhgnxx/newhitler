@@ -123,7 +123,7 @@ export class SocketSevice {
     dataOut.target = player;
     this.networkSocket.send(dataOut, x => { console.log(x); });
   }
-  // 调查身份
+  //
   speak_end() {
     let dataOut = new Data('speak_end');
     this.networkSocket.send(dataOut, x => { console.log(x); });
