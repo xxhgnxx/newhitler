@@ -10,7 +10,7 @@
     </div>
   </span>
 </div > -->
-<span id="speakwhatk" class="alert alert-warning " style="">
+<div id="cp_container" class=" " style="">
   总统选择-》
   <div *ngFor="let pro of hgnData.proX3List[0]">
     <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
@@ -35,4 +35,4 @@
     <button (click)="veto_all(1)" type="button" class="btn btn-danger">同意</button>
     <button (click)="veto_all(0)" type="button" class="btn btn-danger">反对</button>
   </div>
-</span>
+</div>

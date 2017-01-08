@@ -1,8 +1,8 @@
 <div class="">
   <!-- Tab panes -->
   <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
-    <div *ngFor="let Msg of theMsgService.msgList;let i = index">
-      <div style="float:left;width:500px;">
+    <span *ngFor="let Msg of theMsgService.msgList;let i = index" class="alert alert-warning " id="msg_container">
+      <div style="">
         {{i}}---type---{{Msg.type}}<br>
       </div>
       <hgnCP *ngIf="Msg.type==='choosePro'" [hgn_data]='Msg'></hgnCP>
@@ -14,7 +14,7 @@
       <hgnpreSelect *ngIf="Msg.type==='preSelect'" [hgn_data]='Msg'></hgnpreSelect>
       <hgntoKill *ngIf="Msg.type==='toKill'" [hgn_data]='Msg'></hgntoKill>
       <!-- <div *ngIf="Msg.type==='gamestart'">gamestart</div> -->
-    </div>
+    </span>
   </div>
   <!-- <input [(colorPicker)]="color" [style.color]="color" [style.font]="'italic bold 20px arial,serif'" [value]="color"/> -->
   <!-- <input [disabled]="!locked" [(ngModel)]="myInput" (keyup.enter)=sendMsg()> -->

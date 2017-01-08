@@ -1,11 +1,11 @@
 <div style="" style="margin-left: 25px;">
-  <div class="" *ngFor="let user of hgnData.userList" style="float: left;">
+  <div class="" *ngFor="let user of hgnData.userList">
     <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
     <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0'></hgnPlayer>
   </div>
 </div>
 <div id="whospeakt"></div>
-<span id="speakwhatt" class="alert alert-warning " style="">
+<span id="speakwhatt" class="" style="">
   <div class="row">
     <div class="col-sm-1" *ngFor="let votepic of hgnData.nowVote|getvote;let i=index;">
       {{i+1}}

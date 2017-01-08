@@ -10,17 +10,17 @@
         </div>
       </span>
     </div> -->
-<span id="speakwhat1" class="alert alert-warning " style="">
+<div id="chooseplayer_container" class="" style="">
   <div class="row" *ngIf="!userService.yourself.isPre ">
     <div class="row" style="margin-left: 25px;">正在选择总理-></div>
   </div>
   <div class="row" *ngIf="userService.yourself.isPre ">
     <div class="row" style="margin-left: 25px;">请选择总理-></div>
     <div style="" style="margin-left: 25px;">
-      <div class="" *ngFor="let user of hgnData.userList" style="float: left;">
+      <div class="" *ngFor="let user of hgnData.userList">
         <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
-        <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
+        <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
       </div>
     </div>
   </div>
-</span>
+</div>

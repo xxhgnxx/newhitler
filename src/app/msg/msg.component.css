@@ -1,5 +1,3 @@
-
-
 .pre-scrollable {
   max-height: 600px;
   height: 600px;
@@ -28,4 +26,20 @@
   position: absolute;
   right: 60px;
   bottom: 45px;
+}
+
+#msg_container {
+  position: relative;;
+
+}
+
+span {
+  display: block;
+    /*float: left;*/
+  left: 0.5em;
+  padding: 0.3em;
+  font-size: 0.9em;
+  word-wrap: break-word;
+  word-break: keep-all;
+  overflow: hidden;
 }

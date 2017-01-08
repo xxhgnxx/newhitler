@@ -1,4 +1,6 @@
-#maindiv {}
+#maindiv {
+    position: relative;;
+}
 
 #headdiv {
   z-index: 99;
