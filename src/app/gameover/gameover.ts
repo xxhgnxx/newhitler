@@ -9,12 +9,12 @@ import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
-  selector: 'hgnChoosePlayer',
-  styleUrls: ['./choosePlayer.css'],
-  templateUrl: './choosePlayer.html',
+  selector: 'gameover',
+  styleUrls: ['./gameover.css'],
+  templateUrl: './gameover.html',
 })
 
-export class HgnChoosePlayer implements OnInit {
+export class Gameover implements OnInit {
   @Input('hgn_data') hgnData: any = 'data出错啦xxxxxxxx';
 
   constructor(
@@ -29,23 +29,11 @@ export class HgnChoosePlayer implements OnInit {
 
 
 
-  prmSelect(user: User) {
-    if (!this.userService.yourself.isPre) {
-      return;
-    }
-    if (!user.canBeSelect) {
-      return;
-    }
-    console.log(user);
-    this.socketSevice.prmSelect(user);
-    this.theGameService.toDoSth = '等待响应。。。';
-  }
-
 
 
   ngOnInit() {
 
-    console.log('%cchoosePlayer', 'background: #03E0B2; color: #000');
+    console.log('%cgameover', 'background: #E0A903; color: #000');
     console.log(this.hgnData);
     // console.log(this.userService.yourself);
     // console.log(this.theMsgService.msgListAll);

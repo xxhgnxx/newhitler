@@ -10,7 +10,7 @@ export class UserService {
   hList = new Userlisthgn(); // 系统用户总表存储位置
   userList: Array<User>;
   // userLsit = getdate();
-  yourself: User = new User('_');
+  yourself: User = new User('x');
   yourHead: string;
   role: string = 'x';
   teamMsg = '游戏尚未开始';

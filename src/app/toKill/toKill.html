@@ -1,32 +1,34 @@
-<!-- <div id="whospeakc">
-      <span class="badge " id="" style="color: white;
-      background-color: #6BA9CF;">
-        <img src="./pic/总统标识.png" class="" style="height: 40px;
-          margin-top: -7px;
-          margin-left: -7px;
-          float:left;">
-        <div id="test" style="float:left;margin-left: 4px; min-width: 100px;">
-          {{theGameService.pre.name}}
+<div id="" class="alert alert-warning" style="position: relative; padding: 9px;">
+  <div id="chooseplayer_container" class="" style="">
+    <div class="">
+      <div class="row" style="margin-left: 25px;">总统权力：枪决</div>
+    </div>
+    <div class="">
+      <div class="" *ngIf="hgnData.step===1">
+        <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        <div class="row" style="margin-left: 25px;font-size: 3em;" *ngIf="hgnData.step">请指定枪决的目标-></div>
+        <div style="" style="margin-left: 25px;">
+          <div class="" *ngFor="let user of hgnData.userList">
+            <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
+            <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1' (click)="prmSelect(user)"></hgnPlayer>
+          </div>
         </div>
-      </span>
-    </div> -->
-<span id="speakwhat1" class="alert alert-warning " style="">
-  <div class="row" *ngIf="hgnData.step===2">
-    <div class="row" style="margin-left: 25px;">正在选枪决目标-></div>
-  </div>
-  <div class="row" *ngIf="hgnData.step===3">
-    <div class="row" style="margin-left: 25px;">枪决完毕-></div>
-    <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='40' [hgn_style]='0'></hgnPlayer>
-    枪决了
-    <hgnPlayer [hgn_data]='hgnData.target' [hgn_size]='40' [hgn_style]='0'></hgnPlayer>
-  </div>
-  <div class="row" *ngIf="hgnData.step===1">
-    <div class="row" style="margin-left: 25px;">请选择想要枪决的目标-></div>
-    <div style="" style="margin-left: 25px;">
-      <div class="" *ngFor="let user of hgnData.userList" style="float: left;">
-        <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
-        <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
+      </div>
+      <div class="" *ngIf="hgnData.step===2">
+        <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        <div class="row" style="margin-left: 25px;" *ngIf="hgnData.step">等待总统选择枪决目标-></div>
+        <div style="" style="margin-left: 25px;">
+          <div class="" *ngFor="let user of hgnData.userList">
+            <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
+            <hgnPlayer [hgn_data]='user' [hgn_size]='25' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+          </div>
+        </div>
+      </div>
+      <div class="" *ngIf="hgnData.step===3">
+        <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        无情的枪决了
+        <hgnPlayer [hgn_data]='hgnData.target' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
       </div>
     </div>
   </div>
-</span>
+</div>

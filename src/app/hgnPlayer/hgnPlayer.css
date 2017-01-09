@@ -1,5 +1,5 @@
 #maindiv {
-    position: relative;;
+  position: relative;
 }
 
 #headdiv {
@@ -18,10 +18,21 @@
 }
 
 #hgnPlayerName {
-  position: absolute;
+  position: relative;
+  vertical-align: middle;
   z-index: 1;
   border-radius: 0.3em 0.3em 0.3em 0.3em;
   font-family: "黑体";
-  display: inline;
+  display: inline-block;
   color: white;
+}
+
+.canselete :hover {
+  font-weight: bolder;
+  transform: scale(1.2, 1.2);
+}
+
+.offline {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }

@@ -6,6 +6,10 @@ export class User {
   isSeat: boolean = false;
   seatNo: number = 0;
   name: string;
+  hitler: User;
+  fascist1: User;
+  fascist2: User;
+  fascist3: User;
   password: string;
   isLastPre: boolean = false;
   isLastPrm: boolean = false;
@@ -17,8 +21,14 @@ export class User {
   role: string = 'x';
   canBeSelect: boolean = true;
   lastVote: number;  // 最后一次生效的投票情况
-  constructor(name: string) { this.name = name; }
+  constructor(name: string) {
+    this.name = name;
+  }
 }
+
+
+
+
 
 // 测试数据
 export let userLsitTestdata: User[] = [

@@ -1,16 +1,45 @@
-<!-- <div id="whospeakc">
-      <div class="badge " id="" style="color: white;
-      background-color: #6BA9CF;">
-        <img src="./pic/总统标识.png" class="" style="height: 40px;
-          margin-top: -7px;
-          margin-left: -7px;
-          float:left;">
-        <div id="test" style="float:left;margin-left: 4px; min-width: 100px;">
-          {{theGameService.pre.name}}
+<div id="" class="alert alert-warning" style="position: relative; padding: 9px;">
+  <div id="chooseplayer_container" class="" style="">
+    <div class="">
+      <div class="row" style="margin-left: 25px;">总统权力：调查身份</div>
+    </div>
+    <div class="">
+      <div class="" *ngIf="hgnData.step===1">
+        <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        <div class="row" style="margin-left: 25px;font-size: 3em;" *ngIf="hgnData.step">请指定要调查的目标-></div>
+        <div style="" style="margin-left: 25px;">
+          <div class="" *ngFor="let user of hgnData.userList">
+            <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
+            <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1' (click)="prmSelect(user)"></hgnPlayer>
+          </div>
         </div>
       </div>
-    </div> -->
-<div id="invplayer_container" class="alert alert-warning " style="">
+      <div class="" *ngIf="hgnData.step===2">
+        <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        <div class="row" style="margin-left: 25px;" *ngIf="hgnData.step">等待总统调查身份-></div>
+        <div style="" style="margin-left: 25px;">
+          <div class="" *ngFor="let user of hgnData.userList">
+            <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
+            <hgnPlayer [hgn_data]='user' [hgn_size]='25' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+          </div>
+        </div>
+      </div>
+      <div class="" *ngIf="hgnData.step===4">
+        <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        调查了
+        <hgnPlayer [hgn_data]='hgnData.target' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+      </div>
+      <div class="" *ngIf="hgnData.step===3">
+        <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        指定了
+        <hgnPlayer [hgn_data]='hgnData.target' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+        身份如下：
+        <img [src]="hgnData.role" class="img-thumbnail" style="height: 120px;">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div id="invplayer_container" class="alert alert-warning " style="">
   <div class="row" *ngIf="hgnData.step===2">
     <div class="row" style="margin-left: 25px;">正在选调查身份-></div>
   </div>
@@ -24,8 +53,7 @@
     <div class="row" style="margin-left: 25px;">请选择想要调查的目标-></div>
     <div style="" style="margin-left: 25px;">
       <div class="" *ngFor="let user of hgnData.userList" style="float: left;">
-        <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
-        <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
+          <hgnPlayer [hgn_data]='user' [hgn_size]='40' [hgn_style]='0' (click)="prmSelect(user)"></hgnPlayer>
       </div>
     </div>
   </div>
@@ -39,4 +67,4 @@
       <img [src]="hgnData.role" class="img-thumbnail" style="height: 120px;">
     </div>
   </div>
-</div>
+</div> -->

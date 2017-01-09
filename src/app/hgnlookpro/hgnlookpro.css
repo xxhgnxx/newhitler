@@ -1,21 +1,22 @@
 
-#whospeakk {
-  /*float: left;*/;
-  width: 500px;
-}
-
-
-#speakwhatk {
-  /*float: left;*/;
-  width: 400px;
-  margin-left: 41px;
-  margin-top: -16px;
-  margin-bottom: 0.5em;
-  min-height: 30px;
-}
-
 #pro {
   padding: 0px 0px;
   /*float: left;*/;
   margin-right: 3px;
+}
+
+
+#look_pro {
+  display: inline-block;
+  margin: 5px;
+}
+#lookpro_container {
+
+}
+
+
+.btn {
+  padding: 3px;
+  margin: 5px;
+
 }

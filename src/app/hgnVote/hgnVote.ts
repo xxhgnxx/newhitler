@@ -36,11 +36,13 @@ export class HgnVote implements OnInit {
     // }
   }
 
+  getres() {
+    return this.hgnData.voteRes > 1 ? '政府组建失败' : '政府组建成功';
+  }
 
   ngOnInit() {
-    console.log('我初始化了');
+    console.log('%cvote', 'background: #03E0B2; color: #000');
     console.log(this.hgnData);
-    console.log(this.hgnData.body);
     // console.log(this.theMsgService.msgListAll);
   }
 

@@ -26,9 +26,47 @@ export class HgnCP implements OnInit {
     tipconfig.placement = 'top';
   }
 
-  get_pre_CP() { }
-  get_prm_CP() { }
-  get_last() { }
+  getstep() {
+    let str;
+    switch (this.hgnData.step) {
+      case 0: {
+        str = '法案生效';
+      }
+        break;
+      case 1: {
+        str = '总统正在选择法案';
+      }
+        break;
+      case 2: {
+        str = '总理正在选择法案';
+      }
+        break;
+      case 3: {
+        str = '总理正在选择法案，他可以根据情况提出否决全部法案的要求';
+      }
+        break;
+      case 4: {
+        str = '总理向总统提出了否决全部的建议，等待总统决定';
+      }
+      break;
+      case 40: {
+        str = '全部法案被否决';
+      }
+        break;
+      case 5: {
+        str = '总统拒绝了提议，总理仍旧要做出选择';
+      }
+        break;
+      case 51: {
+        str = '总统拒绝了提议，你仍旧要做出选择';
+      }
+        break;
+      default:
+    }
+    return str;
+  }
+
+
 
   proSelect(pro) {
     if (pro === 'x' || this.hgnData.step === 0 ||

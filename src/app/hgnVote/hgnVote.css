@@ -1,20 +1,6 @@
-#whospeakt {
-  /*float: left;*/;
-  width: 500px;
-}
 
-#whovotet {
-  color: white;
-  background-color: #146254;
-}
 
-#speakwhatt {
-  /*float: left;*/;
-  width: 400px;
-  margin-left: 41px;
-  margin-top: -16px;
-  margin-bottom: 0.5em;
-  min-height: 30px;
-  position: relative;
-  z-index: 1000;
+.gov {
+  display: inline-block;
+  margin-left: 10px;
 }

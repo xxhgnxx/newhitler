@@ -55,6 +55,7 @@ import { HgnPlayer } from './hgnPlayer';
 import { HgnInvPlayer } from './invPlayer';
 import { HgnpreSelect } from './preSelect';
 import { HgntoKill } from './toKill';
+import { Gameover } from './gameover';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -96,6 +97,7 @@ type StoreType = {
     HgnContainer,
     HgnInvPlayer,
     HgnVote,
+    Gameover,
     HgnpreSelect,
     HgnCP,
     HgntoKill,

@@ -10,29 +10,48 @@
     </div>
   </span>
 </div > -->
-<div id="cp_container" class=" " style="">
-  总统选择-》
-  <div *ngFor="let pro of hgnData.proX3List[0]">
-    <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
-      <img [src]="getpro_pre(pro)" class="img-thumbnail" style="height: 80px;"></button>
-  </div>
-  总理选择-》
-  <div *ngFor="let pro of hgnData.proX3List[1]">
-    <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
-      <img [src]="getpro_prm(pro)" class="img-thumbnail" style="height: 80px;"></button>
-  </div>
-  政府最终最终执行法案为
-  <div *ngFor=" let pro of hgnData.proX3List[2]">
-    <button type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
-      <img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail" style="height: 120px;"></button>
-  </div>
-  <div *ngIf="hgnData.step===31" id="ifask">
-    您是否要向总统提出否决全部法案的建议?
-    <button (click)="veto()" type="button" class="btn btn-danger">向总统提出否决全部法案的建议</button>
-  </div>
-  <div *ngIf="hgnData.step===41" class="row" id="ask">
-    总理提出了否决全部法案，您是否同意？
-    <button (click)="veto_all(1)" type="button" class="btn btn-danger">同意</button>
-    <button (click)="veto_all(0)" type="button" class="btn btn-danger">反对</button>
+<div id="" class="alert alert-warning" style="position: relative; padding: 9px;">
+  {{getstep()}}
+  <div id="cp_container" class=" " style="">
+    <div class="" id="pre_pro">
+      <div class="" style="margin:0 auto;">
+        <hgnPlayer [hgn_data]='hgnData.pre' [hgn_size]='25' [hgn_style]='3'></hgnPlayer>
+      </div>
+      <div style="margin:0 auto;">
+        <div style="display: inline-block;" *ngFor="let pro of hgnData.proX3List[0]">
+          <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+            <img [src]="getpro_pre(pro)" class="img-thumbnail" style="height: 80px;"></button>
+        </div>
+      </div>
+    </div>
+    <div class="" *ngIf="this.hgnData.step != 1" id="prm_pro">
+      <div class="" style="">
+        <hgnPlayer [hgn_data]='hgnData.prm' [hgn_size]='25' [hgn_style]='3'></hgnPlayer>
+      </div>
+      <div style="display: inline-block;" *ngFor="let pro of hgnData.proX3List[1]">
+        <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+          <img [src]="getpro_prm(pro)" class="img-thumbnail" style="height: 80px;"></button>
+      </div>
+    </div>
+    <div class="" *ngIf="this.hgnData.step===0 || this.hgnData.step ===40" id="end_pro">
+      <div class="" style="">
+        政府最终最终执行法案为
+      </div>
+      <div *ngFor=" let pro of hgnData.proX3List[2]">
+        <button type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+          <img [src]="pro>5?'./pic/红色法案.png':'./pic/蓝色法案.png'" class="img-thumbnail" style="height: 120px;"></button>
+      </div>
+    </div>
+    <div class="" style="">
+      <div *ngIf="hgnData.step===31" id="ifask">
+        您是否要向总统提出否决全部法案的建议?
+        <button (click)="veto()" type="button" class="btn btn-danger">向总统提出否决全部法案的建议</button>
+      </div>
+      <div *ngIf="hgnData.step===41" class="" id="ask">
+        总理提出了否决全部法案，您是否同意？
+        <button (click)="veto_all(1)" type="button" class="btn btn-danger">同意</button>
+        <button (click)="veto_all(0)" type="button" class="btn btn-danger">反对</button>
+      </div>
+    </div>
   </div>
 </div>

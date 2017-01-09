@@ -107,7 +107,6 @@ export class RoomComponent {
 
 
   ngOnInit() {
-
     if (!this.userService.isLogin) {
       if (sessionStorage.getItem('login')) {
         console.log('快速登陆');

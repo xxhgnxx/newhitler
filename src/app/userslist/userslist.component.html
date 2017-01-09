@@ -3,14 +3,14 @@
 <div *ngIf="!theGameService.started" class="pre-scrollable" style="max-height: 320px;height: 320px;">
   <ul class="users">
     <div *ngFor="let user of userService.userList" style="height=10%;">
-      <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1' style="height=10%;"></hgnPlayer>
+      <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='0' style="height=10%;"></hgnPlayer>
     </div>
   </ul>
 </div>
 <div *ngIf=" theGameService.started" class=" pre-scrollable" style=" max-height: 320px;height: 320px;">
   <ul class="users">
     <div *ngFor="let user of theGameService.playerList" style="height=10%;">
-      <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1'></hgnPlayer>
+      <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='0'></hgnPlayer>
     </div>
     <!-- <li *ngFor="let user of theGameService.playerList" [style.color]="user.isOnline ? 'black' : 'gray'">
       <span class="badge" [style.background-color]="user.isOnline ? 'blue' : 'gray'">{{user.seatNo}}</span>

@@ -6,6 +6,7 @@ export class Data {
   name: string;
   pass: string;
   msg: Msg;
+  msgList: Array<Msg>;
   yourself: User;
   user: User;
   hList: any;
@@ -21,7 +22,7 @@ export class Data {
   started: boolean;       // 游戏是否开始
   speakTime: number;
   role: string;
-
+  skillnamelist = new Array<number>();
 
   // 玩家相关
   userList: Array<User>; // 用户列表传输
@@ -99,7 +100,7 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   let msgdata = (<MsgData>dataAll);
 
   if (typeof data.hList !== 'undefined') {
-    console.log('更新用户数据');
+
     let tmp = yaml.safeLoad(data.hList);
     userService.userList = tmp.userList;
     theGameService.playerList = tmp.playerList;

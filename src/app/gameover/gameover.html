@@ -1,0 +1,25 @@
+<div id="" class="alert alert-warning" style="position: relative; padding: 9px;">
+  <div id="chooseplayer_container" class="" style="">
+    <div class="">
+      <div class="row" style="margin-left: 25px;;font-size: 5em;">游戏结束！</div>
+      <div class="row" style="margin-left: 25px;;font-size: 2em;">{{hgnData.msg}}</div>
+    </div>
+    <div class="">
+      <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3' (click)="prmSelect(user)"></hgnPlayer>
+      <div class="row" style="margin-left: 25px;font-size: 3em;" *ngIf="hgnData.step">玩家身份如下</div>
+      <div style="" style="margin-left: 25px;">
+        <div class="" *ngFor="let user of hgnData.userList">
+          <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
+          <div class="">
+            <div class="" style="  display: inline-block;">
+              <img class="img-thumbnail" [src]="user.role|getHead" data-holder-rendered="true" style="height:80px">
+            </div>
+            <div class="" style="  display: inline-block;">
+              <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1'></hgnPlayer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

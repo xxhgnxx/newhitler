@@ -76,10 +76,10 @@
 
 #gamecontrol {
   position: absolute;
-  width: 600px;
-  top: 895px;
+  width: 400px;
+  top: 200px;
 }
 
 .gamecount {
-  /*float: left;*/;
+  float: left;
 }

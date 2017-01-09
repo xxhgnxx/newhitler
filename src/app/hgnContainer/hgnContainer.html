@@ -6,16 +6,7 @@
   {{hgnType}}</H1> -->
 <div style="    width: 200px;" id="spk_container">
   <div id="whospeak">
-    <span class="badge " id="whoAmI" [ngStyle]="setStyles()">
-      <img [src]="gethead()" class="" style="height: 40px;
-        margin-top: -7px;
-        margin-left: -7px;
-        float:left;">
-      <div id="test" style="float:left;margin-left: 4px; min-width: 100px;">
-        {{hgnData.who.name}}
-      </div>
-    </span>
-    <div *ngIf="hgnData.step" id="containerother"></div>
+    <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3'></hgnPlayer>
   </div>
   <span id="speakwhat" class="alert alert-info " style="">
     <div *ngIf="!hgnData.msgList[0]&&hgnData.step">他正在思考，怎么表达自己的观点..</div>

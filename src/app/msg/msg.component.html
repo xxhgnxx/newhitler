@@ -1,7 +1,7 @@
 <div class="">
   <!-- Tab panes -->
   <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
-    <span *ngFor="let Msg of theMsgService.msgList;let i = index" class="alert alert-warning " id="msg_container">
+    <div *ngFor="let Msg of theMsgService.msgList;let i = index" class="" id="msg_container">
       <div style="">
         {{i}}---type---{{Msg.type}}<br>
       </div>
@@ -13,23 +13,24 @@
       <hgninvPlayer *ngIf="Msg.type==='invPlayer'" [hgn_data]='Msg'></hgninvPlayer>
       <hgnpreSelect *ngIf="Msg.type==='preSelect'" [hgn_data]='Msg'></hgnpreSelect>
       <hgntoKill *ngIf="Msg.type==='toKill'" [hgn_data]='Msg'></hgntoKill>
+      <gameover *ngIf="Msg.type==='gameover'" [hgn_data]='Msg'></gameover>
       <!-- <div *ngIf="Msg.type==='gamestart'">gamestart</div> -->
-    </span>
+    </div>
   </div>
   <!-- <input [(colorPicker)]="color" [style.color]="color" [style.font]="'italic bold 20px arial,serif'" [value]="color"/> -->
   <!-- <input [disabled]="!locked" [(ngModel)]="myInput" (keyup.enter)=sendMsg()> -->
   <div id="inputair">
-    <textarea [disabled]="!this.theGameService.locked" name="MSG" cols=62 rows=7 wrap="physical" [(ngModel)]="myInput" (keydown.control.Enter)=sendMsg()>
+    <textarea name="MSG" cols=62 rows=7 wrap="physical" [(ngModel)]="myInput" (keydown.control.Enter)=sendMsg()>
       loading...
     </textarea>
     <div id="container"></div>
     <button [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
     <!-- <button (click)=tmp()>开始</button> -->
     <button [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
-    <div class="">
+    <!-- <div class="">
       <button (click)="testjsson(1)" id="pro">写入</button>
       <button (click)="testjsson(2)" id="pro">读取</button>
       <button (click)="testjsson(3)" id="pro">清除</button>
-    </div>
+    </div> -->
   </div>
 </div>

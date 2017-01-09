@@ -4,7 +4,6 @@ import { UserService } from './user.service';
 import { Data } from './data';
 import { Msg } from './data';
 import { dataLoader } from './data';
-import { msgLoader } from './data';
 import { TheGameService } from './game.service';
 import { Vote } from './vote';
 import { NetworkSocket } from './network';
@@ -158,16 +157,19 @@ export class SocketSevice {
     if (data.type === 'Push_msg') {
       console.log('%cPush_msg', 'background: #E99B49; color: #000', data);
       this.theMsgService.msgList.push(data.msg);
-      sessionStorage.setItem('mymsglist', yaml.safeDump(this.theMsgService.msgList));
-
-
-
+      // sessionStorage.setItem('mymsglist', yaml.safeDump(this.theMsgService.msgList));
     }
     if (data.type === 'Updata_msg') {
       console.log('%cUpdata_msg', 'background: #CCC78A; color: #000', data);
       this.theMsgService.msgList.pop();
       this.theMsgService.msgList.push(data.msg);
-      sessionStorage.setItem('mymsglist', yaml.safeDump(this.theMsgService.msgList));
+      // sessionStorage.setItem('mymsglist', yaml.safeDump(this.theMsgService.msgList));
+    }
+
+    if (data.type === 'show_msg') {
+      console.log('%cshow_msg', 'background: #CCC78A; color: #000', data);
+      this.theMsgService.msgList = data.msgList;
+      // sessionStorage.setItem('mymsglist', yaml.safeDump(this.theMsgService.msgList));
     }
 
 
@@ -203,8 +205,8 @@ export class SocketSevice {
       case 'updata':
         break;
       case 'gamestart':
-      sessionStorage.removeItem('mymsglist');
-      this.theMsgService.msgList = [];
+        sessionStorage.removeItem('mymsglist');
+        this.theMsgService.msgList = [];
         break;
       case 'logout':
         break;

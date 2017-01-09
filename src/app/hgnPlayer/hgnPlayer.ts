@@ -18,12 +18,31 @@ export class HgnPlayer implements OnInit {
   @Input('hgn_size') size: any = '9999px';
   @Input('hgn_style') mystyle: number = 1;
 
+
+
   constructor(
     private userService: UserService,
     private theMsgService: TheMsgService,
     private socketSevice: SocketSevice,
     private theGameService: TheGameService) {
   }
+
+  hgnget() {
+    return {
+      offline: !this.player.isOnline && this.mystyle === 0,
+      canselete: this.mystyle === 1 && this.player.canBeSelect && this.userService.yourself.isPre,
+    };
+  }
+
+
+  // setClasses(){
+  //     return {
+  //         saveable:this.canSave,      //true
+  //         modified:!this.isUnchanged, //false
+  //         special:this.isSpecial      //true
+  //     }
+  // }
+
 
 
   setStyleshead() {
@@ -53,27 +72,48 @@ export class HgnPlayer implements OnInit {
     let styles;
     styles = {
       'margin-top': (this.size * 0.13).toString() + 'px',
-      'padding-left': (this.size * 0.3).toString() + 'px',
+      'padding-left': (this.size).toString() + 'px',
       // 'border-radius': '0.3em 0.3em 0.3em 0.3em',
-      // 'font-family': '"黑体"',
+      // 'font-family': ''黑体'',
       'font-size': (this.size * 3.5).toString() + '%',
       'left': (this.size * 0.8).toString() + 'px',
       // 'zoom': '200%',
       // 'float': 'left',
       'width': (this.size * 5.4).toString() + 'px',
+      'border': '2px solid transparent',
     };
+    if (!this.player.isSurvival) {
+      styles['background-color'] = '#F46565';
+      styles['color'] = 'white';
+      styles['border-color'] = '#861313';
+
+      return styles;
+    }
+    if (!this.player.canBeSelect && this.mystyle === 1) {
+      styles['background-color'] = '#6F6F6F';
+      styles['color'] = 'white';
+      styles['border-color'] = '#615F5F';
+
+      return styles;
+    }
     if (this.player.isPre) {
       styles['background-color'] = '#2CA283';
       styles['color'] = 'white';
+      styles['border-color'] = '#28886F';
+
       return styles;
     }
+
     if (this.player.isPrm) {
       styles['background-color'] = '#AD7859';
       styles['color'] = 'white';
+      styles['border-color'] = '#93664C';
+
       return styles;
     }
-    styles['background-color'] = '#B2D8E6';
+    styles['background-color'] = '#E3FCE6';
     styles['color'] = 'black';
+    styles['border-color'] = 'rgb(209, 216, 212)';
     return styles;
   }
 
@@ -95,24 +135,26 @@ export class HgnPlayer implements OnInit {
   }
   getNumber() {
     let src;
-    if (this.player.seatNo <= 10) {
-      src = './pic/' + this.player.seatNo + '.png';
+    if (!this.player.isSurvival) {
+        return src = './pic/dead.png';
+    }
+    if (this.player.seatNo <= 10 && this.player.seatNo !== 0) {
+      return src = './pic/' + this.player.seatNo + '.png';
     } else {
-      src = './pic/errorNo.png';
+      if (this.player.isSeat) {
+        return src = './pic/ok.png';
+      } else {
+        return src = './pic/' + this.player.seatNo + '.png';
+      }
     }
-
-    if (!this.theGameService.started && this.player.isSeat) {
-      src = './pic/ok.png';
-    }
-    return src;
   }
 
 
 
 
   ngOnInit() {
-    console.log('%cPlayer', 'background: #0D00FF; color: #FFF');
-    console.log("被解析数据", this.player);
+    // console.log('%cPlayer', 'background: #0D00FF; color: #FFF');
+    // console.log('被解析数据', this.player);
 
   }
 
