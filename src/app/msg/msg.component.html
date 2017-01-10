@@ -2,9 +2,6 @@
   <!-- Tab panes -->
   <div class="pre-scrollable" angular2-auto-scroll lock-y-offset="10" observe-attributes id="">
     <div *ngFor="let Msg of theMsgService.msgList;let i = index" class="" id="msg_container">
-      <div style="">
-        {{i}}---type---{{Msg.type}}<br>
-      </div>
       <hgnCP *ngIf="Msg.type==='choosePro'" [hgn_data]='Msg'></hgnCP>
       <hgnPlayermsg *ngIf="Msg.type==='playerSpk'" [hgn_data]='Msg'></hgnPlayermsg>
       <hgnlookpro *ngIf="Msg.type==='hgnlookpro'" [hgn_data]='Msg'></hgnlookpro>

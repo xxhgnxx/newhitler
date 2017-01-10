@@ -20,6 +20,7 @@ export class Data {
 
   // 游戏数据
   started: boolean;       // 游戏是否开始
+  gametype: number;
   speakTime: number;
   role: string;
   skillnamelist = new Array<number>();
@@ -148,6 +149,9 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
 
   if (typeof data.proIndex !== 'undefined') {
     theGameService.proIndex = data.proIndex;
+  }
+  if (typeof data.gametype !== 'undefined') {
+    theGameService.gametype = data.gametype;
   }
   if (typeof data.nowVote !== 'undefined') {
 

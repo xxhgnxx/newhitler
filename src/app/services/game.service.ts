@@ -10,7 +10,7 @@ export class TheGameService {
   skillList = new Array<Function | string>();  // 技能列表
   skillnamelist = new Array<string>();
   started: boolean = false;       // 游戏是否开始
-  playerList = new Array<User>(); // 加入本次游戏的玩家列表，主要用于消息发送
+  gametype: number;
   fascistCount: number; // 法西斯玩家数量
   liberalCount: number; // 自由党玩家数量
 

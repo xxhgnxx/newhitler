@@ -24,9 +24,47 @@ export class RoomComponent {
   speakEnd: any;
   bar: any;
   locked: boolean = false;  // 禁止发言
+  iszoom = false;
+  broadstyles = {
+    'width': '300px',
+    'left': '0px',
+    'top': '0px',
+  };
+  see = true;
   private head = new Map();
 
+  cansee() {
+    this.see = !this.see;
+  }
 
+  zoom() {
+    console.log('放大/缩小');
+    this.iszoom = !this.iszoom;
+    if (this.iszoom) {
+      this.broadstyles = {
+        'width': '880px',
+        'left': '0px',
+        'top': '120px',
+      };
+    } else {
+      this.broadstyles = {
+        'width': '300px',
+        'left': '0px',
+        'top': '0px',
+      };
+    }
+  }
+
+  getbroad() {
+    if (this.iszoom) {
+      let list = ['./pic/t6.jpg', './pic/法西斯进度8.jpg', './pic/法西斯进度10.jpg'];
+      return list[this.theGameService.gametype - 1];
+    } else {
+      let list = ['./pic/t6s.jpg', './pic/法西斯进度8.jpg', './pic/法西斯进度10.jpg'];
+      return list[this.theGameService.gametype - 1];
+    }
+
+  }
 
   getback() {
     let styles = {};

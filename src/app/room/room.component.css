@@ -2,14 +2,15 @@
   position: relative;
   margin: auto;
   width: 50%;
-  max-width: 900px;
-  min-width: 900px;
+  max-width: 1024px;
+  min-width: 1024px;
 }
 
 #msgdiv {
   position: relative;
   margin-right: 50px;
   max-width: 600px;
+  top: 70px;
 }
 
 #userslist {
@@ -20,18 +21,35 @@
 
 #failTime {
   position: absolute;
-  right: 10px;
-  top: 380px;
-  width: 250px;
+  left: 301px;
+  width: 35px;
+  top: 0;
 }
 
 #prostatus {
   position: absolute;
   width: 240px;
   right: 22px;
-  top: 400px;
+  top: 20px;
 }
 
+#game_pro_msg{
+  position: absolute;
+  width: 250px;
+  left: 410px;
+  top: -18px;
+}
+#gamebroad{
+  position: absolute;
+  z-index: 200;
+}
+#gamebroad_blue{
+  position: absolute;
+  width: 300px;
+  left: 337px;
+  top: 0px;
+  z-index: 200;
+}
 #gameMsg {
   position: absolute;
   width: 276px;
@@ -72,6 +90,13 @@
   height: 150px;
   right: 5px;
   top: 600px;
+}
+#teamclear {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  right: 5px;
+  top: 800px;
 }
 
 #gamecontrol {
