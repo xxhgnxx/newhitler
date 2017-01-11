@@ -33,6 +33,12 @@ export class HgntoKill implements OnInit {
     if (this.hgnData.step !== 1) {
       return;
     }
+    if (user.isPre) {
+      return;
+    }
+    if (!user.isSurvival) {
+      return;
+    }
     console.log(user);
     this.socketSevice.toKill(user);
     this.theGameService.toDoSth = '等待响应。。。';

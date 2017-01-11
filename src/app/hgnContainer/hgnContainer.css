@@ -1,12 +1,10 @@
-
 #whospeak {
-  /*float: left;*/;
+  /*float: left;*/
+  ;
   width: 500px;
 }
 
-#whoAmI {
-
-}
+#whoAmI {}
 
 #speakwhat {
   position: relative;
@@ -18,7 +16,8 @@
 
 span {
   display: block;
-    /*float: left;*/;
+  /*float: left;*/
+  ;
   left: 0.5em;
   padding: 0.3em;
   font-size: 0.9em;
@@ -27,9 +26,13 @@ span {
   overflow: hidden;
 }
 
-#containerother{
+#spk_container {
+  position: absolute;
+}
 
-  /*float: left;*/;
-  width: 20px;
-  margin-left: 50px;
+#spk_timeer {
+  position: absolute;
+  left: 191px;
+  width: 233px;
+  bottom: 50px;
 }

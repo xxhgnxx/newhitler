@@ -10,7 +10,7 @@
         <div style="" style="margin-left: 25px;">
           <div class="" *ngFor="let user of hgnData.userList">
             <!-- <button [disabled]="user.isPre || user.isLastPrm || !user.canBeSelect || !user.isSurvival" (click)="prmSelect(user)" type="button" class="btn btn-success" ngbTooltip="{{user.name}}" style="margin: 8px;">{{user.seatNo}}</button> -->
-            <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='1' (click)="prmSelect(user)"></hgnPlayer>
+            <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='2' (click)="prmSelect(user)"></hgnPlayer>
           </div>
         </div>
       </div>

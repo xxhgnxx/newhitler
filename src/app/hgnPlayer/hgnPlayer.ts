@@ -30,7 +30,9 @@ export class HgnPlayer implements OnInit {
   hgnget() {
     return {
       offline: !this.player.isOnline && this.mystyle === 0,
-      canselete: this.mystyle === 1 && this.player.canBeSelect && this.userService.yourself.isPre,
+      canselete: ((this.mystyle === 1 && this.player.canBeSelect)
+        || (this.mystyle === 2 && !this.player.isPre))
+        && this.userService.yourself.isPre && this.player.isSurvival,
     };
   }
 
@@ -136,7 +138,7 @@ export class HgnPlayer implements OnInit {
   getNumber() {
     let src;
     if (!this.player.isSurvival) {
-        return src = './pic/dead.png';
+      return src = './pic/dead.png';
     }
     if (this.player.seatNo <= 10 && this.player.seatNo !== 0) {
       return src = './pic/' + this.player.seatNo + '.png';

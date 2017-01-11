@@ -13,7 +13,7 @@
       <div *ngIf="Msg.type==='gamestart'">gamestart</div>
     </div>
   </div> -->
-  <div class="scrollbar" id="style-1">
+  <div class="scrollbar" angular2-auto-scroll lock-y-offset="10" observe-attributes id="style-1">
     <div class="force-overflow">
       <div *ngFor="let Msg of theMsgService.msgList;let i = index" class="" id="msg_container">
         <hgnCP *ngIf="Msg.type==='choosePro'" [hgn_data]='Msg'></hgnCP>
@@ -34,9 +34,23 @@
     <textarea name="MSG" [cols]="this.theGameService.locked?62:87" rows=7 wrap="physical" [(ngModel)]="myInput" (keydown.control.Enter)=sendMsg()>
       loading...
     </textarea>
-    <div id="container"></div>
+    <div id="timeer">
+      <div [hidden]="!this.theGameService.locked" id="container"></div>
+    </div>
+    <div id="timeerother">
+      <div [hidden]="!ortherskp" id="containerother"></div>
+    </div>
+    <img [hidden]="!this.theGameService.locked" src="./pic/flag.png" id="flag">
     <button class="btn btn-primary" [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
     <!-- <button (click)=tmp()>开始</button> -->
     <button class="btn btn-danger" [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
+    <button class="btn btn-danger" (click)=tmp() style="
+      z-index: 999;
+      position: relative;
+  ">test</button>
+    <button class="btn btn-danger" (click)=tmp2() style="
+      z-index: 999;
+      position: relative;
+  ">test2</button>
   </div>
 </div>

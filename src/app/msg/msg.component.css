@@ -4,12 +4,17 @@
   height: 147px;
 }
 
-#container {
+#timeer {
   position: absolute;
-  width: 60px;
-  height: 55px;
-  left: 480px;
-  bottom: 150px;
+  right: 2px;
+  width: 141px;
+  bottom: 96px;
+}
+#timeerother {
+  position: absolute;
+  right: 14px;
+  width: 173px;
+  bottom: 155px;
 }
 
 .alert {
@@ -22,6 +27,7 @@
 }
 
 #ctrlenter {
+  width: 141px;
   position: absolute;
   right: 4px;
   bottom: 2px;
@@ -37,6 +43,12 @@
 
 #msg_container {
   position: relative;
+}
+#flag {
+  position: absolute;
+right: 148px;
+width: 23px;
+bottom: 9px;
 }
 
 textarea {

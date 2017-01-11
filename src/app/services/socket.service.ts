@@ -22,6 +22,8 @@ export class SocketSevice {
   inited = false;
   @Output() speakNow: EventEmitter<any> = new EventEmitter();
   @Output() speakEnd: EventEmitter<any> = new EventEmitter();
+  @Output() otherspeakNow: EventEmitter<any> = new EventEmitter();
+  @Output() otherspeakEnd: EventEmitter<any> = new EventEmitter();
   @Output() quickloginResult: EventEmitter<any> = new EventEmitter();
   @Output() loginResult: EventEmitter<any> = new EventEmitter();
   @Output() otherPlayerTimer: EventEmitter<any> = new EventEmitter();
@@ -230,38 +232,25 @@ export class SocketSevice {
         this.theMsgService.msgListAll.push(new Msg('control', '技能：查看法案'));
         break;
       case 'someone_speak_end':
-        this.theMsgService.msgListAll[this.theMsgService.msgListAll.length - 1].other = false;
+        // this.theMsgService.msgListAll[this.theMsgService.msgListAll.length - 1].other = false;
+        this.otherspeakEnd.emit('end');
+
         break;
       // todo
       case 'newPlayerSpeak':
-        let newMsg = new Msg(data.whoIsSpeaking, new Array(), true);
-        this.theMsgService.msgListAll.push(newMsg);
+        // let newMsg = new Msg(data.whoIsSpeaking, new Array(), true);
+        // this.theMsgService.msgListAll.push(newMsg);
         // this.theMsgService.msgListNow = newMsg;
-        let whoString = '现在是 ';
-        if (data.whoIsSpeaking.isPre) {
-          whoString = whoString + '总统 ' + data.whoIsSpeaking.name + ' 在发言';
-        }
-        if (data.whoIsSpeaking.isPrm) {
-          whoString = whoString + '总理 ' + data.whoIsSpeaking.name + ' 在发言';
-        }
-        if (!data.whoIsSpeaking.isPrm && !data.whoIsSpeaking.isPre) {
-          whoString = whoString + '议员 ' + data.whoIsSpeaking.name + ' 在发言';
-        }
-
-
-
         if (this.userService.yourself.socketId === data.whoIsSpeaking.socketId) {
           this.speakNow.emit(data.speakTime);
         } else {
           console.log('别人发言');
+          this.otherspeakNow.emit(data.speakTime);
           this.speakEnd.emit('end');
         }
-        this.theGameService.toDoSth = data.whoIsSpeaking.name + '发言中...';
-
         break;
 
       case 'speak_endAll':
-        this.speakEnd.emit('end');
         break;
 
       case 'proEff':

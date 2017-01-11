@@ -26,42 +26,99 @@ export class MsgComponent {
   // msgListAll = this.theMsgService.msgListAll;
   // msgListNow = this.theMsgService.msgListNow;
   locked: boolean = false;  // 禁止发言
+  ortherskp: boolean = true;  // 别人发言计时
   speakTime: number;  // 发言时间
   msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
   timewidth = 0;
   speakEnd: any;
+  otherspeakEnd: any;
   bar: any;
+  barx: any;
   private color: string = '#127bdc';
 
 
+
   speakNow(time) {
+    this.socketSevice.otherspeakEnd.emit('end');
     this.theGameService.locked = true;
-    console.log('到你发言，发言时间', time);
+    console.log('发言计时器', time);
     setTimeout(() => {
-      this.locked = false;
-      // this.bar.destroy();
+      this.socketSevice.speakEnd.emit('end');
     }, time * 1000);
 
-    this.bar = new progressBar.Circle('#container', {
+    this.barx = new progressBar.Line('#container', {
+      strokeWidth: 32,
       color: '#aaa',
-      strokeWidth: 9,
-      trailWidth: 6,
-      // easing: 'easeInOut',
-
+      trailWidth: 32,
+      // svgStyle: { width: '100%', height: '100%' },
       text: {
-        // autoStyleContainer: false
+        style: {
+          // Text color.
+          // Default: same as stroke color (options.color)
+          color: '#999',
+          position: 'absolute',
+          right: '94px',
+          padding: 0,
+          margin: 0,
+          transform: null
+        },
+        autoStyleContainer: false
       },
-      from: { color: '#ff0000', a: 0 },
-      to: { color: '#00ff00', a: 0.5 },
-      // Set default step function for all animate calls
-      step: function(state, circle) {
-        circle.path.setAttribute('stroke', state.color);
-        let value = Math.round(circle.value() * time);
-        if (value === 0) {
-          circle.setText('');
-        } else {
-          circle.setText(value);
-        }
+      from: { color: '#ff0000' },
+      to: { color: '#00ff00' },
+      step: (state, bar) => {
+        let value = bar.setText(Math.round(bar.value() * time));
+        bar.path.setAttribute('stroke', state.color);
+      }
+    });
+    this.barx.set(1);
+    this.barx.text.style.fontFamily = ' Helvetica, sans-serif';
+    this.barx.text.style.fontSize = '3rem';
+
+    this.barx.animate(0, {
+      duration: time * 1000,
+    }, function() {
+
+    });
+
+    this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {
+      this.barx.destroy();
+      this.theGameService.locked = false;
+      console.log('时间到，轮到别人发言', this.speakEnd);
+      this.speakEnd.unsubscribe();
+    });
+  }
+  otherspeakNow(time) {
+    this.ortherskp = true;
+    console.log('别人发言计时器', time, this.ortherskp);
+    // setTimeout(() => {
+    //   this.socketSevice.otherspeakEnd.emit('end');
+    // }, time * 1000);
+
+    this.bar = new progressBar.Line('#containerother', {
+      strokeWidth: 6,
+      color: '#aaa',
+      trailWidth: 6,
+      // svgStyle: { width: '100%', height: '100%' },
+      text: {
+        style: {
+          // Text color.
+          // Default: same as stroke color (options.color)
+          color: '#999',
+          position: 'absolute',
+          right: '0px',
+          padding: 0,
+          margin: 0,
+          bottom: '-9px',
+          transform: null
+        },
+        autoStyleContainer: false
+      },
+      from: { color: '#ff0000' },
+      to: { color: '#00ff00' },
+      step: (state, bar) => {
+        let value = bar.setText(Math.round(bar.value() * time));
+        bar.path.setAttribute('stroke', state.color);
       }
     });
     this.bar.set(1);
@@ -73,13 +130,11 @@ export class MsgComponent {
     }, function() {
 
     });
-
-    this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {
-      this.theGameService.locked = false;
-      console.log('时间到，轮到别人发言', this.speakEnd);
-      this.speakEnd.unsubscribe();
+    this.socketSevice.otherspeakEnd = this.socketSevice.otherspeakEnd.subscribe(x => {
+      this.bar.destroy();
+      this.ortherskp = false;
+      this.socketSevice.otherspeakEnd.unsubscribe();
     });
-
   }
 
 
@@ -96,13 +151,23 @@ export class MsgComponent {
 
 
   tmp() {
-    this.speakNow(120);
+    if (this.theGameService.locked) {
+      this.socketSevice.speakEnd.emit('end');
+    } else {
+      this.socketSevice.speakNow.emit(120);
+    }
+  }
+  tmp2() {
+
+    this.socketSevice.otherspeakEnd.emit('end');
+
+    this.socketSevice.otherspeakNow.emit(120);
+
   }
 
   speak_end() {
     this.socketSevice.speak_end();
     if (this.bar) {
-      // this.bar.destroy();
     }
   }
 
@@ -128,6 +193,7 @@ export class MsgComponent {
 
   ngOnInit() {
     this.socketSevice.speakNow.subscribe(time => this.speakNow(time));
+    this.socketSevice.otherspeakNow.subscribe(time => this.otherspeakNow(time));
   }
 
 }

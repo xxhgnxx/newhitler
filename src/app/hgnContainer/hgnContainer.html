@@ -4,7 +4,10 @@
   {{hgnData}}</H1>
 <H1>
   {{hgnType}}</H1> -->
-<div style="    width: 200px;" id="spk_container">
+<div>
+  <div *ngIf="hgnData.step" id="spk_timeer">
+    <div id="spk_container"></div>
+  </div>
   <div id="whospeak">
     <hgnPlayer [hgn_data]='hgnData.who' [hgn_size]='30' [hgn_style]='3'></hgnPlayer>
   </div>
