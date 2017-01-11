@@ -110,15 +110,19 @@ export class MsgComponent {
 
 
   sendMsg() {
-    console.log(this.myInput);
-    this.socketSevice.sendMsg(this.myInput);
-    this.myInput = '';
+    if (this.theGameService.locked) {
+      console.log(this.myInput);
+      this.socketSevice.sendMsg(this.myInput);
+      this.myInput = '';
+    }
+
+
   }
-ngAfterViewInit(){
+  ngAfterViewInit() {
 
 
 
-}
+  }
 
 
 

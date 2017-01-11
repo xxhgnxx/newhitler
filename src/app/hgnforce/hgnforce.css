@@ -1,0 +1,22 @@
+.btn {
+  padding: 3px;
+  margin: 5px;
+
+}
+
+#cp_container {}
+
+#pre_pro {
+  display: inline-block;
+  margin: 5px;
+}
+
+#prm_pro {
+  display: inline-block;
+  margin: 5px;
+}
+
+#end_pro {
+  display: inline-block;
+  margin: 5px;
+}

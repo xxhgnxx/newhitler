@@ -2,20 +2,24 @@
   position: relative;
   margin: auto;
   width: 50%;
-  max-width: 1024px;
-  min-width: 1024px;
+  max-width: 895px;
+  min-width: 895px;
+  height: 900px;
 }
 
 #msgdiv {
   position: relative;
   margin-right: 50px;
-  max-width: 600px;
-  top: 70px;
+  max-width: 636px;
+  border: blue;
+  top: 82px;
+  border: 2px solid rgb(0, 61, 34);
+  border-radius: 1em 8px 1em 1em;
 }
 
 #userslist {
   position: absolute;
-  right: 30px;
+  right: 0px;
   top: 0px;
 }
 
@@ -33,23 +37,44 @@
   top: 20px;
 }
 
-#game_pro_msg{
+#prolist {
+  margin: 0 auto;
+  width: 100%;
+  top: 28%;
+  text-align: center;
   position: absolute;
-  width: 250px;
+}
+
+.mypro {
+  width: 90%;
+  padding: 3%;
+}
+
+.myprocont {
+  width: 10%;
+  margin: 2%;
+}
+
+#game_pro_msg {
+  position: absolute;
+  width: 300px;
   left: 410px;
   top: -18px;
 }
-#gamebroad{
+
+#gamebroad {
   position: absolute;
   z-index: 200;
 }
-#gamebroad_blue{
+
+#gamebroad_blue {
   position: absolute;
   width: 300px;
   left: 337px;
   top: 0px;
   z-index: 200;
 }
+
 #gameMsg {
   position: absolute;
   width: 276px;
@@ -66,14 +91,60 @@
 
 #role {
   position: absolute;
-  width: 70px;
-  height: 140px;
-  right: 210px;
-  top: 600px;
+  width: 96px;
+  left: 1px;
+  top: 29px;
 }
 
-#test {
-  /*float: left;*/;
+.team_msg_container {
+  position: absolute;
+  left: 102px;
+  top: 33px;
+}
+
+#rol_button {
+  padding: 1px;
+}
+
+#team_player {}
+
+.well-sm {
+  padding: 2px 10px 2px 10px;
+  border-radius: 3px;
+}
+
+.well {
+  min-height: 20px;
+  margin-bottom: 1px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+#test0 {
+  height: 20px;
+  border-radius: 0.3em 0.3em 0.3em 0.3em;
+  display: block;
+  font-size: 0.9em;
+  padding: 1px;
+  left: 257px;
+  top: 107px;
+  position: absolute;
+}
+
+#test1 {
+  height: 20px;
+  border-radius: 0.3em 0.3em 0.3em 0.3em;
+  display: block;
+  font-size: 0.9em;
+  padding: 1px;
+  left: 226px;
+  top: 107px;
+  position: absolute;
+}
+
+#test2 {
   color: white;
   height: 20px;
   border-radius: 0.3em 0.3em 0.3em 0.3em;
@@ -82,15 +153,28 @@
   background-color: #EB0000;
   border-color: #ED657B;
   padding: 1px;
+  left: 123px;
+  top: 107px;
+  position: absolute;
 }
-
+#pro_index{
+  position: absolute;
+  z-index: 210;
+  font-size: 24px;
+  right: 4px;
+  font-family: "黑体";
+  bottom: -5px;
+  color: black;
+}
 #team {
   position: absolute;
-  width: 200px;
-  height: 150px;
-  right: 5px;
-  top: 600px;
+  width: 242px;
+  height: 166px;
+  right: 0px;
+  bottom: 0px;
+  margin-bottom: 3px;
 }
+
 #teamclear {
   position: absolute;
   width: 100px;

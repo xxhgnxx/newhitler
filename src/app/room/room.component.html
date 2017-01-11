@@ -17,103 +17,158 @@
   <div class="" id="userslist">
     <userslist></userslist>
   </div>
-  <div class="" id="failTime">
-    <img [src]="theGameService.failTimes==0?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="failTime" style="width: 100%;">
-    <img [src]="theGameService.failTimes<=1?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="failTime" style="width: 100%;">
-    <img [src]="theGameService.failTimes<=2?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="failTime" style="width: 100%;">
-    <span class="alert alert-danger" *ngIf="theGameService.failTimes>=2" id="test">
-      再失败将强制执行法案！</span>
-  </div>
-  <div id="game_pro_msg">
+  <div id="" *ngIf="theGameService.started" style="
+  height: 134px;
+  width: 642px;
+  border: 3px solid rgb(0, 61, 34);
+  border-radius: 1em 8px 1em 1em;
+  position: absolute;
+  top: -4px;
+  left: -3px;
+">
+    <div class="" id="failTime">
+      <img [src]="theGameService.failTimes==0?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="failTime" style="width: 100%;">
+      <img [src]="theGameService.failTimes<=1?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="failTime" style="width: 100%;">
+      <img [src]="theGameService.failTimes<=2?'./pic/当前政府标记.png':'./pic/政府标记失败.png'" class="failTime" style="width: 100%;">
+    </div>
+    <span class="alert alert-info" *ngIf="theGameService.failTimes===0" id="test0">
+      第一次尝试组建政府</span>
+    <span class="alert alert-danger" *ngIf="theGameService.failTimes===1" id="test1">
+      我们刚刚尝试组建的政府失败了！</span>
+    <span class="alert alert-danger" *ngIf="theGameService.failTimes===2" id="test2">
+      当连续三次组建政府失败时，将会直接强制执行发案牌堆的第一张法案</span>
+    <!-- <div id="game_pro_msg">
     <div class="" id="prostatus" style="font-size: 30px">
       <div class=" gamecount" style="padding:2px">
-        <!-- <img src="./pic/法西斯进度10.jpg" class="" style="width: 270px; Margin:1px"> -->
         <img src="./pic/蓝色法案.png" class="" style="height: 40px; Margin:1px">
       </div>
       <div class=" gamecount" style="width:1em;   height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
         {{theGameService.proEffBlue}}
       </div>
       <div class=" gamecount" style="padding:2px">
-        <!-- <img src="./pic/自由党进度.jpg" class="" style="width: 270px; Margin:1px"> -->
         <img src="./pic/红色法案.png" class="" style="height: 40px; Margin:1px">
       </div>
       <div class=" gamecount" style="width:1em; height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
         {{theGameService.proEffRed}}
       </div>
       <div class=" gamecount" style="padding:2px">
-        <!-- <img src="./pic/自由党进度.jpg" class="" style="width: 270px; Margin:1px"> -->
         <img src="./pic/法案背.png" class="" style="height: 40px; Margin:1px">
       </div>
       <div class=" gamecount" style="width:1em;  height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
         {{theGameService.proIndex+1}}
       </div>
     </div>
-  </div>
-  <div *ngIf="theGameService.started" id="gamebroad" (click)="zoom()" [ngStyle]="broadstyles">
-    <img [src]="getbroad()" class="" style=" width: 100%;height: 100%;">
-  </div>
-  <div *ngIf="theGameService.started" id="gamebroad_blue">
-    <img src="./pic/自由党进度s.jpg" class="" style=" width: 100%;height: 100%;">
-  </div>
-  <div id="gameMsg">
-    <div class="" style="font-size: 30px">
-      <div style="font-size: 10px;color: grey;">{{theGameService.gameMsg[theGameService.gameMsg.length-3]}}
+  </div> -->
+    <div *ngIf="theGameService.started" id="gamebroad" (click)="zoom()" [ngStyle]="broadstyles">
+      <img [src]="getbroad()" class="" style=" width: 100%;height: 100%; border-radius: 7px;">
+      <div id="prolist">
+        <div style="display: inline-block;" *ngFor="let pro of testlist;let i=index" class="myprocont">
+          <img *ngIf="i<theGameService.proEffRed" src="./pic/红色法案.png" class="img-thumbnail mypro">
+        </div>
       </div>
-      <div style="font-size: 12px;color: black;">{{theGameService.gameMsg[theGameService.gameMsg.length-2]}}
+    </div>
+    <div *ngIf="theGameService.started" id="gamebroad_blue">
+      <img src="./pic/自由党进度s.jpg" class="" style=" width: 100%;height: 100%; border-radius: 7px;">
+      <div id="prolist">
+        <div style="display: inline-block;" *ngFor="let pro of testlist1;let i=index" class="myprocont">
+          <img *ngIf="i<theGameService.proEffBlue" src="./pic/蓝色法案.png" class="img-thumbnail mypro">
+        </div>
       </div>
-      <div style="font-size: 20px;color: blue;font-weight: bold;">{{theGameService.gameMsg[theGameService.gameMsg.length-1]}}
-      </div>
+    </div>
+    <div id="pro_index">
+      法案堆剩余{{theGameService.proIndex}}
     </div>
   </div>
   <div id="timegif">
     <img *ngIf="theGameService.started" src="./pic/time.gif" class="" style="height: 80px;">
   </div>
-  <div class="" style="">
-    <div class="" [hidden]="!see">
-      <div class="panel panel-primary" id="team">
-        <div class="panel-heading">
-          <h3 class="panel-title">队友信息</h3>
+  <!-- <button (click)="cansee(3)" id="teamclear">隐藏身份信息</button> -->
+  <div class="" [hidden]="!see">
+    <div class="panel panel-primary" id="team">
+      <div class="panel-heading" style="padding: 5px 14px;">
+        <h3 class="panel-title">
+          <b>身份：{{userService.yourself.role|getRole}}</b>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div class="" id="role">
+          <button (click)="cansee()" type="button" class="btn btn-default" id="rol_button">
+            <img data-src="holder.js/140x140" class="img-thumbnail" [src]="userService.yourself.role|getHead" data-holder-rendered="true" style="">
+          </button>
         </div>
-        <div class="panel-body">
-          <div *ngIf="userService.yourself.role!=='x'" class="team_msg_container">
-            <div *ngIf="userService.yourself.role==='Hitler'" class="team_msg_container">
-              你是希特勒<br>
+        <div *ngIf="userService.yourself.role!=='x'" class="team_msg_container">
+          <div *ngIf="userService.yourself.hitler">
+            希特勒是:<br></div>
+          <div class="well well-sm" *ngIf="userService.yourself.hitler">{{userService.yourself.hitler.name}}</div>
+          <div id="team_player">
+            <div *ngIf="userService.yourself.role==='Hitler'">
+              <div *ngIf="userService.yourself.fascist1">
+                你的队友是：
+                <div class="well well-sm">
+                  {{userService.yourself.fascist1.name}}
+                </div>
+              </div>
+              <div *ngIf="!userService.yourself.fascist1">
+                你不知道谁是你的队友
+              </div>
             </div>
-            <div *ngIf="userService.yourself.hitler" class="team_msg_container">
-              你是一名法西斯<br>
-              希特勒是：{{userService.yourself.hitler.name}}
+            <div class="well well-sm" *ngIf="userService.yourself.role==='Liberal'">
+              对抗藏在队伍中的<br>
+              {{theGameService.fascistCount}}名法西斯<br>
+              以及1名希特勒<br>
+              共计{{theGameService.fascistCount+1}}名敌人
             </div>
-            <div *ngIf="userService.yourself.role==='Liberal'" class="team_msg_container">
-              你是一名自由党<br>
-            </div>
-            <div *ngIf="!userService.yourself.fascist1" class="team_msg_container">
-              你什么都不知道<br>
-            </div>
-            <div *ngIf="userService.yourself.fascist1" class="team_msg_container">
-              你的法西斯队友是:{{userService.yourself.fascist1.name}}<br>
-            </div>
-            <div *ngIf="userService.yourself.fascist2" class="team_msg_container">
-              {{userService.yourself.fascist2.name}}<br>
-            </div>
-            <div *ngIf="userService.yourself.fascist3" class="team_msg_container">
-              {{userService.yourself.fascist3.name}}<br>
+            <div *ngIf="!userService.yourself.role==='Fascist'">
+              <div *ngIf="!userService.yourself.fascist2">
+                无其他队友
+              </div>
+              <div class="well well-sm" *ngIf="userService.yourself.fascist1  && userService.yourself.fascist1.name!==userService.yourself.name">
+                {{userService.yourself.fascist1.name}}
+              </div>
+              <div class="well well-sm" *ngIf="userService.yourself.fascist2">
+                {{userService.yourself.fascist2.name}}
+              </div>
+              <div class="well well-sm" *ngIf="userService.yourself.fascist3">
+                {{userService.yourself.fascist3.name}}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="" id="role">
-        <img data-src="holder.js/140x140" class="img-thumbnail" alt="你的身份" [src]="userService.yourself.role|getHead" data-holder-rendered="true" style="">
-      </div>
-      <div [hidden]="!this.theGameService.locked" class="panel-body"></div>
     </div>
-    <button (click)="cansee(3)" id="teamclear">隐藏身份信息</button>
-    <div [hidden]="this.theGameService.started" class="" style="height: 140px;" id="gamecontrol">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">入座人数达到5人便可开始游戏</h3>
-        </div>
-        <gameControl>游戏空间加载中</gameControl>
+    <div [hidden]="!this.theGameService.locked" class="panel-body"></div>
+  </div>
+  <div class="" [hidden]="see">
+    <div class="panel panel-primary" id="team">
+      <div class="panel-heading" style="padding: 5px 14px;">
+        <h3 class="panel-title">
+          <b>身份：已为装</b>
+        </h3>
       </div>
+      <div class="panel-body">
+        <div class="" id="role">
+          <button (click)="cansee()" type="button" class="btn btn-default" id="rol_button">
+            <img data-src="holder.js/140x140" class="img-thumbnail" src="./pic/liberal.png" data-holder-rendered="true" style="">
+          </button>
+        </div>
+        <div *ngIf="userService.yourself.role!=='x'" class="team_msg_container">
+          <div class="well well-sm" id="team_player">
+            对抗藏在队伍中的<br>
+            {{theGameService.fascistCount}}名法西斯<br>
+            以及1名希特勒<br>
+            共计{{theGameService.fascistCount+1}}名敌人
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [hidden]="!this.theGameService.locked" class="panel-body"></div>
+  </div>
+  <div *ngIf="userService.isLogin" [hidden]="this.theGameService.started" class="" style="height: 140px;" id="gamecontrol">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">入座人数达到5人便可开始游戏</h3>
+      </div>
+      <gameControl>游戏空间加载中</gameControl>
     </div>
   </div>
 </div>

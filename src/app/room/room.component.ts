@@ -25,6 +25,8 @@ export class RoomComponent {
   bar: any;
   locked: boolean = false;  // 禁止发言
   iszoom = false;
+  testlist = [1, 2, 3, 4, 5, 6];
+  testlist1 = [1, 2, 3, 4, 5];
   broadstyles = {
     'width': '300px',
     'left': '0px',
@@ -34,8 +36,14 @@ export class RoomComponent {
   private head = new Map();
 
   cansee() {
+    if (this.userService.yourself.role === 'Liberal') {
+      return;
+    }
     this.see = !this.see;
   }
+
+
+
 
   zoom() {
     console.log('放大/缩小');

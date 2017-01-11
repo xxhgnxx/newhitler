@@ -38,6 +38,7 @@ import { TheMsgService } from './services/msg.service';
 // 管道
 import { GetHeadPope } from './pipe/getHeadPope';
 import { GetVote } from './pipe/getvote';
+import { GetRole } from './pipe/getRole';
 
 // 其他组件
 import { UserslistComponent } from './userslist';
@@ -49,6 +50,7 @@ import { MsgComponent } from './msg/msg.component';
 import { HgnContainer } from './hgnContainer';
 import { HgnChoosePlayer } from './choosePlayer';
 import { HgnVote } from './hgnVote';
+import { Hgnforce } from './hgnforce';
 import { HgnCP } from './hgnCP';
 import { Hgnlookpro } from './hgnlookpro';
 import { HgnPlayer } from './hgnPlayer';
@@ -98,6 +100,7 @@ type StoreType = {
     HgnInvPlayer,
     HgnVote,
     Gameover,
+    Hgnforce,
     HgnpreSelect,
     HgnCP,
     HgntoKill,
@@ -107,6 +110,7 @@ type StoreType = {
     MsgComponent,
     NoContentComponent,
     GetHeadPope,
+    GetRole,
     GetVote,
     MdCard,
     MdCardContent,
