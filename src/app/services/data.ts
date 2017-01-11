@@ -39,7 +39,7 @@ export class Data {
 
   // 投票相关
   isVoted: boolean;   // 投票是否结束
-  voteList: Array<Array<number>>; // 投票总记录
+  voteList: any; // 投票总记录
   nowVote: Array<number>; // 当前正在进行的投票
   voteRes: number; // 投票结果
   voteCount: number;  //  投票数量
@@ -177,6 +177,9 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   }
   if (typeof data.fascistCount !== 'undefined') {
     theGameService.fascistCount = data.fascistCount;
+  }
+  if (typeof data.voteList !== 'undefined') {
+    theGameService.voteList = data.voteList;
   }
   if (typeof data.liberalCount !== 'undefined') {
     theGameService.liberalCount = data.liberalCount;

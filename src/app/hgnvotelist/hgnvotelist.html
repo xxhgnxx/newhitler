@@ -1,0 +1,40 @@
+<div (click)="msgshow()" class="scrollbar" angular2-auto-scroll lock-y-offset="10" observe-attributes id="votelistMain">
+  <div class="force-overflow" id="thevotelist">
+    投票记录：<br>
+    <div *ngFor="let votelistone of theGameService.voteList" id="votelistone">
+      <div style="position: relative;">
+        <hgnPlayer style="display:inline-block;width: 10px;" [hgn_data]='votelistone["pre"]' [hgn_size]='15' [hgn_style]='5'></hgnPlayer>
+        <hgnPlayer style="display:inline-block;width: 10px;" [hgn_data]='votelistone["prm"]' [hgn_size]='15' [hgn_style]='5'></hgnPlayer>
+        <div style="display:inline-block">
+          <img [src]="getpro(votelistone.pro)" style="height:15px">
+        </div>
+        <div style="display:inline-block;">
+          <div style="position: relative;display:inline-block;" *ngFor="let vote of votelistone.list;let i = index;">
+            <img [src]="getvote(vote)" class="playervote">
+            <span *ngIf="seeshow" class="playernumber" style="position: absolute; top: 0; left: 0;">{{i+1}}</span>
+          </div>
+          <!-- <div style="position: absolute;">
+            <div style="display:inline-block;" *ngFor="let vote of votelistone.list;let i = index;">
+              <div >
+                {{i+1}}
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div *ngIf="votelistone.skill!=='x'" style="display:inline-block;">
+          <img [src]="getskill(votelistone.skill)" style="height:15px">
+        </div>
+        <!-- <div style="background:url(abc.jpg) no-repeat left top;">
+            wenzi
+        </div> -->
+        <!-- <div style="position: relative; width: 170px; height: 89px;">
+        <img src="图片地址" width="170" height="89" alt="">
+        <span style="position: absolute; top: 0; left: 0;">添加文字...添加文字...添加文字...</span>
+        </div>  -->
+        <div *ngIf="votelistone.skilltarget!=='x'" style="display:inline-block;">
+          <hgnPlayer style="display:inline-block;width: 10px;" [hgn_data]='votelistone.skilltarget' [hgn_size]='15' [hgn_style]='5'></hgnPlayer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

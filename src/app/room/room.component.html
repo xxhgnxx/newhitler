@@ -83,6 +83,15 @@
     <img *ngIf="theGameService.started" src="./pic/time.gif" class="" style="height: 80px;">
   </div>
   <!-- <button (click)="cansee(3)" id="teamclear">隐藏身份信息</button> -->
+  <hgnvotelist *ngIf="theGameService.started" style="
+      position: absolute;
+      top: 377px;
+      right: 0px;
+      border-radius: 1em 1px 3px 1em;
+      height: 350px;
+      width: 243px;
+      border: 1px solid rgb(0, 61, 34);
+"></hgnvotelist>
   <div class="" [hidden]="!see">
     <div class="panel panel-primary" id="team">
       <div class="panel-heading" style="padding: 5px 14px;">

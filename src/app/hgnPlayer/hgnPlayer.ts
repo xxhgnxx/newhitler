@@ -15,7 +15,7 @@ import { TheGameService } from '../services';
 
 export class HgnPlayer implements OnInit {
   @Input('hgn_data') player: any = 'data出错啦xxxxxxxx';
-  @Input('hgn_size') size: any = '9999px';
+  @Input('hgn_size') size: any = '9999';
   @Input('hgn_style') mystyle: number = 1;
 
 
@@ -51,7 +51,7 @@ export class HgnPlayer implements OnInit {
     let styles;
     styles = {
 
-      'height': this.size.toString() + 'px',
+      // 'height': this.size.toString() + 'px',
 
     };
     return styles;
@@ -60,9 +60,9 @@ export class HgnPlayer implements OnInit {
     let styles;
 
     styles = {
-      'height': (this.size * 0.65).toString() + 'px',
-      'left': (this.size * 0.13).toString() + 'px',
-      'top': (this.size * 0.17).toString() + 'px',
+      // 'height': (this.size * 0.65).toString() + 'px',
+      // 'left': (this.size * 0.13).toString() + 'px',
+      // 'top': (this.size * 0.17).toString() + 'px',
     };
 
 

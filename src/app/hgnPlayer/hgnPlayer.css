@@ -6,15 +6,20 @@
   z-index: 99;
   display: inline;
   position: absolute;
+  height: 100%;
 }
 
 #hgnrole {
   display: inline;
+  height:100%;
 }
 
 #hgnNumber {
-  position: absolute;
+  position: relative;
   display: inline;
+  left: -56%;
+  height: 66%;
+  line-height: 233px;
 }
 
 #hgnPlayerName {

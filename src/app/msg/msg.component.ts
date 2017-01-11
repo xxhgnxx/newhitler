@@ -30,8 +30,9 @@ export class MsgComponent {
   speakTime: number;  // 发言时间
   msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
   timewidth = 0;
-  speakEnd: any;
+
   otherspeakEnd: any;
+  speakEnd: any;
   bar: any;
   barx: any;
   private color: string = '#127bdc';
@@ -130,10 +131,10 @@ export class MsgComponent {
     }, function() {
 
     });
-    this.socketSevice.otherspeakEnd = this.socketSevice.otherspeakEnd.subscribe(x => {
+    this.otherspeakEnd = this.socketSevice.otherspeakEnd.subscribe(x => {
       this.bar.destroy();
       this.ortherskp = false;
-      this.socketSevice.otherspeakEnd.unsubscribe();
+      this.otherspeakEnd.unsubscribe();
     });
   }
 
