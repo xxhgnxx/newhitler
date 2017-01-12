@@ -64,6 +64,11 @@ export class LoginComponent {
       setTimeout(() => this.alerts = '', 3000);
       return;
     }
+    if (strlen(this.username) > 20) {
+      this.alerts = '名字太长啦';
+      setTimeout(() => this.alerts = '', 3000);
+      return;
+    }
 
 
     console.log('尝试登陆');
