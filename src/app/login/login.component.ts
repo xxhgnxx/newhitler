@@ -17,8 +17,8 @@ export class LoginComponent {
   sexes = ['呵呵', 'a', 'b', '扶她'];
   // tmp = new MyUsers(18, Math.floor(Math.random() * 1000).toString(), this.sexes[3]);
   submiting = false;
-  username = '1';
-  userpassword = '1';
+  username = '';
+  userpassword = '';
   alerts: string = '';
   constructor(
     private router: Router,
@@ -59,6 +59,13 @@ export class LoginComponent {
 
 
   onSubmit() {
+    if (strlen(this.username) < 4) {
+      this.alerts = '名字太短啦';
+      setTimeout(() => this.alerts = '', 3000);
+      return;
+    }
+
+
     console.log('尝试登陆');
     this.submiting = true;
     this.socketsevice.login(this.username, this.userpassword);
@@ -106,4 +113,19 @@ class MyUsers {
   ) { }
 
 
+}
+
+
+function strlen(str) {
+  let len = 0;
+  for (let i = 0; i < str.length; i++) {
+    let c = str.charCodeAt(i);
+    if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+      len++;
+    }
+    else {
+      len += 2;
+    }
+  }
+  return len;
 }

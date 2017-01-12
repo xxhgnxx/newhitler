@@ -23,27 +23,27 @@
   background-color: #F5F5F5;
 }
 
-
-
 .force-overflow {
   padding-right: 20px;
-  padding-left: 10px;
+  padding-left: 1px;
 }
 
-#thevotelist{
-}
-#votelistone{
-}
-#voteone{
+#thevotelist {}
+
+#votelistone {}
+
+#voteone {
   display: inline-block;
 }
-.playernumber{
+
+.playernumber {
   color: magenta;
   width: 15px;
   text-align: center;
   font: status-bar;
   padding-top: 4px;
 }
-.playervote{
-  width:15px;
+
+.playervote {
+  width: 15px;
 }
