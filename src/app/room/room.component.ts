@@ -65,13 +65,12 @@ export class RoomComponent {
 
   getbroad() {
     if (this.iszoom) {
-      let list = ['./pic/t6.jpg', './pic/法西斯进度8.jpg', './pic/法西斯进度10.jpg'];
+      let list = ['./pic/t6.jpg', './pic/t8.jpg', './pic/t10.jpg'];
       return list[this.theGameService.gametype - 1];
     } else {
-      let list = ['./pic/t6s.jpg', './pic/法西斯进度8.jpg', './pic/法西斯进度10.jpg'];
+      let list = ['./pic/t6s.jpg', './pic/t8s.jpg', './pic/t10s.jpg'];
       return list[this.theGameService.gametype - 1];
     }
-
   }
 
   getback() {
