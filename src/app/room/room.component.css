@@ -186,7 +186,8 @@
 #gamecontrol {
   position: absolute;
   width: 400px;
-  top: 200px;
+  top: 0px;
+  left: 206px;
 }
 
 .gamecount {

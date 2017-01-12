@@ -10,6 +10,7 @@
   width: 141px;
   bottom: 96px;
 }
+
 #timeerother {
   position: absolute;
   right: 14px;
@@ -44,11 +45,12 @@
 #msg_container {
   position: relative;
 }
+
 #flag {
   position: absolute;
-right: 148px;
-width: 23px;
-bottom: 9px;
+  right: 148px;
+  width: 23px;
+  bottom: 9px;
 }
 
 textarea {
@@ -96,9 +98,8 @@ span {
   background-color: #F5F5F5;
 }
 
-
 .force-overflow {
   min-height: 450px;
-  padding-right: 20px;
+  padding-right: 25px;
   padding-left: 10px;
 }

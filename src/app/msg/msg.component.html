@@ -44,7 +44,7 @@
     <button class="btn btn-primary" [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
     <!-- <button (click)=tmp()>开始</button> -->
     <button class="btn btn-danger" [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
-    <button class="btn btn-danger" (click)=tmp() style="
+    <!-- <button class="btn btn-danger" (click)=tmp() style="
       z-index: 999;
       position: relative;
   ">test</button>
@@ -61,6 +61,6 @@
       cancelButtonType="default"
       style="z-index: 999;position: relative;">
       test2
-    </button>
+    </button> -->
   </div>
 </div>

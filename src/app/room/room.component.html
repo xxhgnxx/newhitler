@@ -62,9 +62,11 @@
     <div *ngIf="theGameService.started" id="gamebroad" (click)="zoom()" [ngStyle]="broadstyles">
       <img [src]="getbroad()" class="" style=" width: 100%;height: 100%; border-radius: 7px;">
       <div id="prolist">
-        <div style="display: inline-block;" *ngFor="let pro of testlist;let i=index" class="myprocont">
-          <img *ngIf="i<theGameService.proEffRed" src="./pic/红色法案.png" class="img-thumbnail mypro">
-        </div>
+        <template *ngIf="!iszoom">
+          <div style="display: inline-block;" *ngFor="let pro of testlist;let i=index" class="myprocont">
+            <img *ngIf="i<theGameService.proEffRed" src="./pic/红色法案.png" class="img-thumbnail mypro">
+          </div>
+        </template>
       </div>
     </div>
     <div *ngIf="theGameService.started" id="gamebroad_blue">

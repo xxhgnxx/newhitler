@@ -1,4 +1,4 @@
-<div *ngIf="!theGameService.started" class="panel-body " style="">
+<div *ngIf="!theGameService.started" class="panel-body " style="padding: 9px;">
   <div class="col-sm-1">
     <button *ngIf="!userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-warning ">坐下</button>
     <button *ngIf="userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-success ">起身离开</button>
