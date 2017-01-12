@@ -233,7 +233,8 @@ export class SocketSevice {
         break;
       case 'someone_speak_end':
         // this.theMsgService.msgListAll[this.theMsgService.msgListAll.length - 1].other = false;
-
+        this.otherspeakEnd.emit('end');
+        this.speakEnd.emit('end');
         break;
       // todo
       case 'newPlayerSpeak':
@@ -251,6 +252,7 @@ export class SocketSevice {
 
       case 'speak_endAll':
       this.speakEnd.emit('end');
+      this.otherspeakEnd.emit('end');
         break;
 
       case 'proEff':
