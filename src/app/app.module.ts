@@ -26,6 +26,9 @@ import { AppComponent } from './app.component';
 // 路由检查器
 import { LoginCheck } from './admin';
 
+// 提示框组件
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+
 
 
 // 服务组件
@@ -136,7 +139,8 @@ type StoreType = {
     FormsModule,
     HttpModule,
     ColorPickerModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    ConfirmationPopoverModule.forRoot({ focusButton: 'confirm' })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

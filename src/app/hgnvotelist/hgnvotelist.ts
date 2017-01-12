@@ -45,15 +45,29 @@ export class Hgnvotelist implements OnInit {
     switch (skill) {
       case 'toLookPro':
         return './pic/lookpro.png';
-      case 3:
-        return './pic/no.png';
-      case 4:
-        return './pic/de.png';
+      case  'tokill':
+        return './pic/tokill.png';
+      case 'preSelect':
+        return './pic/setpre.png';
+      case 'invPlayer':
+        return './pic/inv.png';
       default:
         return './pic/what.png';
     }
-
-
+  }
+  getskillname(skill) {
+    switch (skill) {
+      case 'toLookPro':
+        return '查看三张法案';
+      case  'tokill':
+        return '枪决一人';
+      case 'preSelect':
+        return '指定总统';
+      case 'invPlayer':
+        return '调查玩家';
+      default:
+        return './pic/what.png';
+    }
   }
   getpro(pro) {
     if (pro === 'x') {

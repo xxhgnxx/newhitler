@@ -1,1 +1,45 @@
 <img src="./pic/loading.jpg">
+<div>
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" class="form-control" [(ngModel)]="title">
+  </div>
+  <div class="form-group">
+    <label>Message (Yes you can even include html!)</label>
+    <input type="text" class="form-control" [(ngModel)]="message">
+  </div>
+  <div class="form-group">
+    <label>Confirm text</label>
+    <input type="text" class="form-control" [(ngModel)]="confirmText">
+  </div>
+  <div class="form-group">
+    <label>Confirm text</label>
+    <input type="text" class="form-control" [(ngModel)]="cancelText">
+  </div>
+  <div class="text-center">
+    <span *ngFor="let placement of placements">
+      <button
+        class="btn btn-default"
+        mwlConfirmationPopover
+        title="title"
+        message="你确定吗？"
+        [confirmText]="confirmText"
+        [cancelText]="cancelText"
+        [placement]="placement"
+        (confirm)="confirmClicked = true"
+        (cancel)="cancelClicked = true"
+        confirmButtonType="danger"
+        cancelButtonType="default"
+        (click)="confirmClicked = false; cancelClicked = false"
+        [appendToBody]="true">
+        Show on
+        {{ placement }}
+      </button>
+    </span>
+  </div>
+  <br>
+  <div class="alert alert-info" [hidden]="!confirmClicked">
+    clicked confirm!</div>
+  <div class="alert alert-info" [hidden]="!cancelClicked">
+    cancelled!</div>
+</div>

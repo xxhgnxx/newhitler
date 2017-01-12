@@ -21,7 +21,7 @@
             </div>
           </div> -->
         </div>
-        <div *ngIf="votelistone.skill!=='x'" style="display:inline-block;">
+        <div [title]="getskillname(votelistone.skill)" *ngIf="votelistone.skill!=='x'" style="display:inline-block;">
           <img [src]="getskill(votelistone.skill)" style="height:15px">
         </div>
         <!-- <div style="background:url(abc.jpg) no-repeat left top;">

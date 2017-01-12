@@ -17,6 +17,7 @@ import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 export class HgnCP implements OnInit {
   @Input('hgn_data') hgnData: any = 'data出错啦xxxxxxxx';
   myvotepic: string;
+  submit = false;
   constructor(
     tipconfig: NgbTooltipConfig,
     private userService: UserService,
@@ -48,7 +49,7 @@ export class HgnCP implements OnInit {
       case 4: {
         str = '总理向总统提出了否决全部的建议，等待总统决定';
       }
-      break;
+        break;
       case 40: {
         str = '全部法案被否决';
       }
@@ -69,6 +70,10 @@ export class HgnCP implements OnInit {
 
 
   proSelect(pro) {
+    if (this.submit) {
+      return;
+    }
+    this.submit = true;
     if (pro === 'x' || this.hgnData.step === 0 ||
       this.hgnData.step === 40 || this.hgnData.step === 3 || this.hgnData.step === 4) {
       return;
@@ -143,11 +148,19 @@ export class HgnCP implements OnInit {
 
   veto() {
     // 全部否决
+    if (this.submit) {
+      return;
+    }
+    this.submit = true;
     console.log('全部否决请求');
     this.socketSevice.veto();
   }
 
   veto_all(n: number) {
+    if (this.submit) {
+      return;
+    }
+    this.submit = true;
     this.socketSevice.veto_all(n);
 
 

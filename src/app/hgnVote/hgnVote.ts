@@ -15,6 +15,7 @@ import { TheGameService } from '../services';
 export class HgnVote implements OnInit {
   @Input('hgn_data') hgnData: any = 'data出错啦xxxxxxxx';
   myvotepic: string;
+  submit = false;
   constructor(
 
     private userService: UserService,
@@ -25,6 +26,10 @@ export class HgnVote implements OnInit {
 
 
   vote(n: number) {
+    if (this.submit) {
+      return;
+    }
+    this.submit = true;
     // this.theGameService.isVoted = true;
     // this.hgnData.other1 = false;
     this.socketSevice.vote(n);

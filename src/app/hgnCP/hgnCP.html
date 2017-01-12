@@ -19,7 +19,22 @@
       </div>
       <div style="margin:0 auto;">
         <div style="display: inline-block;" *ngFor="let pro of hgnData.proX3List[0]">
-          <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+          <button
+            [disabled]="!userService.yourself.isPre||hgnData.step!==1"
+            class="btn btn-danger"
+            class="btn btn-default"
+            mwlConfirmationPopover
+            title="否决该法案"
+            message='你确定<b>否决掉</b>这张法案吗？'
+            confirmText="确定 "
+            cancelText="再考虑下"
+            placement="right"
+            (confirm)=proSelect(pro)
+            confirmButtonType="success"
+            cancelButtonType="default"
+            type="button"
+            [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'"
+            id="pro">
             <img [src]="getpro_pre(pro)" class="img-thumbnail" style="height: 80px;"></button>
         </div>
       </div>
@@ -29,7 +44,22 @@
         <hgnPlayer [hgn_data]='hgnData.prm' [hgn_size]='25' [hgn_style]='3'></hgnPlayer>
       </div>
       <div style="display: inline-block;" *ngFor="let pro of hgnData.proX3List[1]">
-        <button (click)="proSelect(pro)" type="button" [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'" id="pro">
+        <button
+          [disabled]="!userService.yourself.isPrm||!(hgnData.step===2||hgnData.step===31||hgnData.step===51)"
+          class="btn btn-danger"
+          class="btn btn-default"
+          mwlConfirmationPopover
+          title="否决该法案"
+          message='你确定<b>否决掉</b>这张法案吗？'
+          confirmText="确定"
+          cancelText="再考虑下"
+          placement="right"
+          (confirm)=proSelect(pro)
+          confirmButtonType="success"
+          cancelButtonType="default"
+          type="button"
+          [class]="pro=='x'?'btn':pro>5?'btn btn-danger':'btn btn-primary'"
+          id="pro">
           <img [src]="getpro_prm(pro)" class="img-thumbnail" style="height: 80px;"></button>
       </div>
     </div>

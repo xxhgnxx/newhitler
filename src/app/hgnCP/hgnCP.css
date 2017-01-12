@@ -1,7 +1,6 @@
 .btn {
   padding: 3px;
   margin: 5px;
-
 }
 
 #cp_container {}
@@ -19,4 +18,8 @@
 #end_pro {
   display: inline-block;
   margin: 5px;
+}
+
+#bb {
+  color: red;
 }

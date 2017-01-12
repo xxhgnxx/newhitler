@@ -48,9 +48,19 @@
       z-index: 999;
       position: relative;
   ">test</button>
-    <button class="btn btn-danger" (click)=tmp2() style="
-      z-index: 999;
-      position: relative;
-  ">test2</button>
+    <button
+      class="btn btn-danger"
+      class="btn btn-default"
+      mwlConfirmationPopover
+      title="选择总理"
+      message="你<b>确定</b>吗？"
+      confirmText="Yes "
+      cancelText="No"
+      (confirm)=tmp2()
+      confirmButtonType="success"
+      cancelButtonType="default"
+      style="z-index: 999;position: relative;">
+      test2
+    </button>
   </div>
 </div>

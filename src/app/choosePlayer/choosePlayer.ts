@@ -16,7 +16,7 @@ import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
 
 export class HgnChoosePlayer implements OnInit {
   @Input('hgn_data') hgnData: any = 'data出错啦xxxxxxxx';
-
+  submit = false;
   constructor(
     public tipconfig: NgbTooltipConfig,
     public userService: UserService,
@@ -30,6 +30,10 @@ export class HgnChoosePlayer implements OnInit {
 
 
   prmSelect(user: User) {
+    if (this.submit) {
+      return;
+    }
+    this.submit = true;
     if (!this.userService.yourself.isPre) {
       return;
     }

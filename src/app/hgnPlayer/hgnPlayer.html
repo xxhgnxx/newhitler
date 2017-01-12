@@ -1,7 +1,7 @@
-<div id="maindiv" [style.height.px]="size" [style.width.px]="size*6" [ngClass]="hgnget()">
+<div id="maindiv" [title]="player.name" [style.height.px]="size" [style.width.px]="size*6" [ngClass]="hgnget()">
   <div id="headdiv" [ngStyle]="setStyleshead()">
-    <img [src]="gethead()" alt="" id="hgnrole" [ngStyle]="setStyleshead()">
-    <img [src]="getNumber()" alt="" id="hgnNumber" [ngStyle]="setStylesNumber()">
+    <img [src]="gethead()" id="hgnrole" [ngStyle]="setStyleshead()">
+    <img [src]="getNumber()" id="hgnNumber" [ngStyle]="setStylesNumber()">
   </div>
   <!-- <img [src]="getNumber()" alt="" id="lastVote"> -->
   <!-- <img [src]="getNumber()" alt="" id="lastTurn"> -->

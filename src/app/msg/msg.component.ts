@@ -1,6 +1,5 @@
 let progressBar = require('progressbar.js');
 import { Component } from '@angular/core';
-
 import { AppState } from '../app.service';
 import { User } from '../services/user';
 import { UserService } from '../services/user.service';
@@ -21,7 +20,7 @@ import { TheGameService } from '../services';
 })
 
 export class MsgComponent {
-  myInput: string = '嗯..';
+  myInput: string = '嗯...';
   // msgList = this.theMsgService.msgList;
   // msgListAll = this.theMsgService.msgListAll;
   // msgListNow = this.theMsgService.msgListNow;
@@ -159,12 +158,16 @@ export class MsgComponent {
     }
   }
   tmp2() {
-
-    this.socketSevice.otherspeakEnd.emit('end');
-
-    this.socketSevice.otherspeakNow.emit(120);
-
+    let r = confirm('Press a button!');
+    if (r === true) {
+      console.log('gogogogogog');
+    }
+    else {
+      console.log('nonononog');
+    }
   }
+
+
 
   speak_end() {
     this.socketSevice.speak_end();
