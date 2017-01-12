@@ -154,7 +154,7 @@ export class RoomComponent {
   ngOnInit() {
     if (!this.userService.isLogin) {
       if (sessionStorage.getItem('login')) {
-        console.log('快速登陆');
+        console.log('快速登陆 ');
         this.socketsevice.quickLogin(sessionStorage.getItem('login'));
         this.socketsevice.quickloginResult.subscribe((result) => {
           if (result === '认证成功') {
