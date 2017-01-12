@@ -75,7 +75,7 @@ export class HgnContainer implements OnInit {
 
 
   ngOnInit() {
-    console.log('文字发言', this.hgnData);
+    // console.log('文字发言', this.hgnData);
     if (!this.hgnData.step) {
       setTimeout(() => this.theGameService.locked = false, 500);
     }
