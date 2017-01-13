@@ -2,8 +2,11 @@
   {{userService.yourself.name}}</h3>
 <div *ngIf="!theGameService.started" class="pre-scrollable" style="max-height: 320px;height: 320px;">
   <ul class="users">
+    <div  *ngFor="let user of userService.userList" style="height=10%;">
+      <hgnPlayer  *ngIf="user.isSeat" [hgn_data]='user' [hgn_size]='30' [hgn_style]='0' ></hgnPlayer>
+    </div>
     <div *ngFor="let user of userService.userList" style="height=10%;">
-      <hgnPlayer [hgn_data]='user' [hgn_size]='30' [hgn_style]='0' style="height=10%;"></hgnPlayer>
+      <hgnPlayer *ngIf="!user.isSeat" [hgn_data]='user' [hgn_size]='30' [hgn_style]='0'></hgnPlayer>
     </div>
   </ul>
 </div>
@@ -20,5 +23,6 @@
       <span class="badge" *ngIf="user.isPrm">理</span>
       <span class="badge" *ngIf="!user.isSurvival">死</span>
     </li> -->
+
   </ul>
 </div>

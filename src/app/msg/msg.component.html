@@ -14,7 +14,7 @@
     </div>
   </div> -->
   <div class="scrollbar" angular2-auto-scroll lock-y-offset="10" observe-attributes id="style-1">
-    <div class="force-overflow">
+    <div class="force-overflow" angular2-auto-scroll lock-y-offset="10" observe-attributes>
       <div *ngFor="let Msg of theMsgService.msgList;let i = index" class="" id="msg_container">
         <hgnCP *ngIf="Msg.type==='choosePro'" [hgn_data]='Msg'></hgnCP>
         <hgnPlayermsg *ngIf="Msg.type==='playerSpk'" [hgn_data]='Msg'></hgnPlayermsg>
@@ -44,23 +44,11 @@
     <button class="btn btn-primary" [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
     <!-- <button (click)=tmp()>开始</button> -->
     <button class="btn btn-danger" [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
-    <!-- <button class="btn btn-danger" (click)=tmp() style="
-      z-index: 999;
-      position: relative;
-  ">test</button>
-    <button
-      class="btn btn-danger"
-      class="btn btn-default"
-      mwlConfirmationPopover
-      title="选择总理"
-      message="你<b>确定</b>吗？"
-      confirmText="Yes "
-      cancelText="No"
-      (confirm)=tmp2()
-      confirmButtonType="success"
-      cancelButtonType="default"
-      style="z-index: 999;position: relative;">
-      test2
-    </button> -->
+    <!-- <button class="btn btn-danger" (click)=otherspeakNow(5) style="z-index: 999;position: relative;">test</button>
+    <button class="btn btn-danger" (click)=speakNow(5) style="z-index: 999;position: relative;">test</button>
+    <button class="btn btn-danger" (click)="put('someone_speak_end')" style="z-index: 999;position: relative;">someone_speak_end</button>
+    <button class="btn btn-danger" (click)="put('newPlayerSpeak') "style="z-index: 999;position: relative;">newPlayerSpeak</button>
+    <button class="btn btn-danger" (click)="put('newPlayerSpeak2')" style="z-index: 999;position: relative;">newPlayerSpeak2</button> -->
+
   </div>
 </div>

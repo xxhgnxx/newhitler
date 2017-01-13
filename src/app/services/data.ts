@@ -221,7 +221,6 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   }
 
   if (typeof data.speakTime !== 'undefined') {
-    // speakNow.emit(msgdata.speakTime);
     theGameService.speakTime = msgdata.speakTime;
   }
 

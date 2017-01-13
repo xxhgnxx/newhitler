@@ -36,57 +36,22 @@ export class MsgComponent {
   n = 1;
 
   private color: string = '#127bdc';
-
-
   speakNow(time) {
     this.theGameService.locked = true;
-    console.log('发言计时器', this.n);
-    this.n++;
-    setTimeout(() => {
-      this.socketSevice.speakEnd.emit('end');
-    }, time * 1000);
-
-    this.barx = new progressBar.Line('#container', {
-      strokeWidth: 32,
-      color: '#aaa',
-      trailWidth: 32,
-      // svgStyle: { width: '100%', height: '100%' },
-      text: {
-        style: {
-          // Text color.
-          // Default: same as stroke color (options.color)
-          color: '#999',
-          position: 'absolute',
-          right: '94px',
-          padding: 0,
-          margin: 0,
-          transform: null
-        },
-        autoStyleContainer: false
-      },
-      from: { color: '#ff0000' },
-      to: { color: '#00ff00' },
-      step: (state, bar) => {
-        let value = bar.setText(Math.round(bar.value() * time));
-        bar.path.setAttribute('stroke', state.color);
-      }
-    });
+    console.log('自己发言计时器');
+    let timing = setTimeout(() => this.theGameService.locked = false, time * 1000);
     this.barx.set(1);
-    this.barx.text.style.fontFamily = ' Helvetica, sans-serif';
-    this.barx.text.style.fontSize = '3rem';
-
     this.barx.animate(0, {
       duration: time * 1000,
-    }, function() {
-
     });
 
-this.socketSevice.speakEnd.subscribe(x => {
-      // this.barx.destroy();
-      this.theGameService.locked = false;
-      console.log('时间到，轮到别人发言');
-      this.socketSevice.speakEnd.unsubscribe();
+    this.socketSevice.msgcomponent.subscribe(x => {
+      if (x.type === 'someone_speak_end') {
+        this.theGameService.locked = false;
+        clearTimeout(timing);
+      }
     });
+
   }
 
 
@@ -94,58 +59,51 @@ this.socketSevice.speakEnd.subscribe(x => {
 
   otherspeakNow(time) {
     this.ortherskp = true;
-    console.log('别人发言计时器', time, this.ortherskp);
-    // setTimeout(() => {
-    //   this.socketSevice.otherspeakEnd.emit('end');
-    // }, time * 1000);
-
-    this.bar = new progressBar.Line('#containerother', {
-      strokeWidth: 6,
-      color: '#aaa',
-      trailWidth: 6,
-      // svgStyle: { width: '100%', height: '100%' },
-      text: {
-        style: {
-          // Text color.
-          // Default: same as stroke color (options.color)
-          color: '#999',
-          position: 'absolute',
-          right: '0px',
-          padding: 0,
-          margin: 0,
-          bottom: '-9px',
-          transform: null
-        },
-        autoStyleContainer: false
-      },
-      from: { color: '#ff0000' },
-      to: { color: '#00ff00' },
-      step: (state, bar) => {
-        let value = bar.setText(Math.round(bar.value() * time));
-        bar.path.setAttribute('stroke', state.color);
-      }
-    });
+    console.log('别人发言计时器');
+    let timing = setTimeout(() => this.ortherskp = false, time * 1000);
     this.bar.set(1);
-    this.bar.text.style.fontFamily = ' Helvetica, sans-serif';
-    this.bar.text.style.fontSize = '2rem';
-
     this.bar.animate(0, {
       duration: time * 1000,
-    }, function() {
-
     });
-    console.log("到这里了")
 
-    this.socketSevice.otherspeakEnd.subscribe(x => {
-      console.log("别人发言结束了")
-      // this.bar.destroy();
-      this.ortherskp = false;
-      // this.socketSevice.otherspeakEnd.unsubscribe();
+    this.socketSevice.msgcomponent.subscribe(x => {
+      if (x.type === 'someone_speak_end') {
+        this.ortherskp = false;
+        clearTimeout(timing);
+
+      }
     });
-    console.log("到这里过了")
 
   }
 
+
+  put(x) {
+    console.log(x);
+    let data = [];
+    data['speakTime'] = 5;
+    data['whoIsSpeaking'] = [];
+    switch (x) {
+      case 'speak_endAll':
+        data['type'] = x;
+        this.socketSevice.msgcomponent.emit(data);
+        break;
+      case 'someone_speak_end':
+        data['type'] = x;
+        this.socketSevice.msgcomponent.emit(data);
+        break;
+      case 'newPlayerSpeak':
+        data['type'] = x;
+        data['whoIsSpeaking']['name'] = '111111';
+        this.socketSevice.msgcomponent.emit(data);
+        break;
+      case 'newPlayerSpeak2':
+        data['type'] = 'newPlayerSpeak';
+        data['whoIsSpeaking']['name'] = '22222';
+        this.socketSevice.msgcomponent.emit(data);
+        break;
+      default:
+    }
+  }
 
 
   constructor(
@@ -165,8 +123,6 @@ this.socketSevice.speakEnd.subscribe(x => {
 
   speak_end() {
     this.socketSevice.speak_end();
-    if (this.bar) {
-    }
   }
 
 
@@ -181,24 +137,100 @@ this.socketSevice.speakEnd.subscribe(x => {
 
 
   }
-  ngAfterViewInit() {
+  whotodo(data) {
+    switch (data.type) {
+      case 'newPlayerSpeak':
+        {
+          if (this.userService.yourself.name === data.whoIsSpeaking.name) {
+            this.theGameService.locked = true;
+            this.speakNow(data.speakTime);
+            console.log('你发言');
+          } else {
+            this.theGameService.locked = false;
+            this.otherspeakNow(data.speakTime);
+            console.log('别人发言');
+          }
+        }
+        break;
+
+      case 'someone_speak_end':
+        {
+          this.theGameService.locked = false;
+          this.ortherskp = false;
+        }
+        break;
+      default:
+        console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerror');
 
 
-
+    }
   }
-
 
 
   ngOnInit() {
-    console.log("666666666666666666666666666666666666666666666666666666666666666666666")
-    this.socketSevice.speakNow.subscribe(time => this.speakNow(time));
-    this.socketSevice.otherspeakNow.subscribe(time => this.otherspeakNow(time));
+
+
+
+    this.bar = new progressBar.Line('#containerother', {
+      strokeWidth: 6,
+      color: '#aaa',
+      trailWidth: 6,
+      text: {
+        style: {
+          color: '#999',
+          position: 'absolute',
+          right: '0px',
+          padding: 0,
+          margin: 0,
+          bottom: '-9px',
+          fontFamily: ' Helvetica, sans-serif',
+          fontSize: '2rem',
+          transform: null
+        },
+        autoStyleContainer: false
+      },
+      from: { color: '#ff0000' },
+      to: { color: '#00ff00' },
+      step: (state, bar) => {
+        bar.setText(Math.round(bar.value() * this.theGameService.speakTime));
+        bar.path.setAttribute('stroke', state.color);
+      }
+    });
+
+    this.barx = new progressBar.Line('#container', {
+      strokeWidth: 32,
+      color: '#aaa',
+      trailWidth: 32,
+      text: {
+        style: {
+          color: '#999',
+          position: 'absolute',
+          right: '94px',
+          padding: 0,
+          margin: 0,
+          transform: null,
+          fontFamily: ' Helvetica, sans-serif',
+          fontSize: '3rem'
+        },
+        autoStyleContainer: false
+      },
+      from: { color: '#ff0000' },
+      to: { color: '#00ff00' },
+      step: (state, barx) => {
+        barx.setText(Math.round(barx.value() * this.theGameService.speakTime));
+        barx.path.setAttribute('stroke', state.color);
+      }
+    });
+
+    this.socketSevice.msgcomponent.subscribe(x => {
+      console.log(x);
+      this.whotodo(x);
+    });
   }
 
-ngOnDestroy(){
-  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-  this.socketSevice.otherspeakNow.unsubscribe();
-  this.socketSevice.speakNow.unsubscribe();
-}
+  ngOnDestroy() {
+    this.socketSevice.msgcomponent.unsubscribe();
+
+  }
 
 }

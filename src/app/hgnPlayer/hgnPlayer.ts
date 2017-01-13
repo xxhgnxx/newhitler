@@ -32,7 +32,7 @@ export class HgnPlayer implements OnInit {
       offline: !this.player.isOnline && this.mystyle === 0,
       canselete: ((this.mystyle === 1 && this.player.canBeSelect)
         || (this.mystyle === 2 && !this.player.isPre))
-        && this.userService.yourself.isPre && this.player.isSurvival,
+      && this.userService.yourself.isPre && this.player.isSurvival,
     };
   }
 
@@ -84,6 +84,12 @@ export class HgnPlayer implements OnInit {
       'width': (this.size * 5.4).toString() + 'px',
       'border': '2px solid transparent',
     };
+    if (!this.theGameService.started && this.mystyle === 0) {
+      styles['background-color'] = '#E3FCE6';
+      styles['color'] = 'black';
+      styles['border-color'] = 'rgb(209, 216, 212)';
+      return styles;
+    }
     if (!this.player.isSurvival) {
       styles['background-color'] = '#F46565';
       styles['color'] = 'white';
@@ -122,6 +128,10 @@ export class HgnPlayer implements OnInit {
 
   gethead() {
     let src;
+    if (!this.theGameService.started && this.mystyle === 0) {
+      src = './pic/议员标识.png';
+      return src;
+    }
     if (this.player.isPre) {
       src = './pic/总统标识.png';
       return src;
@@ -137,6 +147,13 @@ export class HgnPlayer implements OnInit {
   }
   getNumber() {
     let src;
+    if (!this.theGameService.started && this.mystyle === 0) {
+      if (this.player.isSeat) {
+        return src = './pic/ok.png';
+      } else {
+        return src = './pic/0.png';
+      }
+    }
     if (!this.player.isSurvival) {
       return src = './pic/dead.png';
     }
@@ -155,8 +172,8 @@ export class HgnPlayer implements OnInit {
 
 
   ngOnInit() {
-    // console.log('%cPlayer', 'background: #0D00FF; color: #FFF');
-    // console.log('被解析数据', this.player);
+    console.log('%cPlayer', 'background: #0D00FF; color: #FFF');
+    console.log('被解析数据', this.player);
 
   }
 

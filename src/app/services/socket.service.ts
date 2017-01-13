@@ -20,10 +20,10 @@ export class SocketSevice {
 
   name: string;
   inited = false;
-  @Output() speakNow: EventEmitter<any> = new EventEmitter();
-  @Output() speakEnd: EventEmitter<any> = new EventEmitter();
-  @Output() otherspeakNow: EventEmitter<any> = new EventEmitter();
-  @Output() otherspeakEnd: EventEmitter<any> = new EventEmitter();
+
+  @Output() msgcomponent: EventEmitter<any> = new EventEmitter();
+
+
   @Output() quickloginResult: EventEmitter<any> = new EventEmitter();
   @Output() loginResult: EventEmitter<any> = new EventEmitter();
   @Output() otherPlayerTimer: EventEmitter<any> = new EventEmitter();
@@ -237,8 +237,9 @@ export class SocketSevice {
 
       case 'someone_speak_end':
         // this.theMsgService.msgListAll[this.theMsgService.msgListAll.length - 1].other = false;
-        this.otherspeakEnd.emit('end');
-        this.speakEnd.emit('end');
+        console.log('有人发言结束s');
+        this.msgcomponent.emit(data);
+        console.log('有人发言结束e');
         break;
       // todo
 
@@ -246,20 +247,12 @@ export class SocketSevice {
         // let newMsg = new Msg(data.whoIsSpeaking, new Array(), true);
         // this.theMsgService.msgListAll.push(newMsg);
         // this.theMsgService.msgListNow = newMsg;
-        if (this.userService.yourself.name === data.whoIsSpeaking.name) {
-          this.speakNow.emit(data.speakTime);
-        } else {
-          console.log('别人发言');
-          this.otherspeakNow.emit(data.speakTime);
-          this.speakEnd.emit('end');
-          this.theGameService.locked = false;
-        }
+        this.msgcomponent.emit(data);
         break;
 
       case 'speak_endAll':
         this.theGameService.locked = false;
-        this.speakEnd.emit('end');
-        this.otherspeakEnd.emit('end');
+        this.msgcomponent.emit(data);
         break;
 
 
@@ -408,6 +401,7 @@ export class SocketSevice {
   }
 
   callbackresout(res) {
+    console.log('消息反馈', res);
     if (res) {
     } else {
       console.log('断线');
