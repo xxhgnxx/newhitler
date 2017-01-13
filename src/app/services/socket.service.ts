@@ -27,12 +27,13 @@ export class SocketSevice {
   @Output() quickloginResult: EventEmitter<any> = new EventEmitter();
   @Output() loginResult: EventEmitter<any> = new EventEmitter();
   @Output() otherPlayerTimer: EventEmitter<any> = new EventEmitter();
+  @Output() disconnectalt: EventEmitter<any> = new EventEmitter();
 
 
   // 游戏开始
   startGame(): void {
     let dataOut = new Data('gamestart');
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
 
   // 登陆
@@ -42,14 +43,14 @@ export class SocketSevice {
     dataOut.pass = pass;
     // this.userService.yourself.socketId = this.networkSocket.getId();
     if (typeof this.networkSocket !== 'undefined' && this.networkSocket.isOnline()) {
-      this.networkSocket.send(dataOut, x => { console.log(x); });
+      this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
     } else {
       this.networkSocket = new NetworkSocket();
       let networkstatus = await this.networkSocket.start();
       if (networkstatus) {
         this.userService.yourself.socketId = networkstatus;
         this.networkSocket.socketOn(this.system.bind(this));
-        this.networkSocket.send(dataOut, x => { console.log(x); });
+        this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
       } else {
 
         this.loginResult.emit('链接服务器失败');
@@ -62,14 +63,14 @@ export class SocketSevice {
     let dataOut = new Data('quickLogin');
     dataOut.id = id;
     if (typeof this.networkSocket !== 'undefined' && this.networkSocket.isOnline()) {
-      this.networkSocket.send(dataOut, x => { console.log(x); });
+      this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
     } else {
       this.networkSocket = new NetworkSocket();
       let networkstatus = await this.networkSocket.start();
       if (networkstatus) {
         this.userService.yourself.socketId = networkstatus;
         this.networkSocket.socketOn(this.system.bind(this));
-        this.networkSocket.send(dataOut, x => { console.log(x); });
+        this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
       } else {
         this.quickloginResult.emit('链接服务器失败');
       }
@@ -82,32 +83,32 @@ export class SocketSevice {
   userSeat() {
     let dataOut = new Data('userSeat');
     dataOut.name = this.name;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
   // 选择总理
   prmSelect(user: User) {
     let dataOut = new Data('prmSelect');
     dataOut.user = user;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
   //  选总统
   preSelect(user: User) {
 
     let dataOut = new Data('preSelect');
     dataOut.user = user;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
   // 枪决
   toKill(user: User) {
     let dataOut = new Data('toKill');
     dataOut.target = user;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
   // 送出投票
   vote(n: number) {
     let dataOut = new Data('player_vote');
     dataOut.voteRes = n;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
 
   }
 
@@ -116,18 +117,19 @@ export class SocketSevice {
     let dataOut = new Data('proSelect');
     dataOut.proX3List = list;
     dataOut.pro = pro;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
   // 调查身份
   invPlayer(player: User) {
     let dataOut = new Data('invPlayer');
     dataOut.target = player;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
   //
   speak_end() {
     let dataOut = new Data('speak_end');
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    dataOut.user = this.userService.yourself;
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
 
 
@@ -136,13 +138,13 @@ export class SocketSevice {
   sendMsg(msg: string) {
     let dataOut = new Data('sendMsg');
     dataOut.msg = new Msg(this.userService.yourself, msg);
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
 
   // 否决全部法案
   veto() {
     let dataOut = new Data('veto_all');
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
 
   }
 
@@ -150,7 +152,7 @@ export class SocketSevice {
   veto_all(n: number) {
     let dataOut = new Data('veto_all');
     dataOut.other = n;
-    this.networkSocket.send(dataOut, x => { console.log(x); });
+    this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
 
   }
 
@@ -231,29 +233,37 @@ export class SocketSevice {
         }
         this.theMsgService.msgListAll.push(new Msg('control', '技能：查看法案'));
         break;
+
+
       case 'someone_speak_end':
         // this.theMsgService.msgListAll[this.theMsgService.msgListAll.length - 1].other = false;
         this.otherspeakEnd.emit('end');
         this.speakEnd.emit('end');
         break;
       // todo
+
       case 'newPlayerSpeak':
         // let newMsg = new Msg(data.whoIsSpeaking, new Array(), true);
         // this.theMsgService.msgListAll.push(newMsg);
         // this.theMsgService.msgListNow = newMsg;
-        if (this.userService.yourself.socketId === data.whoIsSpeaking.socketId) {
+        if (this.userService.yourself.name === data.whoIsSpeaking.name) {
           this.speakNow.emit(data.speakTime);
         } else {
           console.log('别人发言');
           this.otherspeakNow.emit(data.speakTime);
           this.speakEnd.emit('end');
+          this.theGameService.locked = false;
         }
         break;
 
       case 'speak_endAll':
-      this.speakEnd.emit('end');
-      this.otherspeakEnd.emit('end');
+        this.theGameService.locked = false;
+        this.speakEnd.emit('end');
+        this.otherspeakEnd.emit('end');
         break;
+
+
+
 
       case 'proEff':
         console.log(data.pro > 5 ? '红色法案生效' : '蓝色法案生效');
@@ -376,17 +386,6 @@ export class SocketSevice {
 
         break;
 
-      case 'msg':
-        //  todo
-        if (typeof data.whoIsSpeaking !== 'undefined'
-          && this.userService.yourself.socketId === data.whoIsSpeaking.socketId) {
-          this.speakNow.emit(data.speakTime);
-        } else {
-          console.log('别人发言');
-          this.speakEnd.emit('end');
-        }
-        this.theGameService.toDoSth = '顺序发言中';
-        break;
 
 
       default:
@@ -406,6 +405,14 @@ export class SocketSevice {
     public theGameService: TheGameService,
     public theMsgService: TheMsgService) {
 
+  }
+
+  callbackresout(res) {
+    if (res) {
+    } else {
+      console.log('断线');
+      this.disconnectalt.emit();
+    }
   }
 
 

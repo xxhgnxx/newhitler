@@ -4,6 +4,7 @@ import { User } from './user';
 
 export class Data {
   name: string;
+  isgameover: boolean;
   pass: string;
   msg: Msg;
   msgList: Array<Msg>;
@@ -152,6 +153,9 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   }
   if (typeof data.gametype !== 'undefined') {
     theGameService.gametype = data.gametype;
+  }
+  if (typeof data.isgameover !== 'undefined') {
+    theGameService.isgameover = data.isgameover;
   }
   if (typeof data.nowVote !== 'undefined') {
 

@@ -75,19 +75,11 @@ export class HgnContainer implements OnInit {
 
 
   ngOnInit() {
-    // console.log('文字发言', this.hgnData);
-    if (!this.hgnData.step) {
-      setTimeout(() => this.theGameService.locked = false, 500);
-    }
+
     setTimeout(() => {
       if (this.hgnData.who.name === this.userService.yourself.name && this.hgnData.step) {
         console.log('轮到我发言');
-        setTimeout(() => this.theGameService.locked = true, 1000);
-
-        // if (!this.theGameService.locked) {
-        //   console.log("发言重启动");
-        //   this.socketSevice.speakNow.emit(this.theGameService.speakTime);
-        // }
+        this.theGameService.locked = true;
       } else {
         console.log('别人发言');
       }

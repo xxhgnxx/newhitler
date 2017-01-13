@@ -4,12 +4,6 @@
       <h1>神TM希特勒
       </h1>
     </div>
-    <div class="" *ngIf="userService.yourself">
-      <!-- <img *ngIf="!userService.yourself.isSurvival" src="./pic/dead.jpg" style="width: 60px ">
-      <img *ngIf="userService.yourself.isPrm" src="./pic/总理.png" style="width: 60px ">
-      <img *ngIf="userService.yourself.isPre" src="./pic/总统.png" style="width: 60px ">
-      <img *ngIf="!userService.yourself.canBeSelect" src="./pic/无法参选.png" style="width: 60px "> -->
-    </div>
   </div>
   <div id="msgdiv">
     <msg>消息加载中</msg>
@@ -37,28 +31,6 @@
       我们刚刚尝试组建的政府失败了！</span>
     <span class="alert alert-danger" *ngIf="theGameService.failTimes===2" id="test2">
       当连续三次组建政府失败时，将会直接强制执行发案牌堆的第一张法案</span>
-    <!-- <div id="game_pro_msg">
-    <div class="" id="prostatus" style="font-size: 30px">
-      <div class=" gamecount" style="padding:2px">
-        <img src="./pic/蓝色法案.png" class="" style="height: 40px; Margin:1px">
-      </div>
-      <div class=" gamecount" style="width:1em;   height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
-        {{theGameService.proEffBlue}}
-      </div>
-      <div class=" gamecount" style="padding:2px">
-        <img src="./pic/红色法案.png" class="" style="height: 40px; Margin:1px">
-      </div>
-      <div class=" gamecount" style="width:1em; height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
-        {{theGameService.proEffRed}}
-      </div>
-      <div class=" gamecount" style="padding:2px">
-        <img src="./pic/法案背.png" class="" style="height: 40px; Margin:1px">
-      </div>
-      <div class=" gamecount" style="width:1em;  height: 60px; line-height:60px; padding-left:2px; padding-right:2px;text-align:center;">
-        {{theGameService.proIndex+1}}
-      </div>
-    </div>
-  </div> -->
     <div *ngIf="theGameService.started" id="gamebroad" (click)="zoom()" [ngStyle]="broadstyles">
       <img [src]="getbroad()" class="" style=" width: 100%;height: 100%; border-radius: 7px;">
       <div id="prolist">
@@ -82,10 +54,10 @@
     </div>
   </div>
   <div id="timegif">
-    <img *ngIf="theGameService.started" src="./pic/time.gif" class="" style="height: 80px;">
+    <img src="./pic/time.gif" class="" style="height: 80px;">
+    <!-- <button (click)="add()" id="">test</button> -->
   </div>
-  <!-- <button (click)="cansee(3)" id="teamclear">隐藏身份信息</button> -->
-  <hgnvotelist *ngIf="theGameService.started" style="
+  <hgnvotelist style="
       position: absolute;
       top: 377px;
       right: 0px;
@@ -182,4 +154,9 @@
       <gameControl>游戏空间加载中</gameControl>
     </div>
   </div>
+  <div *ngIf="alerts" class="alert alert-danger" style="
+    position: absolute;
+    bottom: 10px;
+    z-index: 999;
+">网络出现故障，刷新页面以重新连接</div>
 </div>

@@ -24,24 +24,24 @@ export class MsgComponent {
   // msgList = this.theMsgService.msgList;
   // msgListAll = this.theMsgService.msgListAll;
   // msgListNow = this.theMsgService.msgListNow;
-  locked: boolean = false;  // 禁止发言
+  // locked: boolean = false;  // 禁止发言
+  // spking: boolean = false;  // 准许发言状态
   ortherskp: boolean = true;  // 别人发言计时
   speakTime: number;  // 发言时间
   msgFrom: User | string;   // 消息来源  用户 或者 系统(string)
   timewidth = 0;
 
-  otherspeakEnd: any;
-  speakEnd: any;
   bar: any;
   barx: any;
+  n = 1;
+
   private color: string = '#127bdc';
 
 
-
   speakNow(time) {
-    this.socketSevice.otherspeakEnd.emit('end');
     this.theGameService.locked = true;
-    console.log('发言计时器', time);
+    console.log('发言计时器', this.n);
+    this.n++;
     setTimeout(() => {
       this.socketSevice.speakEnd.emit('end');
     }, time * 1000);
@@ -81,13 +81,17 @@ export class MsgComponent {
 
     });
 
-    this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {
-      this.barx.destroy();
+this.socketSevice.speakEnd.subscribe(x => {
+      // this.barx.destroy();
       this.theGameService.locked = false;
-      console.log('时间到，轮到别人发言', this.speakEnd);
-      this.speakEnd.unsubscribe();
+      console.log('时间到，轮到别人发言');
+      this.socketSevice.speakEnd.unsubscribe();
     });
   }
+
+
+
+
   otherspeakNow(time) {
     this.ortherskp = true;
     console.log('别人发言计时器', time, this.ortherskp);
@@ -130,11 +134,16 @@ export class MsgComponent {
     }, function() {
 
     });
-    this.otherspeakEnd = this.socketSevice.otherspeakEnd.subscribe(x => {
-      this.bar.destroy();
+    console.log("到这里了")
+
+    this.socketSevice.otherspeakEnd.subscribe(x => {
+      console.log("别人发言结束了")
+      // this.bar.destroy();
       this.ortherskp = false;
-      this.otherspeakEnd.unsubscribe();
+      // this.socketSevice.otherspeakEnd.unsubscribe();
     });
+    console.log("到这里过了")
+
   }
 
 
@@ -150,22 +159,7 @@ export class MsgComponent {
 
 
 
-  tmp() {
-    if (this.theGameService.locked) {
-      this.socketSevice.speakEnd.emit('end');
-    } else {
-      this.socketSevice.speakNow.emit(120);
-    }
-  }
-  tmp2() {
-    let r = confirm('Press a button!');
-    if (r === true) {
-      console.log('gogogogogog');
-    }
-    else {
-      console.log('nonononog');
-    }
-  }
+
 
 
 
@@ -196,8 +190,15 @@ export class MsgComponent {
 
 
   ngOnInit() {
+    console.log("666666666666666666666666666666666666666666666666666666666666666666666")
     this.socketSevice.speakNow.subscribe(time => this.speakNow(time));
     this.socketSevice.otherspeakNow.subscribe(time => this.otherspeakNow(time));
   }
+
+ngOnDestroy(){
+  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+  this.socketSevice.otherspeakNow.unsubscribe();
+  this.socketSevice.speakNow.unsubscribe();
+}
 
 }

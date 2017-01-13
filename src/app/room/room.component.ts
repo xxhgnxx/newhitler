@@ -21,6 +21,7 @@ let progressBar = require('progressbar.js');
 
 
 export class RoomComponent {
+  alerts = false;
   speakEnd: any;
   bar: any;
   locked: boolean = false;  // 禁止发言
@@ -98,42 +99,6 @@ export class RoomComponent {
 
 
   }
-  // speakNow(time) {
-  //
-  //   this.locked = true;
-  //   console.log('发言', time);
-  //   setTimeout(() => {
-  //     this.locked = false;
-  //   }, time * 1000);
-  //
-  //
-  //
-  //   this.bar.set(1);
-  //   this.bar.text.style.fontFamily = ' Helvetica, sans-serif';
-  //   this.bar.text.style.fontSize = '8rem';
-  //   this.bar.animate(0., {
-  //     duration: time * 1000,
-  //   },
-  //     function(state, circle) {
-  //       circle.path.setAttribute('stroke', state.color);
-  //       let value = Math.round(circle.value() * time);
-  //       if (value === 0) {
-  //         circle.setText('');
-  //       } else {
-  //         circle.setText(value);
-  //       }
-  //
-  //     });
-  //
-  //
-  //
-  //   this.speakEnd = this.socketSevice.speakEnd.subscribe(x => {
-  //     this.locked = false;
-  //     console.log('时间到，轮到别人发言', this.speakEnd);
-  //     this.speakEnd.unsubscribe();
-  //   });
-  //
-  // }
 
 
   constructor(
@@ -150,8 +115,20 @@ export class RoomComponent {
 
 
 
+  add() {
+    console.log('11111111111111111');
+    this.alerts = true;
+  }
 
   ngOnInit() {
+
+    this.socketsevice.disconnectalt.subscribe(
+      () => {
+        this.alerts = true;
+
+      }
+    );
+
     if (!this.userService.isLogin) {
       if (sessionStorage.getItem('login')) {
         console.log('快速登陆 ');
@@ -179,6 +156,5 @@ export class RoomComponent {
     }
 
   }
-
 
 }
