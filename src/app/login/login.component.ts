@@ -4,7 +4,6 @@ import { SocketSevice } from '../services/socket.service';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-
 @Component({
   selector: 'login',
   styleUrls: ['login.component.css'],
@@ -13,6 +12,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 
 export class LoginComponent {
+  step = true;
+  big = false;
   // socket = this.socketsevice.socket;
   sexes = ['呵呵', 'a', 'b', '扶她'];
   // tmp = new MyUsers(18, Math.floor(Math.random() * 1000).toString(), this.sexes[3]);
@@ -23,9 +24,12 @@ export class LoginComponent {
   constructor(
     private router: Router,
     public userService: UserService,
-    private socketsevice: SocketSevice) { }
+    private socketsevice: SocketSevice) {
+  }
 
-
+  tobig() {
+    this.big = !this.big;
+  }
 
   // async onSubmit() {
   //   this.submiting = true;
@@ -56,7 +60,9 @@ export class LoginComponent {
   //   }
   // };
 
-
+  change() {
+    this.step = !this.step;
+  }
 
   onSubmit() {
     if (strlen(this.username) < 4) {

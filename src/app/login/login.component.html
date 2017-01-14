@@ -1,5 +1,5 @@
 <!-- <div class="container"> -->
-<div *ngIf="!this.userService.isLogin" class="container">
+<div *ngIf="!this.userService.isLogin" class="containerlogin">
   <div >
     <h1>登陆</h1>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -23,3 +23,19 @@
 </div>
 {{alerts}}
 <button *ngIf="this.userService.isLogin" (click)="tmp()" class="btn btn-default">已经登陆，点击前往房间</button>
+<button *ngIf="!step" (click)="change()" type="button" class="btn btn-warning a3">注意事项</button>
+<button *ngIf="step" (click)="change()" type="button" class="btn btn-info a3">简介</button>
+<div *ngIf="step" class="panel panel-warning" id="a1">
+  <div class="panel-heading">
+    <h3 class="panel-title">注意事项</h3>
+  </div>
+  由于浏览器兼容问题，请不要使用360浏览器和IE浏览器<br>推荐：遨游4、Chrome(google浏览器)、FireFox(火狐浏览器)<br>内置有隐藏管理员功能，需要使用时请联系作者
+</div>
+<div *ngIf="!step" class="panel panel-info" id="a2">
+  <div class="panel-heading">
+    <h3 class="panel-title">简介</h3>
+  </div>
+  >网页版《揭秘希特勒》<br>版本：V1.0<br>作者：皇冠鸟<br>QQ：55939510<br>邮箱：xxhgnxx@qq.com<br>
+  微信(点击放大)：
+  <img src="./pic/wx.jpg" (click)=tobig() id="hgnrole" [style.width]="big ? '100%' : '10%'">
+</div>
