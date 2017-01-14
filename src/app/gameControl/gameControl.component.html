@@ -1,10 +1,9 @@
 <div *ngIf="!theGameService.started" class="panel-body " style="padding: 9px;">
-  <div class="col-sm-1">
-    <button *ngIf="!userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-warning ">坐下</button>
-    <button *ngIf="userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-success ">起身离开</button>
-    <!-- <button [disabled]="userService.yourself.name!=='皇冠鸟'" (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button> -->
-    <button [disabled]="theGameService.playerList.length<5 || !userService.yourself.isSeat " (click)="startGame()" type="button" class="btn btn-warning ">开始游戏{{theGameService.playerList.length}}</button>
-    <!-- <button (click)="vote()" type="button" class="btn btn-default">投票</button>
+  <button *ngIf="!userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-warning ">坐下</button>
+  <button *ngIf="userService.yourself.isSeat" (click)="userSeat()" type="button" class="btn btn-success ">起身离开</button>
+  <!-- <button [disabled]="userService.yourself.name!=='皇冠鸟'" (click)="startGame()" type="button" class="btn btn-warning ">开始游戏</button> -->
+  <button [disabled]="userService.hList.playerList.length<5 || !userService.yourself.isSeat " (click)="startGame()" type="button" class="btn btn-warning ">开始游戏({{userService.hList.playerList.length}}人)</button>
+  <!-- <button (click)="vote()" type="button" class="btn btn-default">投票</button>
   <button (click)="preSelect()" type="button" class="btn btn-primary">选总统</button>
   <button (click)="prmSelect()" type="button" class="btn btn-success">选总理</button>
   <button (click)="proSelect()" type="button" class="btn btn-info">选法案</button>
@@ -12,5 +11,9 @@
   <button (click)="back()" type="button" class="btn btn-danger">back</button>
   <button (click)="tmp()" type="button" class="btn btn-danger">同意</button>
   <button (click)="tmp()" type="button" class="btn btn-danger">反对</button> -->
+  <div id="spktimeinput">
+    发言时间设置
+    <input type="number" name="nameinput" required placeholder="发言时间" [(ngModel)]="spktime">
+    {{popmsg}}
   </div>
 </div>

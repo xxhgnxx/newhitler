@@ -26,7 +26,7 @@
         <hgntoKill *ngIf="Msg.type==='toKill'" [hgn_data]='Msg'></hgntoKill>
         <gameover *ngIf="Msg.type==='gameover'" [hgn_data]='Msg'></gameover>
         <hgnforce *ngIf="Msg.type==='force'" [hgn_data]='Msg'></hgnforce>
-        <div *ngIf="Msg.type==='gamestart'">gamestart</div>
+        <div *ngIf="Msg.type==='gamestart'">游戏开始，本局游戏发言时间：{{Msg.time}}秒</div>
       </div>
     </div>
   </div>
@@ -44,11 +44,10 @@
     <button class="btn btn-primary" [disabled]="!this.theGameService.locked" (click)=sendMsg() id="ctrlenter">提交(Ctrl+Enter)</button>
     <!-- <button (click)=tmp()>开始</button> -->
     <button class="btn btn-danger" [disabled]="!this.theGameService.locked" (click)=speak_end() id="speakend">结束发言</button>
-    <!-- <button class="btn btn-danger" (click)=otherspeakNow(5) style="z-index: 999;position: relative;">test</button>
-    <button class="btn btn-danger" (click)=speakNow(5) style="z-index: 999;position: relative;">test</button>
+    <!-- <button class="btn btn-danger" (click)=tmp() style="z-index: 999;position: relative;">test</button> -->
+    <!-- <button class="btn btn-danger" (click)=speakNow(5) style="z-index: 999;position: relative;">test</button>
     <button class="btn btn-danger" (click)="put('someone_speak_end')" style="z-index: 999;position: relative;">someone_speak_end</button>
     <button class="btn btn-danger" (click)="put('newPlayerSpeak') "style="z-index: 999;position: relative;">newPlayerSpeak</button>
     <button class="btn btn-danger" (click)="put('newPlayerSpeak2')" style="z-index: 999;position: relative;">newPlayerSpeak2</button> -->
-
   </div>
 </div>

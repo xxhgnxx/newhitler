@@ -104,8 +104,8 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   if (typeof data.hList !== 'undefined') {
 
     let tmp = yaml.safeLoad(data.hList);
-    userService.userList = tmp.userList;
-    theGameService.playerList = tmp.playerList;
+    // userService.userList = tmp.userList;
+    // userService.hList.playerList = tmp.playerList;
     userService.yourself = tmp.yourself;
     userService.hList = tmp;
     //  todo 待修改！
@@ -143,7 +143,7 @@ export function dataLoader(userService, theGameService, theMsgService, dataAll: 
   // }
   //
   // if (typeof data.playerList !== 'undefined') {
-  //   theGameService.playerList = data.playerList;
+  //   userService.hList.playerList = data.playerList;
   //   // 待确认
   //   userService.whoAmI(data.playerList);
   // }

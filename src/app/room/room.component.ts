@@ -65,13 +65,25 @@ export class RoomComponent {
   }
 
   getbroad() {
-    if (this.iszoom) {
-      let list = ['./pic/t6.jpg', './pic/t8.jpg', './pic/t10.jpg'];
-      return list[this.theGameService.gametype - 1];
-    } else {
-      let list = ['./pic/t6s.jpg', './pic/t8s.jpg', './pic/t10s.jpg'];
-      return list[this.theGameService.gametype - 1];
-    }
+
+      let n = this.userService.hList.playerList.length;
+      if (this.iszoom) {
+        if (n <= 6) {
+          return './pic/t6.jpg';
+        }
+        if (n <= 8) {
+          return './pic/t8.jpg';
+        }
+        return './pic/t10.jpg';
+      } else {
+        if (n <= 6) {
+          return './pic/t6s.jpg';
+        }
+        if (n <= 8) {
+          return './pic/t8s.jpg';
+        }
+        return './pic/t10s.jpg';
+      }
   }
 
   getback() {
@@ -115,9 +127,10 @@ export class RoomComponent {
 
 
 
-  add() {
-    console.log('11111111111111111');
-    this.alerts = true;
+  admin() {
+    if (this.iszoom) {
+      this.router.navigate(['/admin']);
+    }
   }
 
   ngOnInit() {

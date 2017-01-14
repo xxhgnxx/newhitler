@@ -20,6 +20,7 @@ import { TheGameService } from '../services';
 })
 
 export class MsgComponent {
+  msgcomponent;
   myInput: string = '嗯...';
   // msgList = this.theMsgService.msgList;
   // msgListAll = this.theMsgService.msgListAll;
@@ -134,9 +135,17 @@ export class MsgComponent {
       this.socketSevice.sendMsg(this.myInput);
       this.myInput = '';
     }
+  }
 
+  tmp() {
+
+    let tmp = this.myInput.split(/\r\n|\r|\n/g);
+
+    console.log(tmp);
 
   }
+
+
   whotodo(data) {
     switch (data.type) {
       case 'newPlayerSpeak':
@@ -222,14 +231,18 @@ export class MsgComponent {
       }
     });
 
-    this.socketSevice.msgcomponent.subscribe(x => {
+    this.msgcomponent = this.socketSevice.msgcomponent.subscribe(x => {
       console.log(x);
       this.whotodo(x);
     });
+
+    // console.log(JSON.parse(JSON.stringify(this.socketSevice.msgcomponent)))
+
   }
 
   ngOnDestroy() {
-    this.socketSevice.msgcomponent.unsubscribe();
+
+    this.msgcomponent.unsubscribe();
 
   }
 

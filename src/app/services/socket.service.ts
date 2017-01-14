@@ -31,8 +31,9 @@ export class SocketSevice {
 
 
   // 游戏开始
-  startGame(): void {
+  startGame(time): void {
     let dataOut = new Data('gamestart');
+    dataOut.other = time;
     this.networkSocket.send(dataOut, x => { this.callbackresout(x); });
   }
 
@@ -78,6 +79,16 @@ export class SocketSevice {
 
   }
 
+
+  kick(user) {
+    let dataOut = new Data('kick');
+    dataOut.user = user;
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+  }
+  restart() {
+    let dataOut = new Data('restart');
+    this.networkSocket.send(dataOut, x => { console.log(x); });
+  }
 
   // 玩家准备
   userSeat() {

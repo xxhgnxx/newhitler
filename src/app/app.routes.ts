@@ -12,7 +12,7 @@ export const ROUTES: Routes = [
   // { path: 'room', component: RoomComponent, canActivate: [LoginCheck] },
   { path: 'room', component: RoomComponent },
   { path: 'userslist', component: UserslistComponent },
-  { path: 'nothing', component: NoContentComponent },
+  { path: 'admin', component: NoContentComponent },
   { path: 'hgnTag', component: HgnContainer },
   { path: 'login', component: LoginComponent },
   { path: '**', component: LoginComponent },

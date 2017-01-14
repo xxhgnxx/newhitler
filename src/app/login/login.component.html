@@ -5,7 +5,7 @@
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
         <label for="name">昵称</label>
-        <input type="text" class="form-control" id="name" name="nameinput" #in_name="ngModel" required placeholder="最长10位的昵称" [(ngModel)]="username">
+        <input type="text" class="form-control" id="name" name="nameinput" #in_name="ngModel" required placeholder="最长8位的昵称" [(ngModel)]="username">
         <div [hidden]="in_name.untouched || in_name.valid " class="alert alert-danger">
           昵称是必须的
         </div>

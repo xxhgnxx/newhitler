@@ -11,7 +11,7 @@
   <div class="" id="userslist">
     <userslist></userslist>
   </div>
-  <div id=""  style="
+  <div id="" style="
   height: 134px;
   width: 642px;
   border: 3px solid rgb(0, 61, 34);
@@ -31,7 +31,7 @@
       我们刚刚尝试组建的政府失败了！</span>
     <span class="alert alert-danger" *ngIf="theGameService.failTimes===2" id="test2">
       当连续三次组建政府失败时，将会直接强制执行发案牌堆的第一张法案</span>
-    <div  id="gamebroad" (click)="zoom()" [ngStyle]="broadstyles">
+    <div id="gamebroad" (click)="zoom()" [ngStyle]="broadstyles">
       <img [src]="getbroad()" class="" style=" width: 100%;height: 100%; border-radius: 7px;">
       <div id="prolist">
         <div style="display: inline-block;" *ngFor="let pro of testlist;let i=index" class="myprocont">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div  id="gamebroad_blue">
+    <div id="gamebroad_blue" (click)="admin()">
       <img src="./pic/自由党进度s.jpg" class="" style=" width: 100%;height: 100%; border-radius: 7px;">
       <div id="prolist">
         <div style="display: inline-block;" *ngFor="let pro of testlist1;let i=index" class="myprocont">

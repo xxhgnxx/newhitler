@@ -1,45 +1,18 @@
 <img src="./pic/loading.jpg">
-<div>
-  <div class="form-group">
-    <label>Title</label>
-    <input type="text" class="form-control" [(ngModel)]="title">
+<div *ngIf="who==='who'">
+  <label for="password">密码</label>
+  <input type="password" class="" id="password" name="in_pass" #in_pass="ngModel" required placeholder="密码" [(ngModel)]="adminpassword">
+  <button class="btn btn-danger" (click)=tmp()>验证身份</button>
+</div>
+<div *ngIf="who==='no'">
+  你在想啥？
+</div>
+<div *ngIf="who==='yes'">
+  <button class="btn btn-danger" (click)=restart()>强制结束游戏</button>
+  <div *ngFor="let user of userService.hList.userList" style="height=10%;">
+    <button class="btn btn-warning" (click)=kick(user)>{{user.name}}</button>
   </div>
-  <div class="form-group">
-    <label>Message (Yes you can even include html!)</label>
-    <input type="text" class="form-control" [(ngModel)]="message">
+  <div class="" id="adminlist">
+    <userslist></userslist>
   </div>
-  <div class="form-group">
-    <label>Confirm text</label>
-    <input type="text" class="form-control" [(ngModel)]="confirmText">
-  </div>
-  <div class="form-group">
-    <label>Confirm text</label>
-    <input type="text" class="form-control" [(ngModel)]="cancelText">
-  </div>
-  <div class="text-center">
-    <span *ngFor="let placement of placements">
-      <button
-        class="btn btn-default"
-        mwlConfirmationPopover
-        title="title"
-        message="你确定吗？"
-        [confirmText]="confirmText"
-        [cancelText]="cancelText"
-        [placement]="placement"
-        (confirm)="confirmClicked = true"
-        (cancel)="cancelClicked = true"
-        confirmButtonType="danger"
-        cancelButtonType="default"
-        (click)="confirmClicked = false; cancelClicked = false"
-        [appendToBody]="true">
-        Show on
-        {{ placement }}
-      </button>
-    </span>
-  </div>
-  <br>
-  <div class="alert alert-info" [hidden]="!confirmClicked">
-    clicked confirm!</div>
-  <div class="alert alert-info" [hidden]="!cancelClicked">
-    cancelled!</div>
 </div>

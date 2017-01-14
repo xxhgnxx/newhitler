@@ -15,24 +15,10 @@ import { TheMsgService } from '../services/msg.service';
 
 })
 export class GameControlComponent {
-  proX3List = this.theGameService.proX3List;     // 待选法案堆
 
-  isVoted: boolean = this.theGameService.isVoted;
+  spktime = 180;
+  popmsg = '请输入60-999之间的数字';
 
-
-  target: User = this.theGameService.target;  //  收到影响的玩家 临时变量
-
-  skillList = []; // 技能列表
-  playerList: Array<User>; // 参与本次游戏的玩家列表，主要用于消息发送
-
-  proIndex = 16; // 牌堆顶
-  proEffBlue = 0; // 法案生效数
-  proEffRed = 0;
-  failTimes = 0; // 政府组件失败次数
-
-  toDoSth: string = this.theGameService.toDoSth;
-
-  lastTurn = new Map(); // 上一次政府情况
 
   constructor(
     tipconfig: NgbTooltipConfig,
@@ -52,7 +38,18 @@ export class GameControlComponent {
 
 
   startGame() {
-    this.socketSevice.startGame();
+
+    let time = Math.round(this.spktime);
+    if (this.spktime <= 0 || this.spktime >= 100) {
+
+      this.popmsg = '输入内容不合理';
+      setTimeout(() => {
+        this.popmsg = '请输入60-999之间的数字';
+      }, 3000);
+      return;
+    }
+
+    this.socketSevice.startGame(time);
 
   }
 
@@ -85,16 +82,6 @@ export class GameControlComponent {
 
   proSelect(pro) {
     // this.socketSevice.proSelect(pro);
-  }
-
-  tmp() {
-    this.theGameService.toDoSth = '啥都没做1'; console.log(this.toDoSth);
-  }
-  back() {
-    this.theGameService.toDoSth = '啥都没做2'; console.log(this.toDoSth);
-  }
-  invPlayer(player: User) {
-    this.socketSevice.invPlayer(player);
   }
 
   veto() {
