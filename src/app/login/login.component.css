@@ -48,5 +48,13 @@
   position: relative;
   height: 770px;
   margin: auto;
+  width: 1300px;
   padding-top: 40px;
+}
+
+#alerts{
+  margin: auto;
+  width: 200px;
+  color: seashell;
+  font-size: 20px;
 }
