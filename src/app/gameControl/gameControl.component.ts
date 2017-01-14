@@ -40,7 +40,7 @@ export class GameControlComponent {
   startGame() {
 
     let time = Math.round(this.spktime);
-    if (this.spktime <= 0 || this.spktime >= 100) {
+    if (this.spktime <= 0 || this.spktime >= 1000) {
 
       this.popmsg = '输入内容不合理';
       setTimeout(() => {
