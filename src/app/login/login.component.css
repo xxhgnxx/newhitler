@@ -11,19 +11,42 @@
 #a1 {
   width: 500px;
   margin: auto;
+  position: relative;
+  bottom: -125px;
 }
 
 #a2 {
   width: 500px;
   margin: auto;
+  position: relative;
+  bottom: -50px;
 }
 
 .a3 {
-  position: relative;
-  left: 420px;
+  position: absolute;
+  left: 50px;
+  bottom: 50px;
 }
 
 .containerlogin {
   margin: auto;
-  width: 500px;
+  width: 596px;
+  color: yellowgreen;
+}
+
+.mypic{
+  width: 189px;
+  display: inline-block;
+  position: relative;
+  border: 6px solid rgb(115, 94, 11);
+  border-radius: 1em 1em 1em 1em;
+  top: -78px;
+  margin: 5px;
+}
+
+#background{
+  position: relative;
+  height: 770px;
+  margin: auto;
+  padding-top: 40px;
 }
