@@ -1,52 +1,57 @@
 <!-- <div class="container"> -->
-<div id="background" style="background-image: url('./pic/back.jpg');
+<div>
+  <div id="background" style="background-image: url('./pic/back.jpg');
 background-size: contain;
+background-position: center;
 background-repeat: no-repeat;">
-  <div style="    font-size: 50px;    font-weight: 800;    text-align: center; color: snow;">神TM希特勒！</div>
-  <div *ngIf="!this.userService.isLogin" class="containerlogin">
-    <div style="display: inline-block; ">
-      <img src="./pic/liberal.png" class="mypic">
-    </div >
-    <div style="display: inline-block;width: 188px;">
-      <h1>登陆</h1>
-      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-        <div class="form-group">
-          <label for="name">昵称</label>
-          <input type="text" class="form-control" id="name" name="nameinput" #in_name="ngModel" required placeholder="最长8位的昵称" [(ngModel)]="username">
-          <div [hidden]="in_name.untouched || in_name.valid " class="alert alert-danger">
-            昵称是必须的
+    <button *ngIf="!step" (click)="change()" type="button" class="btn btn-warning a3">注意事项</button>
+    <button *ngIf="step" (click)="change()" type="button" class="btn btn-info a3">简介</button>
+    <div style="    font-size: 50px;    font-weight: 800;    text-align: center; color: snow;">神TM希特勒！</div>
+    <div *ngIf="!this.userService.isLogin" class="containerlogin">
+      <div style="display: inline-block; ">
+        <img src="./pic/liberal.png" class="mypic">
+      </div >
+      <div style="display: inline-block;width: 188px;">
+        <h1>登陆</h1>
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <div class="form-group">
+            <label for="name">昵称</label>
+            <input type="text" class="form-control" id="name" name="nameinput" #in_name="ngModel" required placeholder="最长8位的昵称" [(ngModel)]="username">
+            <div [hidden]="in_name.untouched || in_name.valid " class="alert alert-danger">
+              昵称是必须的
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="password">密码</label>
-          <input type="password" class="form-control" id="password" name="in_pass" #in_pass="ngModel" required placeholder="密码" [(ngModel)]="userpassword">
-          <div [hidden]="in_pass.untouched || in_pass.valid" class="alert alert-danger">
-            密码是必须的
+          <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" name="in_pass" #in_pass="ngModel" required placeholder="密码" [(ngModel)]="userpassword">
+            <div [hidden]="in_pass.untouched || in_pass.valid" class="alert alert-danger">
+              密码是必须的
+            </div>
           </div>
-        </div>
-        <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid||submiting">登陆</button>
-      </form>
+          <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid||submiting">登陆</button>
+        </form>
+      </div>
+      <div style="display: inline-block;">
+        <img src="./pic/Hitler.png" class="mypic">
+      </div>
     </div>
-    <div style="display: inline-block;">
-      <img src="./pic/Hitler.png" class="mypic">
+    <div id="alerts">
+      {{alerts}}
     </div>
-  </div>
-  {{alerts}}
-  <button *ngIf="this.userService.isLogin" (click)="tmp()" class="btn btn-default">已经登陆，点击前往房间</button>
-  <button *ngIf="!step" (click)="change()" type="button" class="btn btn-warning a3">注意事项</button>
-  <button *ngIf="step" (click)="change()" type="button" class="btn btn-info a3">简介</button>
-  <div *ngIf="step" class="panel panel-warning" id="a1">
-    <div class="panel-heading">
-      <h3 class="panel-title">注意事项</h3>
+    <button *ngIf="this.userService.isLogin" (click)="tmp()" class="btn btn-default">已经登陆，点击前往房间</button>
+    <div *ngIf="step" class="panel panel-warning" id="a1">
+      <div class="panel-heading">
+        <h3 class="panel-title">注意事项</h3>
+      </div>
+      由于浏览器兼容问题，请不要使用360浏览器和IE浏览器<br>推荐：遨游4、Chrome(google浏览器)、FireFox(火狐浏览器)<br>内置有隐藏管理员功能，需要使用时请联系作者
     </div>
-    由于浏览器兼容问题，请不要使用360浏览器和IE浏览器<br>推荐：遨游4、Chrome(google浏览器)、FireFox(火狐浏览器)<br>内置有隐藏管理员功能，需要使用时请联系作者
-  </div>
-  <div *ngIf="!step" class="panel panel-info" id="a2">
-    <div class="panel-heading">
-      <h3 class="panel-title">简介</h3>
+    <div *ngIf="!step" class="panel panel-info" id="a2">
+      <div class="panel-heading">
+        <h3 class="panel-title">简介</h3>
+      </div>
+      >网页版《揭秘希特勒》<br>版本：V1.0<br>作者：皇冠鸟<br>QQ：55939510<br>邮箱：xxhgnxx@qq.com<br>
+      微信(点击放大)：
+      <img src="./pic/wx.jpg" (click)=tobig() id="hgnrole" [style.width]="big ? '100%' : '24%'" style="width: 24%; position: absolute; right: -1px; bottom: -2px;">
     </div>
-    >网页版《揭秘希特勒》<br>版本：V1.0<br>作者：皇冠鸟<br>QQ：55939510<br>邮箱：xxhgnxx@qq.com<br>
-    微信(点击放大)：
-    <img src="./pic/wx.jpg" (click)=tobig() id="hgnrole" [style.width]="big ? '100%' : '24%'" style="width: 24%; position: absolute; right: -1px; bottom: -2px;">
   </div>
 </div>
