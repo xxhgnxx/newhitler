@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!hgnData.nowVote[userService.yourself.seatNo-1]&&  userService.yourself.isSurvival && userService.yourself.seatNo">
+  <div *ngIf="!hgnData.nowVote[userService.yourself.seatNo-1]&&  userService.yourself.isSurvival && userService.yourself.seatNo && !hgnData.nowVote['see']">
     <button (click)="vote(2)" type="button" class="btn btn-danger">同意</button>
     <button (click)="vote(3)" type="button" class="btn btn-danger">反对</button>
   </div>

@@ -19,7 +19,8 @@ export class NetworkSocket {
 
     } else {
 
-      this.socket = io.connect('127.0.0.1:81', { reconnection: false });
+      this.socket = io.connect('192.168.1.14:81', { reconnection: false });
+      // this.socket = io.connect('127.0.0.1:81', { reconnection: false });
       // this.socket = io.connect('hk.airir.com:81', { reconnection: false });
       return new Promise(resolve => {
         let tmptimer = setTimeout(() => {

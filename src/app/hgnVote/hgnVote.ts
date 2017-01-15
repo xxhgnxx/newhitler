@@ -27,6 +27,7 @@ export class HgnVote implements OnInit {
 
   vote(n: number) {
     if (this.submit) {
+      console.log('无效操作');
       return;
     }
     this.submit = true;
